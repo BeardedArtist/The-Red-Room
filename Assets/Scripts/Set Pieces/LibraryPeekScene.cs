@@ -17,7 +17,7 @@ public class LibraryPeekScene : MonoBehaviour
     [SerializeField] private MouseLook mouseLook;
     [SerializeField] private AIController_LibraryScene aIController_LibraryScene;
     [SerializeField] private OpenCloseDoor openCloseDoor;
-    [SerializeField] private OpenCloseDoor_LOCKED openCloseDoor_LOCKED;
+    //[SerializeField] private OpenCloseDoor_LOCKED openCloseDoor_LOCKED;
     // ------------------------------------------------------------
 
     // Bool Reference ---------------------------------------
@@ -31,8 +31,6 @@ public class LibraryPeekScene : MonoBehaviour
         {
             trig = true;
             peakInDoorUI.SetActive(true);
-
-            Debug.Log("Yo this works");
         }    
     }
 
@@ -83,7 +81,7 @@ public class LibraryPeekScene : MonoBehaviour
 
         if (aIController_LibraryScene.isAIActive == false)
         {
-            openCloseDoor_LOCKED.enabled = false;
+            //openCloseDoor_LOCKED.enabled = false;
             openCloseDoor.enabled = true;
         }    
     }
