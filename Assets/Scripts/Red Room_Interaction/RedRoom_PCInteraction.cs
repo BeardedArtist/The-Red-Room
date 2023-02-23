@@ -65,12 +65,6 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 playerMovement.enabled = true;
                 mouseLook.enabled = true;
                 isViewingComputer = false;
-
-                if (hasEdwardAudioPlayed == false)
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
-                    hasEdwardAudioPlayed = true;
-                }
             }
         }    
     }

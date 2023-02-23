@@ -753,7 +753,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 30500
+  Length: 36375
 --- !u!114 &-2043316143038767633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,10 +986,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638127627161665503
+  lastModified: 638127644127353167
   FileSizes:
   - Name: Desktop
-    Value: 4446
+    Value: 4490
   Exists: 1
 --- !u!114 &-588007393308447519
 MonoBehaviour:
@@ -1128,12 +1128,13 @@ MonoBehaviour:
   - {fileID: 1346372157172235293}
   - {fileID: 8530375596461388144}
   - {fileID: -2245462912583172365}
+  - {fileID: 1656866975001094413}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638127627161665503
+  cacheTime: 638127644127353167
   cacheVersion: 131593
 --- !u!114 &250949024234079320
 MonoBehaviour:
@@ -1297,6 +1298,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 24000
+--- !u!114 &1656866975001094413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Recordings/Edward Recording 2
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Recordings/Edward Recording 2
+  Guid:
+    Data1: 1841152660
+    Data2: 1078103008
+    Data3: -1575085421
+    Data4: -1866474718
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 26000
 --- !u!114 &2215662990160233744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,8 +2037,8 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638127627161600226
+  lastModified: 638127644127279977
   FileSizes:
   - Name: Desktop
-    Value: 25025760
+    Value: 25398176
   Exists: 1
