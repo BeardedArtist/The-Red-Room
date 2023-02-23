@@ -727,6 +727,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 10000
+--- !u!114 &-2245462912583172365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voice Recordings/Edward Recording 1
+  m_EditorClassIdentifier: 
+  Path: event:/Voice Recordings/Edward Recording 1
+  Guid:
+    Data1: -1345879490
+    Data2: 1208259122
+    Data3: 1255625120
+    Data4: 1502829970
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 30500
 --- !u!114 &-2043316143038767633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,10 +986,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638124203440692176
+  lastModified: 638127627161665503
   FileSizes:
   - Name: Desktop
-    Value: 4380
+    Value: 4446
   Exists: 1
 --- !u!114 &-588007393308447519
 MonoBehaviour:
@@ -1100,12 +1127,13 @@ MonoBehaviour:
   - {fileID: 4151198754078099120}
   - {fileID: 1346372157172235293}
   - {fileID: 8530375596461388144}
+  - {fileID: -2245462912583172365}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638124203440692176
+  cacheTime: 638127627161665503
   cacheVersion: 131593
 --- !u!114 &250949024234079320
 MonoBehaviour:
@@ -1981,8 +2009,8 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638124203440624208
+  lastModified: 638127627161600226
   FileSizes:
   - Name: Desktop
-    Value: 24640992
+    Value: 25025760
   Exists: 1

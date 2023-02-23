@@ -17,6 +17,7 @@ public class RedRoom_PCInteraction : MonoBehaviour
     // private static FMOD.Studio.EventInstance redRoomComputerSFX;
 
     [SerializeField] private AudioSource audioSource;
+    private bool hasEdwardAudioPlayed = false;
     // FMOD Parameters ---------------------------
 
     private bool trig;
@@ -64,6 +65,12 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 playerMovement.enabled = true;
                 mouseLook.enabled = true;
                 isViewingComputer = false;
+
+                if (hasEdwardAudioPlayed == false)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
+                    hasEdwardAudioPlayed = true;
+                }
             }
         }    
     }
