@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class AIController_Chase : MonoBehaviour
 {
     public Transform playerTransform;
+    public GameObject playerCamera;
     NavMeshAgent agent;
 
     [SerializeField] private string state = "chase";
@@ -19,15 +20,23 @@ public class AIController_Chase : MonoBehaviour
     public Transform deathCamPosition;
     public GameObject mainPlayer;
     public MeshRenderer mainPlayerMesh;
-    PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement;
 
     Animator animator;
+
+
+    // Video for death scene
+    [SerializeField] GameObject DeathVideo;
+    // Video for death scene
+
+    // AI to be added upon player death
+    [SerializeField] GameObject backupAI;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        playerMovement = GetComponent<PlayerMovement>();
+        //playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
     }
 
@@ -64,7 +73,8 @@ public class AIController_Chase : MonoBehaviour
 
     void reset() 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);    
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);    
+        StartCoroutine(ActivateDeathScene());
     }
 
 
@@ -74,5 +84,35 @@ public class AIController_Chase : MonoBehaviour
         {
             animator.SetBool("isWalking", true);
         }
+
+        if (state == "kill")
+        {
+            animator.SetBool("isWalking", false);
+        }
+    }
+
+
+    IEnumerator ActivateDeathScene()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Calling This");
+
+        playerCamera.SetActive(true);
+        DeathVideo.SetActive(true);
+
+        playerMovement.HandleDeath();
+        mainPlayer.GetComponent<PlayerMovement>().enabled = true;
+        deathCam.SetActive(false);
+
+        Camera.main.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(4f);
+        DeathVideo.SetActive(false);
+        agent.speed = 0;
+
+        // Activate new AI
+        gameObject.SetActive(false);
+        backupAI.SetActive(true);
+
     }
 }

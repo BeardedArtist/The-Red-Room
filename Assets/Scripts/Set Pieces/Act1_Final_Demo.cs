@@ -7,6 +7,8 @@ public class Act1_Final_Demo : MonoBehaviour
     // Object References
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject AI_FINAL;
+    [SerializeField] private GameObject Chase_AI_DISABLE;
+    [SerializeField] private GameObject Hunting_AI_Backup_DISABLE;
 
     // Transform Reference
     [SerializeField] private Transform warpTarget;
@@ -40,6 +42,8 @@ public class Act1_Final_Demo : MonoBehaviour
         {
             blink_Anim.Play("TopLidBlink", 0, 0.25f);
             blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+            Chase_AI_DISABLE.SetActive(false);
+            Hunting_AI_Backup_DISABLE.SetActive(false);
             trig = true;
             hasAnimationPlayed = true;
         }    

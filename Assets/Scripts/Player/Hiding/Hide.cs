@@ -9,7 +9,7 @@ public class Hide : MonoBehaviour
     public GameObject warpTarget_2;
     [SerializeField] private GameObject flashlight;
     [SerializeField] private MeshRenderer mainPlayerMesh;
-    [SerializeField] private Footsteps footsteps;
+    //[SerializeField] private Footsteps footsteps;
 
     private PlayerMovement playerMovement;
     private CharacterController characterController;
@@ -65,7 +65,7 @@ public class Hide : MonoBehaviour
 
                     // other scripts
                     player.GetComponent<PlayerMovement>().enabled = false;
-                    footsteps.GetComponent<Footsteps>().enabled = false;
+                    //footsteps.GetComponent<Footsteps>().enabled = false;
 
                     // Bools
                     isHiding = true;   
@@ -93,7 +93,7 @@ public class Hide : MonoBehaviour
 
                     // Other Scripts
                     player.GetComponent<PlayerMovement>().enabled = true;
-                    footsteps.GetComponent<Footsteps>().enabled = true;
+                    //footsteps.GetComponent<Footsteps>().enabled = true;
                     
                     // Bools
                     isHiding = false;

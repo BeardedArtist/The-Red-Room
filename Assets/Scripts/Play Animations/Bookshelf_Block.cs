@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bookshelf_Block : MonoBehaviour
 {
     [SerializeField] private Animator bookshelfBlock_Anim;
-    [SerializeField] private Animator bookshelfBlock_Anim2;
+    //[SerializeField] private Animator bookshelfBlock_Anim2;
     private bool trig;
     private bool hasAnimationPlayed = false;
 
@@ -27,7 +27,7 @@ public class Bookshelf_Block : MonoBehaviour
         if (trig == true && hasAnimationPlayed == false)
         {
             bookshelfBlock_Anim.Play("MovingBookshelf_1", 0, 0);
-            bookshelfBlock_Anim2.Play("MovingBookshelf_2", 0, 0);
+            //bookshelfBlock_Anim2.Play("MovingBookshelf_2", 0, 0);
             hasAnimationPlayed = true;
         }    
     }
