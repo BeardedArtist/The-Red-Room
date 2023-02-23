@@ -18,6 +18,9 @@ public class Part2Trigger : MonoBehaviour
     public Flashlight_Pickup flashlight_PickupScript;
     public TapeRecorderPickup tapeRecorderPickupScript;
 
+
+    private bool hasBeenTriggered = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,7 @@ public class Part2Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.tag == "Player" && flashlight_PickupScript.pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true)
+        if (other.tag == "Player" && flashlight_PickupScript.pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true && hasBeenTriggered == false)
         {          
             //BlackoutAnimation.SetBool("PlayBlackOut", true);
 
@@ -54,5 +57,7 @@ public class Part2Trigger : MonoBehaviour
         player.transform.position = warpPlayerToAnomaly.transform.position;
         player.transform.rotation = warpPlayerToAnomaly.transform.rotation;
         characterController.enabled = true;
+
+        hasBeenTriggered = true;
     }
 }
