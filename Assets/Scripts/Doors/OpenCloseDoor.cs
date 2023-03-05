@@ -13,7 +13,7 @@ public class OpenCloseDoor : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClip;
 
-    [SerializeField] private GameObject openDoorUI;
+    [SerializeField] public GameObject openDoorUI;
     //public DoorTrigger doorTrigger;
 
 

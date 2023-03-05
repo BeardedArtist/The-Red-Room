@@ -60,6 +60,7 @@ public class LibraryPeekScene : MonoBehaviour
                     if (hasAudioPlayed == false)
                     {
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Shadow Peek");
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/Page Rip_Quick");
                         hasAudioPlayed = true;
                     }
                 }
@@ -81,8 +82,10 @@ public class LibraryPeekScene : MonoBehaviour
 
         if (aIController_LibraryScene.isAIActive == false)
         {
-            //openCloseDoor_LOCKED.enabled = false;
             openCloseDoor.enabled = true;
+            libraryCamera.SetActive(false);
+            mouseLook.mouseSensitivity = 3;
+            this.enabled = false;
         }    
     }
 }

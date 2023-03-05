@@ -986,10 +986,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638132163974268563
+  lastModified: 638135739965641866
   FileSizes:
   - Name: Desktop
-    Value: 4490
+    Value: 4534
   Exists: 1
 --- !u!114 &-588007393308447519
 MonoBehaviour:
@@ -1129,12 +1129,13 @@ MonoBehaviour:
   - {fileID: 8530375596461388144}
   - {fileID: -2245462912583172365}
   - {fileID: 1656866975001094413}
+  - {fileID: 8699171020882026463}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638132163974268563
+  cacheTime: 638135739965641866
   cacheVersion: 131593
 --- !u!114 &250949024234079320
 MonoBehaviour:
@@ -2022,6 +2023,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 26125
+--- !u!114 &8699171020882026463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Page Rip_Quick
+  m_EditorClassIdentifier: 
+  Path: event:/Page Rip_Quick
+  Guid:
+    Data1: -1502139478
+    Data2: 1325569392
+    Data3: 162202756
+    Data4: 764976767
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &8757099992693872605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2037,8 +2065,8 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638132163974258554
+  lastModified: 638135739965554466
   FileSizes:
   - Name: Desktop
-    Value: 25398176
+    Value: 25419968
   Exists: 1
