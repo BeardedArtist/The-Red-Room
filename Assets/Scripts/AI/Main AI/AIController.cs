@@ -159,6 +159,7 @@ public class AIController : MonoBehaviour
                         deathCam.transform.position = Camera.main.transform.position;
                         deathCam.transform.rotation = Camera.main.transform.rotation;
                         Camera.main.gameObject.SetActive(false);
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Death Screen", GetComponent<Transform>().position);
                         Invoke("reset", 1f);
                     //}
                 }

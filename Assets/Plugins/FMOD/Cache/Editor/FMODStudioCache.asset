@@ -190,6 +190,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &-6490098914688274920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Monster/Choking SFX
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Monster/Choking SFX
+  Guid:
+    Data1: 103699142
+    Data2: 1270677158
+    Data3: 177780127
+    Data4: 152075155
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 28375
 --- !u!114 &-6393907449954672846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,6 +754,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 10000
+--- !u!114 &-2373454966863914568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FOOTSTEPS/Landing SFX
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FOOTSTEPS/Landing SFX
+  Guid:
+    Data1: -1084156744
+    Data2: 1223269350
+    Data3: 88568246
+    Data4: 2137138205
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-2288655070578523039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Monster/Death Screen
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Monster/Death Screen
+  Guid:
+    Data1: -1550411122
+    Data2: 1265329509
+    Data3: -194450804
+    Data4: 1003192609
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 20000
 --- !u!114 &-2245462912583172365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,10 +1067,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638135739965641866
+  lastModified: 638137199068423552
   FileSizes:
   - Name: Desktop
-    Value: 4534
+    Value: 4748
   Exists: 1
 --- !u!114 &-588007393308447519
 MonoBehaviour:
@@ -1130,12 +1211,16 @@ MonoBehaviour:
   - {fileID: -2245462912583172365}
   - {fileID: 1656866975001094413}
   - {fileID: 8699171020882026463}
+  - {fileID: -6490098914688274920}
+  - {fileID: -2288655070578523039}
+  - {fileID: 913542367380684970}
+  - {fileID: -2373454966863914568}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638135739965641866
+  cacheTime: 638137199068423552
   cacheVersion: 131593
 --- !u!114 &250949024234079320
 MonoBehaviour:
@@ -1245,6 +1330,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 12000
+--- !u!114 &913542367380684970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Level Music/Tense Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Level Music/Tense Ambience
+  Guid:
+    Data1: 571193776
+    Data2: 1245233572
+    Data3: -1917187671
+    Data4: 172589928
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 154000
 --- !u!114 &1346372157172235293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,8 +2177,8 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638135739965554466
+  lastModified: 638137199068326187
   FileSizes:
   - Name: Desktop
-    Value: 25419968
+    Value: 27782240
   Exists: 1
