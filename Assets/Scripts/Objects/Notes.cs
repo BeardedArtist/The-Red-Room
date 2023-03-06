@@ -10,6 +10,8 @@ public class Notes : MonoBehaviour
     [SerializeField] private GameObject pickUpUI;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] ObjectsToInteract;
+    [SerializeField] private GameObject[] ObjectsToAppear;
+    [SerializeField] private GameObject[] ObjectsToDisappear;
 
     // Bool References
     private bool trig;
@@ -60,6 +62,8 @@ public class Notes : MonoBehaviour
                         mouseLook.mouseSensitivity = 0;
                         pickUpUI.SetActive(false);
                         isPickedUp = true;
+
+                        SetObjectsActive();
                     }
 
                     if (ObjectsToInteract[i].name == "Note")
@@ -129,5 +133,34 @@ public class Notes : MonoBehaviour
         mouseLook.mouseSensitivity = 0;
         pickUpUI.SetActive(false);
         isPickedUp = true;
+    }
+
+
+
+    private void SetObjectsActive()
+    {
+        for (int j = 0; j < ObjectsToAppear.Length; j++)
+        {
+            if (ObjectsToAppear[j] == null)
+            {
+                return;
+            }
+            else
+            {
+                ObjectsToAppear[j].SetActive(true);
+            }
+        }
+
+        for (int j = 0; j < ObjectsToDisappear.Length; j++)
+        {
+            if (ObjectsToDisappear[j] == null)
+            {
+                return;
+            }
+            else
+            {
+                ObjectsToDisappear[j].SetActive(false);
+            }
+        }
     }
 }
