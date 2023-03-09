@@ -5,11 +5,15 @@ using FMODUnity;
 
 public class RedRoom_PCInteraction : MonoBehaviour
 {
+    // Object References
     [SerializeField] private GameObject computerUI;
     [SerializeField] private GameObject redRoomInteractUI;
     [SerializeField] private GameObject redRoomText;
+
+    // Script References
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private MouseLook mouseLook;
+    [SerializeField] private Blink blink_Script;
 
 
     // FMOD Parameters ---------------------------
@@ -53,6 +57,8 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 playerMovement.enabled = false;
                 mouseLook.enabled = false;
                 isViewingComputer = true;
+
+                blink_Script.enabled = false;
             }
         }
 
@@ -65,6 +71,8 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 playerMovement.enabled = true;
                 mouseLook.enabled = true;
                 isViewingComputer = false;
+
+                blink_Script.enabled = true;
             }
         }    
     }

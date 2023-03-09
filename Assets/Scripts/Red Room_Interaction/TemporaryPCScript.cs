@@ -5,16 +5,22 @@ using FMODUnity;
 
 public class TemporaryPCScript : MonoBehaviour
 {
+    // Game Object References
     [SerializeField] private GameObject computerUI;
     [SerializeField] private GameObject redRoomInteractUI;
     [SerializeField] private GameObject redRoomText;
+
+    // Script References
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private MouseLook mouseLook;
+    [SerializeField] private Blink blink_Script;
 
+    // Object List References
+    [SerializeField] private GameObject[] objectsToAppear;
+    [SerializeField] private GameObject[] objectsToDisappear;
 
-    // FMOD Parameters ---------------------------
-    // [SerializeField] EventReference eventName;
-    // private static FMOD.Studio.EventInstance redRoomComputerSFX;
+    [SerializeField] private Material computerScreen;
+
 
     [SerializeField] private AudioSource audioSource;
     private bool hasEdwardAudioPlayed = false;
@@ -22,6 +28,7 @@ public class TemporaryPCScript : MonoBehaviour
 
     private bool trig;
     private bool isViewingComputer = false;
+    private bool hasViewedOnce = false;
 
 
     private void OnTriggerStay(Collider other) 
@@ -53,6 +60,10 @@ public class TemporaryPCScript : MonoBehaviour
                 playerMovement.enabled = false;
                 mouseLook.enabled = false;
                 isViewingComputer = true;
+
+                hasViewedOnce = true;
+
+                blink_Script.enabled = false;
             }
         }
 
@@ -66,9 +77,22 @@ public class TemporaryPCScript : MonoBehaviour
                 mouseLook.enabled = true;
                 isViewingComputer = false;
 
+                blink_Script.enabled = true;
+
                 if (hasEdwardAudioPlayed == false)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
+                    hasEdwardAudioPlayed = true;
+                }
+
+                if (hasViewedOnce == true)
+                {
+                    computerScreen.SetColor("Computer Screen_RED", Color.black); // Currently not working
+
+                    for (int i = 0; i < objectsToDisappear.Length; i++)
+                    {
+                        objectsToDisappear[i].SetActive(false);
+                    }
                 }
             }
         }    
@@ -81,26 +105,5 @@ public class TemporaryPCScript : MonoBehaviour
         {
             audioSource.Play();
         }
-
-        // if (!FMODExtension.IsPlaying(redRoomComputerSFX))
-        // {
-        //     // redRoomComputerSFX = FMODUnity.RuntimeManager.CreateInstance(eventName);
-        //     // redRoomComputerSFX.start();
-
-        //     //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/RRCOMPSCREEN", GetComponent<Transform>().position);
-
-        // }
     }
-
-    // private void StopAudio()
-    // {
-    //     redRoomComputerSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    //     redRoomComputerSFX.release();
-    // }
-
-    // private void OnDestroy() 
-    // {
-    //     redRoomComputerSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    //     redRoomComputerSFX.release();
-    // }
 }

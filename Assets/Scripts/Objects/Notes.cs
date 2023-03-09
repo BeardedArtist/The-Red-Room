@@ -23,6 +23,7 @@ public class Notes : MonoBehaviour
     [SerializeField] private MouseLook mouseLook;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private BloodAnimation bloodAnimation = default;
+    [SerializeField] private Blink blink_Script;
 
 
     private void Start() 
@@ -64,6 +65,8 @@ public class Notes : MonoBehaviour
                         isPickedUp = true;
 
                         SetObjectsActive();
+
+                        blink_Script.enabled = false;
                     }
 
                     if (ObjectsToInteract[i].name == "Note")
@@ -102,6 +105,8 @@ public class Notes : MonoBehaviour
                 mouseLook.enabled = true;
                 mouseLook.mouseSensitivity = 3;
                 isPickedUp = false;
+
+                blink_Script.enabled = true;
 
                 // isBloodyNotePickedUp = true;
 
