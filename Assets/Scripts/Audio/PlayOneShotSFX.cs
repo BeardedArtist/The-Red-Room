@@ -9,6 +9,7 @@ public class PlayOneShotSFX : MonoBehaviour
 
     private bool hasAudioPlayed = false;
     [SerializeField] private string eventName;
+    [SerializeField] private float waitTime;
 
 
     public void PlaySfxOnce()
@@ -18,5 +19,20 @@ public class PlayOneShotSFX : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot(eventName);
             hasAudioPlayed = true;
         }
+    }
+
+    public void PlaySfxOnce_3D()
+    {
+        if (hasAudioPlayed == false)
+        {
+            StartCoroutine(PlaySfxWithTime());
+        }
+    }
+
+
+    IEnumerator PlaySfxWithTime()
+    {
+        yield return new WaitForSeconds(waitTime);
+        FMODUnity.RuntimeManager.PlayOneShot(eventName, GetComponent<Transform>().position);
     }
 }

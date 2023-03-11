@@ -6,6 +6,7 @@ public class CantGoHereTeleport : MonoBehaviour
 {
     public Transform warpTarget;
     private bool trig = false;
+    private bool hasAudioPlayed = false;
 
 
     [SerializeField] private CharacterController characterController;
@@ -62,6 +63,12 @@ public class CantGoHereTeleport : MonoBehaviour
     IEnumerator TransitionAfterBlink()
     {
         yield return new WaitForSeconds(0.40f);
+        
+        if (hasAudioPlayed == false)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_KO-TSUZUMI");
+            hasAudioPlayed = true;
+        }
         
         characterController.enabled = false;
 

@@ -10,14 +10,14 @@ public class DoorTrap : MonoBehaviour
     // --> Have door animate shut behind them.
     // --> Have shutting door audio (FMOD)
     [SerializeField] private Animator myDoor = null;
+    [SerializeField] private Animator myBookshelf = null;
     private bool trigger;
+    private bool bookshelf_trigger;
     private bool trig;
     private bool hasDoorClosed = false;
 
     [SerializeField] private OpenCloseDoor openCloseDoor;
     [SerializeField] private OpenCloseDoor_LOCKED openCloseDoor_LOCKED;
-
-    // ADD AUDIO HERE
 
 
     private void OnTriggerEnter(Collider other) 
@@ -41,6 +41,7 @@ public class DoorTrap : MonoBehaviour
 
             if (trigger && hasDoorClosed == false)
             {
+                StartCoroutine(DelayAnimation());
                 myDoor.SetBool("Open", false); // close door via bool
                 hasDoorClosed = true;
 
@@ -56,5 +57,12 @@ public class DoorTrap : MonoBehaviour
                 openCloseDoor_LOCKED.enabled = true;
             }
         }
+    }
+
+    IEnumerator DelayAnimation()
+    {
+        yield return new WaitForSeconds(2.0f);
+        bookshelf_trigger = myBookshelf.GetBool("isFalling");
+        myBookshelf.SetBool("isFalling", true);
     }
 }

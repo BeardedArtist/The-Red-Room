@@ -1067,10 +1067,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638137199068423552
+  lastModified: 638140889374981085
   FileSizes:
   - Name: Desktop
-    Value: 4748
+    Value: 4790
   Exists: 1
 --- !u!114 &-588007393308447519
 MonoBehaviour:
@@ -1215,12 +1215,13 @@ MonoBehaviour:
   - {fileID: -2288655070578523039}
   - {fileID: 913542367380684970}
   - {fileID: -2373454966863914568}
+  - {fileID: 6714604275142150934}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638137199068423552
+  cacheTime: 638140889374981085
   cacheVersion: 131593
 --- !u!114 &250949024234079320
 MonoBehaviour:
@@ -1919,6 +1920,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 32000
+--- !u!114 &6714604275142150934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Transitions/Transition_KO-TSUZUMI
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Transitions/Transition_KO-TSUZUMI
+  Guid:
+    Data1: 694929851
+    Data2: 1318563862
+    Data3: 1035967656
+    Data4: -625864259
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10000
 --- !u!114 &6783190124469089395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2177,8 +2205,8 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638137199068326187
+  lastModified: 638140889374920474
   FileSizes:
   - Name: Desktop
-    Value: 27782240
+    Value: 27864896
   Exists: 1
