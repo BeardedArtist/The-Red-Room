@@ -10,10 +10,12 @@ public class CantGoHereTeleport : MonoBehaviour
 
 
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private PlayerMovement playerMovement_Script;
     [SerializeField] private GameObject warpPoint;
     [SerializeField] private GameObject player;
 
-    //[SerializeField] private Collider playerCollider;
+    
+    [SerializeField] private GameObject playerCollider; // TEST
 
 
     // Animator Reference
@@ -32,10 +34,7 @@ public class CantGoHereTeleport : MonoBehaviour
             blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
             StartCoroutine(TransitionAfterBlink());
 
-
-            // Debug.Log("Player Entered");
-            // Vector3 offset = other.transform.position - transform.position;
-            // other.transform.position = warpTarget.position + offset;
+            //StartCoroutine(TestTransition());
         }
     }
 
@@ -45,20 +44,20 @@ public class CantGoHereTeleport : MonoBehaviour
     }
 
 
-    // private void Update() 
+    // IEnumerator TestTransition()
     // {
-    //     if (trig)
-    //     {
- 
-    //     }    
+    //     Debug.Log("Player Entered");
+
+    //     playerCollider.SetActive(false);
+    //     characterController.enabled = false;
+    //     yield return new WaitForSeconds(2f);
+    //     Vector3 offset = player.transform.position - transform.position;
+    //     player.transform.position = warpTarget.position + offset;
+    //     characterController.enabled = true;
+    //     playerCollider.SetActive(true);
     // }
 
 
-    void StartBlinkAnimation()
-    {
-        blink_Anim.Play("TopLidBlink", 0, 0.25f);
-        blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-    }
 
     IEnumerator TransitionAfterBlink()
     {
@@ -69,12 +68,14 @@ public class CantGoHereTeleport : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_KO-TSUZUMI");
             hasAudioPlayed = true;
         }
-        
-        characterController.enabled = false;
 
+        characterController.enabled = false;
+        playerMovement_Script.enabled = false;
+        
         player.transform.position = warpPoint.transform.position;
         player.transform.rotation = warpPoint.transform.rotation;
 
         characterController.enabled = true;
+        playerMovement_Script.enabled = true;
     }
 }
