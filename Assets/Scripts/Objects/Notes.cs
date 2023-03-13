@@ -18,6 +18,7 @@ public class Notes : MonoBehaviour
     private bool isPickedUp = false;
     public bool isBathroomNotePickedUp = false;
     private bool isBloodyNotePickedUp = false;
+    private bool isJournalPickedUp = false;
 
     // Script References
     [SerializeField] private MouseLook mouseLook;
@@ -64,9 +65,8 @@ public class Notes : MonoBehaviour
                         pickUpUI.SetActive(false);
                         isPickedUp = true;
 
-                        SetObjectsActive();
-
                         blink_Script.enabled = false;
+                        isJournalPickedUp = true;
                     }
 
                     if (ObjectsToInteract[i].name == "Note")
@@ -109,6 +109,11 @@ public class Notes : MonoBehaviour
                 blink_Script.enabled = true;
 
                 // isBloodyNotePickedUp = true;
+
+                if (isJournalPickedUp == true)
+                {
+                    SetObjectsActive();
+                }
 
                 if (isBloodyNotePickedUp == true)
                 {

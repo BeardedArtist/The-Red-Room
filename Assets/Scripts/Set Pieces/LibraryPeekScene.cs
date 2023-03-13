@@ -84,6 +84,7 @@ public class LibraryPeekScene : MonoBehaviour
         {
             openCloseDoor.enabled = true;
             libraryCamera.SetActive(false);
+            flashLight.SetActive(true);
             mouseLook.mouseSensitivity = 3;
             this.enabled = false;
         }    

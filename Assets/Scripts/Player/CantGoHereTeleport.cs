@@ -30,11 +30,11 @@ public class CantGoHereTeleport : MonoBehaviour
         {
             trig = true;
 
-            blink_Anim.Play("TopLidBlink", 0, 0.25f);
-            blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-            StartCoroutine(TransitionAfterBlink());
+            // blink_Anim.Play("TopLidBlink", 0, 0.25f);
+            // blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+            // StartCoroutine(TransitionAfterBlink());
 
-            //StartCoroutine(TestTransition());
+            StartCoroutine(TestTransition());
         }
     }
 
@@ -44,18 +44,18 @@ public class CantGoHereTeleport : MonoBehaviour
     }
 
 
-    // IEnumerator TestTransition()
-    // {
-    //     Debug.Log("Player Entered");
+    IEnumerator TestTransition()
+    {
+        Debug.Log("Player Entered");
 
-    //     playerCollider.SetActive(false);
-    //     characterController.enabled = false;
-    //     yield return new WaitForSeconds(2f);
-    //     Vector3 offset = player.transform.position - transform.position;
-    //     player.transform.position = warpTarget.position + offset;
-    //     characterController.enabled = true;
-    //     playerCollider.SetActive(true);
-    // }
+        playerCollider.SetActive(false);
+        characterController.enabled = false;
+        yield return new WaitForSeconds(0.01f);
+        Vector3 offset = player.transform.position - transform.position;
+        player.transform.position = warpTarget.position + offset;
+        characterController.enabled = true;
+        playerCollider.SetActive(true);
+    }
 
 
 
