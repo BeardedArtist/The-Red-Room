@@ -150,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
         if (shouldJump)
         {
             moveDirection.y = jumpForce;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/JumpTimed");
         }
     }
 

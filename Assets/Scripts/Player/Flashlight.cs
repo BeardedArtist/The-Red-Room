@@ -21,7 +21,7 @@ public class Flashlight : MonoBehaviour
             {
                 flashlight.SetActive(true);
                 lightIsOn = true;
-                Debug.Log("flashlight is on");
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/FlashlightOnOff");
             }
         }
 
@@ -31,7 +31,7 @@ public class Flashlight : MonoBehaviour
             {
                 flashlight.SetActive(false);
                 lightIsOn = false;
-                Debug.Log("Flashlight is off");
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/FlashlightOnOff");
             }
         }
     }
