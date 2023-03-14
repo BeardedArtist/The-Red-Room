@@ -21,6 +21,7 @@ public class AIController_Chase : MonoBehaviour
     public GameObject mainPlayer;
     public MeshRenderer mainPlayerMesh;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] Blink blink_script;
 
     Animator animator;
 
@@ -38,6 +39,8 @@ public class AIController_Chase : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+
+        blink_script.enabled = false;
     }
 
     // Update is called once per frame
@@ -69,6 +72,12 @@ public class AIController_Chase : MonoBehaviour
         }
 
         HandleAnimation();
+
+
+        if (gameObject == null)
+        {
+            blink_script.enabled = true;
+        }
     }
 
     void reset() 

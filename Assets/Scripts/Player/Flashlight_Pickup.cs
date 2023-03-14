@@ -31,17 +31,13 @@ public class Flashlight_Pickup : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
+                pickUpUI.SetActive(false);
                 playersFlashlight.SetActive(true);
                 pickedUpFlashlight = true;
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/FlashlightPickup");
             }
         }
-    }
-
-    private void OnDestroy() 
-    {
-        pickUpUI.SetActive(false);
     }
 }
 

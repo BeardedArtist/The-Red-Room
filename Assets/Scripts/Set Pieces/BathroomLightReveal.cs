@@ -21,7 +21,7 @@ public class BathroomLightReveal : MonoBehaviour
 
         if (hasAudioPlayed == false)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Flood Light Turn On", GetComponent<Transform>().position);
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Flood Light Turn On", GetComponent<Transform>().position);
             hasAudioPlayed = true;
         }
 

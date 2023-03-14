@@ -105,6 +105,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 16000
+--- !u!114 &-8298327148011176984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Flood Lights 3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Flood Lights 3D
+  Guid:
+    Data1: 2125133674
+    Data2: 1081123357
+    Data3: 1582069899
+    Data4: 1882078027
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 16000
 --- !u!114 &-8185710712868275857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +618,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1625
+--- !u!114 &-4009782126268983669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Lamp Falling/Lamp Falling 3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Lamp Falling/Lamp Falling 3D
+  Guid:
+    Data1: -1383596206
+    Data2: 1341658645
+    Data3: -478434659
+    Data4: -1504743544
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 963
 --- !u!114 &-3935321633546993001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,7 +987,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 8757099992693872605}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1168,10 +1222,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638143476109122995
+  lastModified: 638144079514075600
   FileSizes:
   - Name: Desktop
-    Value: 5204
+    Value: 5322
   Exists: 1
 --- !u!114 &-372173596170928230
 MonoBehaviour:
@@ -1353,12 +1407,14 @@ MonoBehaviour:
   - {fileID: -7761209600795666588}
   - {fileID: 7730749931731172643}
   - {fileID: 3169013083274959121}
+  - {fileID: -8298327148011176984}
+  - {fileID: -4009782126268983669}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638143476109122995
+  cacheTime: 638144079514075600
   cacheVersion: 131593
 --- !u!114 &730632831794732776
 MonoBehaviour:
@@ -2403,10 +2459,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638143476108996980
+  lastModified: 638144079513993417
   FileSizes:
   - Name: Desktop
-    Value: 29396768
+    Value: 29413472
   Exists: 1
 --- !u!114 &8961243911178359601
 MonoBehaviour:

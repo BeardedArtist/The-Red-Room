@@ -5,7 +5,7 @@
 			<value>Flood Light Turn On</value>
 		</property>
 		<property name="outputFormat">
-			<value>5</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{e076a3bc-803b-4371-86a4-efd166e94457}</destination>
@@ -119,6 +119,7 @@
 	<object class="MixerBusEffectChain" id="{d0641388-7cfc-4f6b-b534-626858a909bf}">
 		<relationship name="effects">
 			<destination>{c83b594b-f5a6-4172-9a20-7607ad1136ae}</destination>
+			<destination>{357863d4-b487-4a3c-96c2-76ed03aceb9d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e23c5c65-33fe-455e-97bd-e4ddad143b4a}" />
@@ -149,6 +150,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{f97494d4-9726-46a1-8804-3a7229e7f0f0}" />
 	<object class="MixerBusFader" id="{c83b594b-f5a6-4172-9a20-7607ad1136ae}" />
+	<object class="SpatialiserEffect" id="{357863d4-b487-4a3c-96c2-76ed03aceb9d}" />
 	<object class="MixerBusFader" id="{3a61c518-bfde-4dbf-85bb-ebb46c8ec914}" />
 	<object class="SFXReverbEffect" id="{d1989593-80a8-4e3f-93ad-b763aa4771c2}">
 		<property name="decayTime">

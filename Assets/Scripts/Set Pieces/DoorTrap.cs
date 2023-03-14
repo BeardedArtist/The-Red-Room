@@ -11,8 +11,10 @@ public class DoorTrap : MonoBehaviour
     // --> Have shutting door audio (FMOD)
     [SerializeField] private Animator myDoor = null;
     [SerializeField] private Animator myBookshelf = null;
+    [SerializeField] private Animator myLamp = null;
     private bool trigger;
     private bool bookshelf_trigger;
+    private bool lamp_trigger;
     private bool trig;
     private bool hasDoorClosed = false;
 
@@ -64,5 +66,9 @@ public class DoorTrap : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         bookshelf_trigger = myBookshelf.GetBool("isFalling");
         myBookshelf.SetBool("isFalling", true);
+
+        yield return new WaitForSeconds(2.5f);
+        lamp_trigger = myLamp.GetBool("isLampFalling");
+        myLamp.SetBool("isLampFalling", true);
     }
 }
