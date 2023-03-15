@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
+    public Animator transition;
+    public Animator transition_Disclaimer;
+    public float transitionTime = 1f;
+
     public void StartGame()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI Sounds/Menu UI DETUNE", GetComponent<Transform>().position);
-        SceneManager.LoadScene(1);
+        loadGame();
     }
 
     public void QuitGame()
@@ -18,9 +22,19 @@ public class StartMenu : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator loadGame()
+    void loadGame()
     {
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(1);
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+        transition_Disclaimer.SetTrigger("StartDisclaimer");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(levelIndex);
     }
 }
