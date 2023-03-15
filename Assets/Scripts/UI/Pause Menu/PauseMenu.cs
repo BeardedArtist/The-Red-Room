@@ -7,8 +7,10 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject optionsMenuUI;
+    [SerializeField] private GameObject controlOptionsUI;
     [SerializeField] private bool isPaused;
     [SerializeField] private bool isOptionsOpen;
+    [SerializeField] private bool isControlOptionsOpen;
 
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private MouseLook mouseLook;
@@ -46,6 +48,12 @@ public class PauseMenu : MonoBehaviour
             {
                 pauseMenuUI.SetActive(false);
                 optionsMenuUI.SetActive(true);
+            }
+
+            if (isControlOptionsOpen)
+            {
+                pauseMenuUI.SetActive(false);
+                controlOptionsUI.SetActive(true);
             }
         }
 
@@ -97,6 +105,19 @@ public class PauseMenu : MonoBehaviour
     {
         isOptionsOpen = false;
         optionsMenuUI.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI Sounds/Menu UI DETUNE");
+    }
+
+    public void ActivateControlOptionsMenu()
+    {
+        isControlOptionsOpen = true;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI Sounds/Menu UI DETUNE");
+    }
+
+        public void DeactivateControlOptionsMenu()
+    {
+        isControlOptionsOpen = false;
+        controlOptionsUI.SetActive(false);
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI Sounds/Menu UI DETUNE");
     }
 
