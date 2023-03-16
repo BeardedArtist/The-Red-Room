@@ -9,9 +9,9 @@ public class DoorTrap : MonoBehaviour
     // TODO:
     // --> Have door animate shut behind them.
     // --> Have shutting door audio (FMOD)
-    [SerializeField] private Animator myDoor = null; // Change from null to default
-    [SerializeField] private Animator myBookshelf = null; // Change from null to default
-    [SerializeField] private Animator myLamp = null; // Change from null to default
+    [SerializeField] private Animator myDoor = default; // Change from null to default
+    [SerializeField] private Animator myBookshelf = default; // Change from null to default
+    [SerializeField] private Animator myLamp = default; // Change from null to default
     private bool trigger;
     private bool bookshelf_trigger;
     private bool lamp_trigger;

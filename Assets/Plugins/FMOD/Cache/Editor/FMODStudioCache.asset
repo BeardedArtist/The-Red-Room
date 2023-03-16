@@ -375,6 +375,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 236000
+--- !u!114 &-6100092895019346841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Doors/BAnging on Door/Bang on Bathroom Stall_Updated
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Doors/BAnging on Door/Bang on Bathroom Stall_Updated
+  Guid:
+    Data1: 1039888703
+    Data2: 1331659806
+    Data3: 1039678351
+    Data4: 687349940
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12000
 --- !u!114 &-5914518062266767967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +429,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &-5735406504536180344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Transitions/Non-Euc Ko-Tsuzumi
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Transitions/Non-Euc Ko-Tsuzumi
+  Guid:
+    Data1: 1581058587
+    Data2: 1094517063
+    Data3: 937702827
+    Data4: -1125757256
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10000
 --- !u!114 &-5727598694760367401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,10 +1276,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638145181216617419
+  lastModified: 638145864995240130
   FileSizes:
   - Name: Desktop
-    Value: 5322
+    Value: 5500
   Exists: 1
 --- !u!114 &-372173596170928230
 MonoBehaviour:
@@ -1409,12 +1463,15 @@ MonoBehaviour:
   - {fileID: 3169013083274959121}
   - {fileID: -8298327148011176984}
   - {fileID: -4009782126268983669}
+  - {fileID: -5735406504536180344}
+  - {fileID: 2465468565270760465}
+  - {fileID: -6100092895019346841}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638145181216617419
+  cacheTime: 638145864995240130
   cacheVersion: 131593
 --- !u!114 &730632831794732776
 MonoBehaviour:
@@ -1823,6 +1880,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 12125
+--- !u!114 &2465468565270760465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Monster/Bashing Down Door
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Monster/Bashing Down Door
+  Guid:
+    Data1: -1096600586
+    Data2: 1095200124
+    Data3: -1750221913
+    Data4: -636730934
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4500
 --- !u!114 &2469342109652987346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,10 +2543,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638145181216549936
+  lastModified: 638145864995160071
   FileSizes:
   - Name: Desktop
-    Value: 29413472
+    Value: 29654624
   Exists: 1
 --- !u!114 &8961243911178359601
 MonoBehaviour:

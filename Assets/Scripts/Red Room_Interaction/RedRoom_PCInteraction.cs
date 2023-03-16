@@ -15,6 +15,11 @@ public class RedRoom_PCInteraction : MonoBehaviour
     [SerializeField] private MouseLook mouseLook;
     [SerializeField] private Blink blink_Script;
 
+    // Object List References
+    [SerializeField] private GameObject[] objectsToAppear;
+    [SerializeField] private GameObject[] objectsToDisappear;
+    private bool hasViewedOnce = false;
+
 
     // FMOD Parameters ---------------------------
     // [SerializeField] EventReference eventName;
@@ -58,6 +63,8 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 mouseLook.enabled = false;
                 isViewingComputer = true;
 
+                hasViewedOnce = true;
+
                 blink_Script.enabled = false;
             }
         }
@@ -73,6 +80,15 @@ public class RedRoom_PCInteraction : MonoBehaviour
                 isViewingComputer = false;
 
                 blink_Script.enabled = true;
+
+
+                if (hasViewedOnce == true)
+                {
+                    for (int i = 0; i < objectsToDisappear.Length; i++)
+                    {
+                        objectsToDisappear[i].SetActive(false);
+                    }
+                }
             }
         }    
     }
