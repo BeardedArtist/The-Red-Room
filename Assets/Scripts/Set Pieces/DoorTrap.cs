@@ -22,6 +22,12 @@ public class DoorTrap : MonoBehaviour
     [SerializeField] private OpenCloseDoor_LOCKED openCloseDoor_LOCKED;
 
 
+    //TEST
+    public bool shouldPlayFirstDoorCloseSFX;
+    private bool hasAudioPlayed = false;
+    //TEST
+
+
     private void OnTriggerEnter(Collider other) 
     {
         if (other.tag == "Player")
@@ -45,6 +51,22 @@ public class DoorTrap : MonoBehaviour
             {
                 StartCoroutine(DelayAnimation());
                 myDoor.SetBool("Open", false); // close door via bool
+                if (shouldPlayFirstDoorCloseSFX)
+                {
+                    if (hasAudioPlayed == false)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Bathroom Swing Shut");
+                        hasAudioPlayed = true;
+                    }
+                }
+                else if (shouldPlayFirstDoorCloseSFX == false)
+                {
+                    if (hasAudioPlayed == false)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Bathroom Close & Lock");
+                    }
+                }
+
                 hasDoorClosed = true;
 
                 openCloseDoor.enabled = false;

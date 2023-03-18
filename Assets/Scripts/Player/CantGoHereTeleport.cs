@@ -8,6 +8,7 @@ public class CantGoHereTeleport : MonoBehaviour
     public Transform playerPosition;
     private bool trig = false;
     private bool hasAudioPlayed = false;
+    public bool shouldPlaySFX;
 
 
     [SerializeField] private CharacterController characterController;
@@ -34,7 +35,15 @@ public class CantGoHereTeleport : MonoBehaviour
         if (other.tag == "Player")
         {
             trig = true;
-            Debug.Log("Player Entered");
+            
+            if (shouldPlaySFX)
+            {
+                if (hasAudioPlayed == false)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_KO_TSUZUMI_NO JINGLE");
+                    hasAudioPlayed = true;
+                }
+            }
 
             Vector3 offset = other.transform.position - transform.position;
             other.transform.position = warpTarget.position + offset;

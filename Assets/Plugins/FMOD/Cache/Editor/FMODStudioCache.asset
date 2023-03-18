@@ -267,6 +267,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5000
+--- !u!114 &-7352736160905077188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Doors/BATHROOM Close & Lock
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Doors/BATHROOM Close & Lock
+  Guid:
+    Data1: 429633503
+    Data2: 1173080994
+    Data3: 1445245358
+    Data4: -688549265
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 8000
 --- !u!114 &-6891076874591800179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +428,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 12000
+  Length: 12125
 --- !u!114 &-5914518062266767967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,6 +1156,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 32000
+--- !u!114 &-1018332050329740259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Doors/BATHROOM Swing Shut
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Doors/BATHROOM Swing Shut
+  Guid:
+    Data1: -1987911956
+    Data2: 1146260178
+    Data3: 1914428078
+    Data4: -224563131
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
 --- !u!114 &-1005452893814941750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,10 +1330,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638145864995240130
+  lastModified: 638146901343351566
   FileSizes:
   - Name: Desktop
-    Value: 5500
+    Value: 5720
   Exists: 1
 --- !u!114 &-372173596170928230
 MonoBehaviour:
@@ -1466,12 +1520,16 @@ MonoBehaviour:
   - {fileID: -5735406504536180344}
   - {fileID: 2465468565270760465}
   - {fileID: -6100092895019346841}
+  - {fileID: 3155630546962410430}
+  - {fileID: -7352736160905077188}
+  - {fileID: -1018332050329740259}
+  - {fileID: 6912338674157944779}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8757099992693872605}
   StringsBanks:
   - {fileID: -591186108382460536}
-  cacheTime: 638145864995240130
+  cacheTime: 638146901343351566
   cacheVersion: 131593
 --- !u!114 &730632831794732776
 MonoBehaviour:
@@ -1934,6 +1992,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7500
+--- !u!114 &3155630546962410430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Transitions/Transition_KO_TSUZUMI_NO JINGLE
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Transitions/Transition_KO_TSUZUMI_NO JINGLE
+  Guid:
+    Data1: -1884193945
+    Data2: 1126307565
+    Data3: -1382175352
+    Data4: -1511864687
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6000
 --- !u!114 &3169013083274959121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,6 +2424,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &6912338674157944779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Item Interaction/FlashlightOnOff_Updated
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Item Interaction/FlashlightOnOff_Updated
+  Guid:
+    Data1: 369298040
+    Data2: 1220215851
+    Data3: -393472600
+    Data4: -1910675246
+  Banks:
+  - {fileID: 8757099992693872605}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 250
 --- !u!114 &7015156829691199864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2543,10 +2655,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638145864995160071
+  lastModified: 638146901343266489
   FileSizes:
   - Name: Desktop
-    Value: 29654624
+    Value: 29844960
   Exists: 1
 --- !u!114 &8961243911178359601
 MonoBehaviour:

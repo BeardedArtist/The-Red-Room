@@ -13,7 +13,7 @@ public class ObjectInteract_TriggerEvents : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.tag == "Flashlight Eyes 2")
+        if (other.tag == "Flashlight Eyes 2" || other.tag == "Player")
         {
             trig = true;
         }    
