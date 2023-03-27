@@ -6,6 +6,7 @@ public class ChaseScene_FINAL : MonoBehaviour
 {
     // AI Reference
     [SerializeField] private GameObject AI_Chase;
+    [SerializeField] private GameObject[] DoorCovers;
     
     // Script References
     [SerializeField] PlayerMovement playerMovement;
@@ -27,11 +28,7 @@ public class ChaseScene_FINAL : MonoBehaviour
     //This was the animator for the player body (Camera Control Cutscene) -- COMMENTED OUT NOW
     [SerializeField] Animator animator;
 
-
-    //Testing Moving Player
-    [SerializeField] private Transform playerBody;
-    [SerializeField] private Transform playerCamera;
-    private bool isCameraInPosition = false;
+    [SerializeField] private GameObject cutSceneCamera;
     private bool hasAnimationPlayed = false;
 
     // COMMENTED OUT CODE - IMPLEMENT LATER MAYBE -----------------------------------------------
@@ -68,35 +65,59 @@ public class ChaseScene_FINAL : MonoBehaviour
     {
         if (hasAnimationPlayed == false)
         {
-            StartCoroutine(PositionPlayerForAnimation());
+            //StartCoroutine(PositionPlayerForAnimation());
+            StartCoroutine(startAnimation());
         }
 
         StartCoroutine(HandleManualBlink());
     }
 
-    IEnumerator PositionPlayerForAnimation()
+    // IEnumerator PositionPlayerForAnimation()
+    // {
+    //     yield return new WaitForSeconds(0.40f);
+    //     if (isCameraInPosition == false)
+    //     {
+    //         playerBody.localRotation = Quaternion.Euler(0, 180, 0);
+    //         playerCamera.localRotation = Quaternion.Euler(0, 0, 0);
+    //         isCameraInPosition = true;
+    //     }
+    //     animator.enabled = true;
+    //     animator.SetBool("FinalChaseSceneAnimTrigger", true);
+    //     isAnimationPlaying = true;
+
+    //     if (isAnimationPlaying == true)
+    //     {
+    //         playerMovement.enabled = false;
+    //         mouseLook.enabled = false;
+    //     }
+
+    //     yield return new WaitForSeconds(15.5f);
+
+    //     isAnimationPlaying = false; // don't need this?
+    //     animator.enabled = false;
+    //     playerMovement.enabled = true;
+    //     mouseLook.enabled = true;
+    //     trig = false;
+
+    //     hasAnimationPlayed = true;
+    // }
+
+    IEnumerator startAnimation()
     {
         yield return new WaitForSeconds(0.40f);
-        if (isCameraInPosition == false)
-        {
-            playerBody.localRotation = Quaternion.Euler(0, 180, 0);
-            playerCamera.localRotation = Quaternion.Euler(0, 0, 0);
-            isCameraInPosition = true;
-        }
-        animator.enabled = true;
         animator.SetBool("FinalChaseSceneAnimTrigger", true);
         isAnimationPlaying = true;
 
         if (isAnimationPlaying == true)
         {
+            cutSceneCamera.SetActive(true);
             playerMovement.enabled = false;
             mouseLook.enabled = false;
         }
 
         yield return new WaitForSeconds(15.5f);
-
-        isAnimationPlaying = false; // don't need this?
-        animator.enabled = false;
+        cutSceneCamera.SetActive(false);
+        isAnimationPlaying = false;
         playerMovement.enabled = true;
         mouseLook.enabled = true;
         trig = false;
