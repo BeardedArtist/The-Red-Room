@@ -55,7 +55,7 @@ public class DoorTrap : MonoBehaviour
                 {
                     if (hasAudioPlayed == false)
                     {
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Bathroom Swing Shut");
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Bathroom Close & Lock");
                         hasAudioPlayed = true;
                     }
                 }

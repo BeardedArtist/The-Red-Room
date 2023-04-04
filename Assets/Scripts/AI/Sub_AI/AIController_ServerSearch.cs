@@ -59,7 +59,7 @@ public class AIController_ServerSearch : MonoBehaviour
         Player = GetComponent<AIController_ServerSearch_Eyes>();
         playerMovement = GetComponent<PlayerMovement>();
 
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Level Music/What is She", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Level Music/What is She Extended", GetComponent<Transform>().position);
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Choking SFX", GetComponent<Transform>().position);
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Bashing Down Door", GetComponent<Transform>().position);
 
