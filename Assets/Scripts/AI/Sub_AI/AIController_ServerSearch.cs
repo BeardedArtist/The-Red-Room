@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class AIController_ServerSearch : MonoBehaviour
 {
@@ -19,16 +20,14 @@ public class AIController_ServerSearch : MonoBehaviour
 
     // ATTACK EVENT
     public GameObject deathCam;
-    //public GameObject hidingCloset;
     public Transform deathCamPosition;
     public GameObject mainPlayer;
     public MeshRenderer mainPlayerMesh;
-    //player Player;
     AIController_ServerSearch_Eyes Player;
     PlayerMovement playerMovement;
     // ATTACK EVENT
 
-    // Decided points to walk to -->
+    // Decided points to walk to
     [SerializeField] private Transform[] wayPointList;
 
     [SerializeField] private int currentWayPoint = 0;
@@ -38,8 +37,8 @@ public class AIController_ServerSearch : MonoBehaviour
     // Decided points to walk to <--
 
     // AUDIO FOR AI --> 
-    //[SerializeField] AudioSource audioSource;
-    //[SerializeField] AudioClip audioClip;
+    [SerializeField] EventReference eventName;
+    private static FMOD.Studio.EventInstance AIVoice;
     // AUDIO FOR AI <--
 
     [SerializeField] HideBathroomScene hideBathroomScene_Script;
@@ -60,15 +59,16 @@ public class AIController_ServerSearch : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/Level Music/What is She Extended", GetComponent<Transform>().position);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Choking SFX", GetComponent<Transform>().position);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Choking SFX", GetComponent<Transform>().position);
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Bashing Down Door", GetComponent<Transform>().position);
 
         animator = GetComponent<Animator>();
 
-        // if (audioSource != null & !audioSource.isPlaying)
-        // {
-        //     audioSource.Play();
-        // }
+        // Attaching audio to this object
+        AIVoice = FMODUnity.RuntimeManager.CreateInstance(eventName);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(AIVoice, this.transform, this.GetComponent<Rigidbody>());
+        AIVoice.start();
+        // Attaching audio to this object
 
         hideBathroomScene_Script.DisableHide();
     }
@@ -289,5 +289,8 @@ public class AIController_ServerSearch : MonoBehaviour
         //hideBathroomScene_Script.EnableHide();
         hideBathroomScene_Script.EnablePlayerMovement();
         appearDisappear_Script.EnvironmentChange();
+        
+        AIVoice.release();
+        AIVoice.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }

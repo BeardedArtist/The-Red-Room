@@ -23,6 +23,7 @@ public class TemporaryPCScript : MonoBehaviour
 
 
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private float audioDelayTimer;
     private bool hasEdwardAudioPlayed = false;
     // FMOD Parameters ---------------------------
 
@@ -81,7 +82,8 @@ public class TemporaryPCScript : MonoBehaviour
 
                 if (hasEdwardAudioPlayed == false)
                 {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
+                    StartCoroutine(DelayVoiceAudio(audioDelayTimer));
                     hasEdwardAudioPlayed = true;
                 }
 
@@ -105,5 +107,12 @@ public class TemporaryPCScript : MonoBehaviour
         {
             audioSource.Play();
         }
+    }
+
+
+    IEnumerator DelayVoiceAudio(float audioDelayTimer)
+    {
+        yield return new WaitForSeconds(audioDelayTimer);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
     }
 }
