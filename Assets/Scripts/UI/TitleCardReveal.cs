@@ -34,7 +34,7 @@ public class TitleCardReveal : MonoBehaviour
 
     IEnumerator ReturnToMainMenu()
     {
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(0);
+        yield return new WaitForSeconds(5f);
+        Application.Quit();
     }
 }

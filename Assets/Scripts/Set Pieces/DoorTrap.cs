@@ -45,11 +45,11 @@ public class DoorTrap : MonoBehaviour
     {
         if (trig == true)
         {
+            StartCoroutine(DelayAnimation());
             trigger = myDoor.GetBool("Open");
 
             if (trigger && hasDoorClosed == false)
             {
-                StartCoroutine(DelayAnimation());
                 myDoor.SetBool("Open", false); // close door via bool
                 if (shouldPlayFirstDoorCloseSFX)
                 {
