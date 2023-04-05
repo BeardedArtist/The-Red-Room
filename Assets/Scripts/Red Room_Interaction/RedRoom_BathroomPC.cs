@@ -23,11 +23,11 @@ public class RedRoom_BathroomPC : MonoBehaviour
     [SerializeField] private GameObject[] objectsToDisappear;
     private bool hasViewedOnce = false;
 
+    // blood floor animation
+    [SerializeField] private BloodAnimation bloodAnimation = default;
+
 
     // FMOD Parameters ---------------------------
-    // [SerializeField] EventReference eventName;
-    // private static FMOD.Studio.EventInstance redRoomComputerSFX;
-
     [SerializeField] private AudioSource audioSource;
     private bool hasEdwardAudioPlayed = false;
     // FMOD Parameters ---------------------------
@@ -86,6 +86,8 @@ public class RedRoom_BathroomPC : MonoBehaviour
 
                 flashingLight_1.SetActive(false);
                 flashingLight_2.SetActive(false);
+
+                bloodAnimation.BloodRiseAnimation_2_BathroomRoom();
 
 
                 if (hasViewedOnce == true)

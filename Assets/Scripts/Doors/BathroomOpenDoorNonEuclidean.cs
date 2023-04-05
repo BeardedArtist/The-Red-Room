@@ -50,12 +50,14 @@ public class BathroomOpenDoorNonEuclidean : MonoBehaviour
                 if (!trigger)
                 {
                     myBathroomDoor_NonEuclidean.SetBool("Open", true); 
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/BATHROOMDOOR");
                     // ADD FMOD AUDIO
                 }
 
                 else
                 {
                     myBathroomDoor_NonEuclidean.SetBool("Open", false);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/BATHROOMDOOR");
                     // ADD FMOD AUDIO
                 }
             }
