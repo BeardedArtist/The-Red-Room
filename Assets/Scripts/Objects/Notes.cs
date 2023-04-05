@@ -77,6 +77,8 @@ public class Notes : MonoBehaviour
                         mouseLook.mouseSensitivity = 0;
                         pickUpUI.SetActive(false);
                         isPickedUp = true;
+
+                        blink_Script.enabled = false;
                     }
 
                     if (ObjectsToInteract[i].name == "Note_2" && isBathroomNotePickedUp == false)
@@ -84,6 +86,8 @@ public class Notes : MonoBehaviour
                         NotePickUp();
                         isPickedUp = true;
                         isBathroomNotePickedUp = true;
+
+                        blink_Script.enabled = false;
                         // DISABLE MESH
                     }
 
@@ -91,6 +95,8 @@ public class Notes : MonoBehaviour
                     {
                         BathroomNotePickUp();
                         isBloodyNotePickedUp = true;
+
+                        blink_Script.enabled = false;
                     }
                 }
             }

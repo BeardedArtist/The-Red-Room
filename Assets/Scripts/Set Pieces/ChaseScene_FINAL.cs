@@ -130,5 +130,8 @@ public class ChaseScene_FINAL : MonoBehaviour
         yield return new WaitForSeconds(14f);
         blink_Anim.Play("TopLidBlink", 0, 0.15f);
         blink_Anim_2.Play("BottomLidBlink", 0, 0.15f);
+
+        yield return new WaitForSeconds(2f);
+        blink_Script.enabled = false;
     }
 }
