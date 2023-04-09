@@ -7,11 +7,14 @@ public class ItemPickup : MonoBehaviour
     public Item Item;
     private bool trig;
 
+    [SerializeField] private GameObject pickupUI;
+
     void Pickup()
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/KEYSPICKUPECHO", GetComponent<Transform>().position);
         Destroy(gameObject);
         InventoryManager.Instance.Add(Item);
+        pickupUI.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -19,11 +22,13 @@ public class ItemPickup : MonoBehaviour
         if (other.tag == "Flashlight Eyes 2")
         {
             trig = true;
+            pickupUI.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other) 
     {
-        trig = false;    
+        trig = false;
+        pickupUI.SetActive(false);
     }
 
     private void Update() 
