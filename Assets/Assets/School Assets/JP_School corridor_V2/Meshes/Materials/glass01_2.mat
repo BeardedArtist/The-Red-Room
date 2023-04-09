@@ -106,13 +106,13 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.987
     - _GlossyReflections: 1
-    - _Metallic: 0.25
+    - _Metallic: 0.15
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.987
+    - _Smoothness: 0.16
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -121,8 +121,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.019607844}
-    - _Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.019607844}
+    - _BaseColor: {r: 0.1792453, g: 0.029423276, b: 0.029423276, a: 0.019607844}
+    - _Color: {r: 0.17924526, g: 0.029423276, b: 0.029423276, a: 0.019607844}
     - _EmissionColor: {r: 0.6037736, g: 0.58874243, b: 0.5496618, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
