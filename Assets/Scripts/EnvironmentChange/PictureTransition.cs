@@ -59,41 +59,48 @@ public class PictureTransition : MonoBehaviour
                 mouseLook_Script.mouseSensitivity = 0;
                 playerMovement_Script.enabled = false;
                 isPictureSeen = true;
+
+                StartCoroutine(TransitionAfterBlink());
             }
         }
 
-        else if (trig == true && isPictureSeen == true)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (blink_Script.isBlinking == false)
-                {
-                    blink_Anim.Play("TopLidBlink", 0, 0.25f);
-                    blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-                    StartCoroutine(TransitionAfterBlink());
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_Jing", GetComponent<Transform>().position);
+        // else if (trig == true && isPictureSeen == true)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.E))
+        //     {
+        //         if (blink_Script.isBlinking == false)
+        //         {
+        //             blink_Anim.Play("TopLidBlink", 0, 0.25f);
+        //             blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+        //             StartCoroutine(TransitionAfterBlink());
+        //             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_Jing", GetComponent<Transform>().position);
 
-                    // PictureUI.SetActive(false);
-                    // mouseLook_Script.mouseSensitivity = 3;
-                    // playerMovement_Script.enabled = true;
-                    // isPictureSeen = false;
+        //             // PictureUI.SetActive(false);
+        //             // mouseLook_Script.mouseSensitivity = 3;
+        //             // playerMovement_Script.enabled = true;
+        //             // isPictureSeen = false;
 
-                    // // TEST TELEPORT
-                    // characterController_Script.enabled = false;
-                    // player.transform.position = warpTarget.transform.position;
-                    // player.transform.rotation = warpTarget.transform.rotation;
-                    // characterController_Script.enabled = true;
-                }
+        //             // // TEST TELEPORT
+        //             // characterController_Script.enabled = false;
+        //             // player.transform.position = warpTarget.transform.position;
+        //             // player.transform.rotation = warpTarget.transform.rotation;
+        //             // characterController_Script.enabled = true;
+        //         }
                 
 
-                // Vector3 offsetPosition = other.transform.position - transform.position;
-                // other.transform.position = warpTarget.position + offsetPosition;
-            }
-        }   
+        //         // Vector3 offsetPosition = other.transform.position - transform.position;
+        //         // other.transform.position = warpTarget.position + offsetPosition;
+        //     }
+        // }   
     }
 
     IEnumerator TransitionAfterBlink()
     {
+        yield return new WaitForSeconds(5.0f);
+        blink_Anim.Play("TopLidBlink", 0, 0.25f);
+        blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Transitions/Transition_Jing", GetComponent<Transform>().position);
+
         yield return new WaitForSeconds(0.40f);
         PictureUI.SetActive(false);
         mouseLook_Script.mouseSensitivity = 3;
