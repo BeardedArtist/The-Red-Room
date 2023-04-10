@@ -6,7 +6,9 @@ public class PictureTransition : MonoBehaviour
 {
     // Object References
     [SerializeField] private GameObject PictureUI;
+    [SerializeField] private GameObject interactUI;
     [SerializeField] private GameObject player;
+    [SerializeField] private Collider pictureCollider;
 
     // Bool References
     private bool trig;
@@ -38,14 +40,17 @@ public class PictureTransition : MonoBehaviour
         if (other.tag == "Flashlight Eyes 2")
         {
             trig = true;
-            // Add Interact UI
+            interactUI.SetActive(true);
         }  
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        trig = false;
-        // Disable Interact UI    
+        if (other.tag == "Flashlight Eyes 2")
+        {
+            trig = false;
+            interactUI.SetActive(false);
+        }
     }
 
 
@@ -55,6 +60,11 @@ public class PictureTransition : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                trig = false;
+                interactUI.SetActive(false);
+                pictureCollider.enabled = false;
+
+
                 PictureUI.SetActive(true);
                 mouseLook_Script.mouseSensitivity = 0;
                 playerMovement_Script.enabled = false;
