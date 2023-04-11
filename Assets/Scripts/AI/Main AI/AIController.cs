@@ -86,6 +86,7 @@ public class AIController : MonoBehaviour
                 Vector3 randomPosition = Random.insideUnitSphere * alertTime;
                 NavMeshHit navHit;
                 NavMesh.SamplePosition(transform.position + randomPosition, out navHit, 50f, NavMesh.AllAreas); 
+                agent.speed = 1;
                 // finding a random spot from where the AI is standing on the NavMesh
                 
                 // search for player 
@@ -94,6 +95,7 @@ public class AIController : MonoBehaviour
                     NavMesh.SamplePosition(playerTransform.position + randomPosition, out navHit, 50f, NavMesh.AllAreas); 
                     // finding a random spot from where the AI is standing on the NavMesh
                     // each time, lose awareness of player position
+
                     alertTime += 5f;
 
                     if (alertTime > 25f)

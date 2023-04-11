@@ -91,12 +91,12 @@ public class AIController_Chase : MonoBehaviour
     {
         if (state == "chase")
         {
-            animator.SetBool("isWalking", true);
+            animator.SetBool("isChasing", true);
         }
 
         if (state == "kill")
         {
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isChasing", false);
         }
     }
 
