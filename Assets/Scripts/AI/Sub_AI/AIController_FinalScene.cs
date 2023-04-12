@@ -29,6 +29,8 @@ public class AIController_FinalScene : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+
+        state = "chase";
     }
 
     // Update is called once per frame
