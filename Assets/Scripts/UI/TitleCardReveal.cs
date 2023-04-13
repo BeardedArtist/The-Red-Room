@@ -5,36 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class TitleCardReveal : MonoBehaviour
 {
-    [SerializeField] private GameObject titleCard;
+    [SerializeField] private GameObject KeyArtUI;
+    [SerializeField] private GameObject ToBeContinuedUI;
+    [SerializeField] private GameObject CreditsUI;
     [SerializeField] private GameObject AI_Final;
     private bool trig;
+
+    [SerializeField] CharacterController characterController_Script;
+    [SerializeField] MouseLook mouseLook_Script;
 
     private void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Enemy"))
         {
-            titleCard.SetActive(true);
-            AI_Final.SetActive(false);
             trig = true;
-            //Time.timeScale = 0;
         }    
     }
 
     private void Update() 
     {
-        if (trig == true)
+        if (trig)
         {
-            if (Input.anyKeyDown)
-            {
-                StartCoroutine(ReturnToMainMenu());
-            }
-        }  
+            StartCoroutine(ActivateEnding());
+        }
     }
 
 
-    IEnumerator ReturnToMainMenu()
+    IEnumerator ActivateEnding()
     {
+        AI_Final.SetActive(false);
+
+        characterController_Script.enabled = false;
+        mouseLook_Script.enabled = false;
+
+        KeyArtUI.SetActive(true);
         yield return new WaitForSeconds(5f);
-        Application.Quit();
+        KeyArtUI.SetActive(false);
+
+        ToBeContinuedUI.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        ToBeContinuedUI.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        CreditsUI.SetActive(true);
     }
 }

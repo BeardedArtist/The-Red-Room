@@ -20,6 +20,7 @@ public class Act1_Final_Demo : MonoBehaviour
     [SerializeField] private MouseLook mouseLook_Script;
     [SerializeField] private PlayerMovement playerMovement_Script;
     [SerializeField] private OpenCloseDoor openCloseDoor_Script;
+    [SerializeField] private PauseMenu pauseMenu_Script;
     private CharacterController characterController_Script;
     // Turn off blink script
 
@@ -28,6 +29,9 @@ public class Act1_Final_Demo : MonoBehaviour
     [SerializeField] private Animator blink_Anim;
     [SerializeField] private Animator blink_Anim_2;
     private bool hasAnimationPlayed = false;
+
+    // Door Collider
+    [SerializeField] private Collider doorCollider;
 
 
     // Start is called before the first frame update
@@ -69,8 +73,10 @@ public class Act1_Final_Demo : MonoBehaviour
         player.transform.rotation = warpTarget.transform.rotation;
         characterController_Script.enabled = true;
 
+        doorCollider.enabled = false;
         mouseLook_Script.enabled = false;
         playerMovement_Script.enabled = false;
         openCloseDoor_Script.enabled = false;
+        pauseMenu_Script.enabled = false;
     }
 }

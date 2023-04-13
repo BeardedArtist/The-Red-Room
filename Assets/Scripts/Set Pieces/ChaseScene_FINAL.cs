@@ -72,36 +72,6 @@ public class ChaseScene_FINAL : MonoBehaviour
         StartCoroutine(HandleManualBlink());
     }
 
-    // IEnumerator PositionPlayerForAnimation()
-    // {
-    //     yield return new WaitForSeconds(0.40f);
-    //     if (isCameraInPosition == false)
-    //     {
-    //         playerBody.localRotation = Quaternion.Euler(0, 180, 0);
-    //         playerCamera.localRotation = Quaternion.Euler(0, 0, 0);
-    //         isCameraInPosition = true;
-    //     }
-    //     animator.enabled = true;
-    //     animator.SetBool("FinalChaseSceneAnimTrigger", true);
-    //     isAnimationPlaying = true;
-
-    //     if (isAnimationPlaying == true)
-    //     {
-    //         playerMovement.enabled = false;
-    //         mouseLook.enabled = false;
-    //     }
-
-    //     yield return new WaitForSeconds(15.5f);
-
-    //     isAnimationPlaying = false; // don't need this?
-    //     animator.enabled = false;
-    //     playerMovement.enabled = true;
-    //     mouseLook.enabled = true;
-    //     trig = false;
-
-    //     hasAnimationPlayed = true;
-    // }
-
     IEnumerator startAnimation()
     {
         yield return new WaitForSeconds(0.40f);
@@ -115,7 +85,10 @@ public class ChaseScene_FINAL : MonoBehaviour
             mouseLook.enabled = false;
         }
 
-        yield return new WaitForSeconds(15.5f);
+        // yield return new WaitForSeconds(14.5f);
+        // playerMovement.enabled = true;
+
+        yield return new WaitForSeconds(14.6f);
         cutSceneCamera.SetActive(false);
         isAnimationPlaying = false;
         playerMovement.enabled = true;
