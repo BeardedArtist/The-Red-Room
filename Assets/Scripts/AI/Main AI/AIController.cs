@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; 
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 
 public class AIController : MonoBehaviour
@@ -36,7 +37,13 @@ public class AIController : MonoBehaviour
     //PlayerMovement playerMovement;
     [SerializeField] PlayerMovement playerMovement;
     private bool alive = true;
-    
+
+
+    // Monster Voice
+    [SerializeField] EventReference eventName;
+    private static FMOD.Studio.EventInstance AIVoice;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +55,13 @@ public class AIController : MonoBehaviour
         // TEST
         animator = GetComponent<Animator>();
         // TEST
+
+
+        // Attaching audio to this object
+        AIVoice = FMODUnity.RuntimeManager.CreateInstance(eventName);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(AIVoice, this.transform, this.GetComponent<Rigidbody>());
+        AIVoice.start();
+        // Attaching audio to this object
     }
 
     //check if we can see player

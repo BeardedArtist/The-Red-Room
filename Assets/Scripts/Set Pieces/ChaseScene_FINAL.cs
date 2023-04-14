@@ -88,7 +88,7 @@ public class ChaseScene_FINAL : MonoBehaviour
         // yield return new WaitForSeconds(14.5f);
         // playerMovement.enabled = true;
 
-        yield return new WaitForSeconds(14.6f);
+        yield return new WaitForSeconds(14.7f);
         cutSceneCamera.SetActive(false);
         isAnimationPlaying = false;
         playerMovement.enabled = true;

@@ -1313,7 +1313,6 @@ MonoBehaviour:
   - {fileID: -7451290739379739999}
   - {fileID: -2678692794044045410}
   - {fileID: 1860745469351356868}
-  - {fileID: 7976839572074455537}
   - {fileID: 4350227142134008608}
   - {fileID: 7268849798536368084}
   - {fileID: 8254678522113378275}
@@ -1406,7 +1405,7 @@ MonoBehaviour:
   - {fileID: 8314209105398047819}
   StringsBanks:
   - {fileID: 8720146056034989211}
-  cacheTime: 638164191840147079
+  cacheTime: 638170835379315095
   cacheVersion: 131593
 --- !u!114 &195500917690746578
 MonoBehaviour:
@@ -2514,33 +2513,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 250
---- !u!114 &7976839572074455537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Level Music/What is She Extended
-  m_EditorClassIdentifier: 
-  Path: event:/Level Music/What is She Extended
-  Guid:
-    Data1: -880559595
-    Data2: 1172104730
-    Data3: -258724431
-    Data4: 1894473211
-  Banks:
-  - {fileID: 8314209105398047819}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 62760
 --- !u!114 &7995812147171057605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2610,10 +2582,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638164191840097068
+  lastModified: 638170835379234566
   FileSizes:
   - Name: Desktop
-    Value: 30645984
+    Value: 29871936
   Exists: 1
 --- !u!114 &8494034773999964504
 MonoBehaviour:
@@ -2684,10 +2656,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638164191840147079
+  lastModified: 638170835379315095
   FileSizes:
   - Name: Desktop
-    Value: 5822
+    Value: 5770
   Exists: 1
 --- !u!114 &8876252173545206695
 MonoBehaviour:
