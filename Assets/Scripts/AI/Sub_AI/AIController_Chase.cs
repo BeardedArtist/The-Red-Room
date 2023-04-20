@@ -41,6 +41,8 @@ public class AIController_Chase : MonoBehaviour
         animator = GetComponent<Animator>();
 
         blink_script.enabled = false;
+
+        StartCoroutine(DelayForChase());
     }
 
     // Update is called once per frame
@@ -123,5 +125,15 @@ public class AIController_Chase : MonoBehaviour
         gameObject.SetActive(false);
         backupAI.SetActive(true);
 
+    }
+
+    IEnumerator DelayForChase()
+    {
+        state = "idle";
+        agent.speed = 0;
+        yield return new WaitForSeconds(2f);
+        state = "chase";
+        agent.speed = 3.8f;
+        
     }
 }

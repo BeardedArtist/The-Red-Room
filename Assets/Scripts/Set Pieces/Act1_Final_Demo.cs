@@ -34,6 +34,15 @@ public class Act1_Final_Demo : MonoBehaviour
     [SerializeField] private Collider doorCollider;
 
 
+    // Door Close Test
+    [SerializeField] private Animator myDoor = default;
+    [SerializeField] private float WaitTimer = 50f;
+    private bool trigger;
+    private bool hasDoorClosed = false;
+    private bool hasAudioPlayed = false;
+    // Door Close Test
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +68,7 @@ public class Act1_Final_Demo : MonoBehaviour
         if (trig)
         {
             StartCoroutine(ActivateFinalScene());
+            StartCoroutine(CloeDoorToEndScene());
         }
     }
 
@@ -78,5 +88,24 @@ public class Act1_Final_Demo : MonoBehaviour
         playerMovement_Script.enabled = false;
         openCloseDoor_Script.enabled = false;
         pauseMenu_Script.enabled = false;
+    }
+
+    IEnumerator CloeDoorToEndScene()
+    {
+        yield return new WaitForSeconds(WaitTimer);
+
+        trigger = myDoor.GetBool("Open");
+
+        if (trigger && hasDoorClosed == false)
+        {
+            myDoor.SetBool("Open", false);
+            if (hasAudioPlayed == false)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Bathroom Close & Lock");
+                hasAudioPlayed = true;
+            }
+
+            hasDoorClosed = true;
+        }
     }
 }
