@@ -19,6 +19,8 @@ public class TapeRecorderPickup : MonoBehaviour
     [SerializeField] private GameObject Part2Trigger;
     [SerializeField] private BoxCollider audioTrigger_Start;
     [SerializeField] private BoxCollider audioTrigger_Stop;
+
+    [SerializeField] private GameObject flashingLights;
     
 
     // Adding objects that will be effected
@@ -54,6 +56,8 @@ public class TapeRecorderPickup : MonoBehaviour
 
                 audioTrigger_Start.enabled = false;
                 audioTrigger_Stop.enabled = true;
+
+                flashingLights.SetActive(true);
             }
         }
     }
