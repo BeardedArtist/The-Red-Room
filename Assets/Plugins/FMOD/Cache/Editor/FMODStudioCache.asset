@@ -672,6 +672,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 68000
+--- !u!114 &-4728244310664810199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Level Music/What is She Extended
+  m_EditorClassIdentifier: 
+  Path: event:/Level Music/What is She Extended
+  Guid:
+    Data1: -880559595
+    Data2: 1172104730
+    Data3: -258724431
+    Data4: 1894473211
+  Banks:
+  - {fileID: 8314209105398047819}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 62760
 --- !u!114 &-4723670336037057235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,12 +1427,13 @@ MonoBehaviour:
   - {fileID: -3741669991552222734}
   - {fileID: -7142001231980681867}
   - {fileID: 7165901932060763102}
+  - {fileID: -4728244310664810199}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8314209105398047819}
   StringsBanks:
   - {fileID: 8720146056034989211}
-  cacheTime: 638170835379315095
+  cacheTime: 638175938199573571
   cacheVersion: 131593
 --- !u!114 &195500917690746578
 MonoBehaviour:
@@ -2582,10 +2610,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638170835379234566
+  lastModified: 638175938199463646
   FileSizes:
   - Name: Desktop
-    Value: 29871936
+    Value: 30646176
   Exists: 1
 --- !u!114 &8494034773999964504
 MonoBehaviour:
@@ -2656,10 +2684,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638170835379315095
+  lastModified: 638175938199573571
   FileSizes:
   - Name: Desktop
-    Value: 5770
+    Value: 5822
   Exists: 1
 --- !u!114 &8876252173545206695
 MonoBehaviour:
