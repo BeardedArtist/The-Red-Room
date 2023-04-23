@@ -76,16 +76,18 @@ public class Act1Start : MonoBehaviour
 
     void StartUpConversation()
     {
-        if (text_1IsFinished == false)
-        {
-            text_1.SetActive(true);
+        // if (text_1IsFinished == false)
+        // {
+        //     text_1.SetActive(true);
 
-            if (Input.anyKeyDown)
-            {
-                text_1IsFinished = true;
-                text_1.SetActive(false);
-            }
-        }
+        //     if (Input.anyKeyDown)
+        //     {
+        //         text_1IsFinished = true;
+        //         text_1.SetActive(false);
+        //     }
+        // }
+
+        text_1IsFinished = true;
 
         if (text_1IsFinished == true && canGetUpMessageIsFinished == false)
         {
