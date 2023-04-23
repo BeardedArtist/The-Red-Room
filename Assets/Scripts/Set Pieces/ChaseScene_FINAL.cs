@@ -30,6 +30,7 @@ public class ChaseScene_FINAL : MonoBehaviour
 
     [SerializeField] private GameObject cutSceneCamera;
     private bool hasAnimationPlayed = false;
+    private bool hasAudioPlayed = false;
 
     // COMMENTED OUT CODE - IMPLEMENT LATER MAYBE -----------------------------------------------
 
@@ -67,6 +68,7 @@ public class ChaseScene_FINAL : MonoBehaviour
         {
             //StartCoroutine(PositionPlayerForAnimation());
             StartCoroutine(startAnimation());
+            StartCoroutine(startChaseAudio());
         }
 
         StartCoroutine(HandleManualBlink());
@@ -85,9 +87,6 @@ public class ChaseScene_FINAL : MonoBehaviour
             mouseLook.enabled = false;
         }
 
-        // yield return new WaitForSeconds(14.5f);
-        // playerMovement.enabled = true;
-
         yield return new WaitForSeconds(14.7f);
         cutSceneCamera.SetActive(false);
         isAnimationPlaying = false;
@@ -98,13 +97,24 @@ public class ChaseScene_FINAL : MonoBehaviour
         hasAnimationPlayed = true;
     }
 
+
+    IEnumerator startChaseAudio()
+    {
+        yield return new WaitForSeconds(14.7f);
+
+        if (hasAudioPlayed == false)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Ideas/Bathroom_JumpScareIdea_3");
+            hasAudioPlayed = true;
+
+            blink_Script.enabled = false;
+        }
+    }
+
     IEnumerator HandleManualBlink()
     {
         yield return new WaitForSeconds(14f);
         blink_Anim.Play("TopLidBlink", 0, 0.15f);
         blink_Anim_2.Play("BottomLidBlink", 0, 0.15f);
-
-        yield return new WaitForSeconds(2f);
-        blink_Script.enabled = false;
     }
 }
