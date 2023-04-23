@@ -22,7 +22,7 @@ public class StartMenu : MonoBehaviour
         Application.Quit();
     }
 
-    void loadGame()
+    public void loadGame()
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
