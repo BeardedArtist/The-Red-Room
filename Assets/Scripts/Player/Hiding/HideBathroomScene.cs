@@ -65,6 +65,8 @@ public class HideBathroomScene : MonoBehaviour
                     Debug.Log("Player is hiding!");
                     hideUI.SetActive(false);
 
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Doors/Door LOCKED/Test Bathroom Door");
+
                     characterController.enabled = false;
                     //flashlight.SetActive(false);
                     mainPlayerMesh.enabled = false;

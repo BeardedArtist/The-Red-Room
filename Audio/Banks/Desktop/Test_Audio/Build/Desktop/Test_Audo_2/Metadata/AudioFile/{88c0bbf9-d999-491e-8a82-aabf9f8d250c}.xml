@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{88c0bbf9-d999-491e-8a82-aabf9f8d250c}">
 		<property name="assetPath">
-			<value>Westminster SFX Bells Only.wav</value>
+			<value>New Folder/Westminster SFX Bells Only.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

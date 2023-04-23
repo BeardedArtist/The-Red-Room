@@ -104,6 +104,7 @@ public class Act1Start : MonoBehaviour
 
     void TurnOffMethod()
     {
+        getUpMessage.SetActive(false);
         enabled = false;
     }
 }

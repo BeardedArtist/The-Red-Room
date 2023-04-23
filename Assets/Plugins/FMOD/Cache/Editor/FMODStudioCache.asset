@@ -916,6 +916,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 115500
+--- !u!114 &-2925391612749795540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Doors/Door LOCKED/Test Bathroom Door
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Doors/Door LOCKED/Test Bathroom Door
+  Guid:
+    Data1: -525743682
+    Data2: 1277223647
+    Data3: 966916517
+    Data4: -2138900881
+  Banks:
+  - {fileID: 8314209105398047819}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
 --- !u!114 &-2825065933795279517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,12 +1456,14 @@ MonoBehaviour:
   - {fileID: 7165901932060763102}
   - {fileID: -4728244310664810199}
   - {fileID: 6996911654153470701}
+  - {fileID: 5574081017862840894}
+  - {fileID: -2925391612749795540}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8314209105398047819}
   StringsBanks:
   - {fileID: 8720146056034989211}
-  cacheTime: 638178512701652536
+  cacheTime: 638178628350807242
   cacheVersion: 131593
 --- !u!114 &195500917690746578
 MonoBehaviour:
@@ -2164,6 +2193,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 12125
+--- !u!114 &5574081017862840894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Doors/CREEKING Door (Player)
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Doors/CREEKING Door (Player)
+  Guid:
+    Data1: 602233740
+    Data2: 1078099398
+    Data3: -1425655164
+    Data4: -1277666742
+  Banks:
+  - {fileID: 8314209105398047819}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
 --- !u!114 &5960912177600431844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2638,10 +2694,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638178512701652536
+  lastModified: 638178628350726259
   FileSizes:
   - Name: Desktop
-    Value: 30938368
+    Value: 30940544
   Exists: 1
 --- !u!114 &8494034773999964504
 MonoBehaviour:
@@ -2712,10 +2768,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638178445768205884
+  lastModified: 638178628350807242
   FileSizes:
   - Name: Desktop
-    Value: 5866
+    Value: 5984
   Exists: 1
 --- !u!114 &8876252173545206695
 MonoBehaviour:
