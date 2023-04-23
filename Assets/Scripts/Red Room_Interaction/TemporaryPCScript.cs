@@ -24,6 +24,7 @@ public class TemporaryPCScript : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float audioDelayTimer;
+    [SerializeField] private GameObject Recording_2_Subtitles;
     private bool hasEdwardAudioPlayed = false;
     // FMOD Parameters ---------------------------
 
@@ -114,5 +115,6 @@ public class TemporaryPCScript : MonoBehaviour
     {
         yield return new WaitForSeconds(audioDelayTimer);
         FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1");
+        Recording_2_Subtitles.SetActive(true);
     }
 }
