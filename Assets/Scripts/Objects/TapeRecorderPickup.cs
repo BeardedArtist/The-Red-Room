@@ -9,6 +9,7 @@ public class TapeRecorderPickup : MonoBehaviour
     [SerializeField] private GameObject goBackMessage;
     [SerializeField] private GameObject InteractUI;
     [SerializeField] private MeshRenderer objectRender;
+    [SerializeField] private Collider tapeRecorderCollider;
     public bool pickedUpTapeRecorder = false;
     public AudioSource audioSource;
     // Objects & Bools that won't be touched
@@ -19,16 +20,17 @@ public class TapeRecorderPickup : MonoBehaviour
     [SerializeField] private GameObject Part2Trigger;
     [SerializeField] private BoxCollider audioTrigger_Start;
     [SerializeField] private BoxCollider audioTrigger_Stop;
-
     [SerializeField] private GameObject flashingLights;
-    
+    [SerializeField] private float audioDelayTimer;
+    [SerializeField] private GameObject Recording_1_Subtitles;
+    private bool hasEdwardAudioPlayed = false;
 
     // Adding objects that will be effected
     // -------------------------------------------------------------------
 
     private void OnTriggerStay(Collider other) 
     {
-        if (other.tag == "Player")
+        if (other.tag == "Flashlight Eyes 2")
         {
             Trig = true;
             InteractUI.SetActive(true);
@@ -49,6 +51,17 @@ public class TapeRecorderPickup : MonoBehaviour
             {
                 audioSource.Stop();
                 goBackMessage.SetActive(true);
+
+                tapeRecorderCollider.enabled = false;
+                Trig = false;
+                InteractUI.SetActive(false);
+
+                if (hasEdwardAudioPlayed == false)
+                {
+                    StartCoroutine(DelayVoiceAudio(audioDelayTimer));
+                    hasEdwardAudioPlayed = true;
+                }
+
                 StartCoroutine(closeMessage());
                 objectRender.enabled = false;
                 Part2Trigger.SetActive(true);
@@ -67,5 +80,12 @@ public class TapeRecorderPickup : MonoBehaviour
         yield return new WaitForSeconds (5.0f);
         goBackMessage.SetActive(false);
         Destroy(gameObject);
+    }
+
+    private IEnumerator DelayVoiceAudio(float audioDelayTimer)
+    {
+        yield return new WaitForSeconds(audioDelayTimer);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Voice Recordings/Edward Recording 1.1");
+        Recording_1_Subtitles.SetActive(true);
     }
 }

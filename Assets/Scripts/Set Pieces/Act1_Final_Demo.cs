@@ -8,6 +8,7 @@ public class Act1_Final_Demo : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject AI_FINAL;
     [SerializeField] private GameObject Chase_AI_DISABLE;
+    [SerializeField] private GameObject Chase_AI_Backup_DISABLE;
     [SerializeField] private GameObject Hunting_AI_Backup_DISABLE;
 
     // Transform Reference
@@ -57,8 +58,11 @@ public class Act1_Final_Demo : MonoBehaviour
             blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
             Chase_AI_DISABLE.SetActive(false);
             Hunting_AI_Backup_DISABLE.SetActive(false);
+            Chase_AI_Backup_DISABLE.SetActive(false);
             trig = true;
             hasAnimationPlayed = true;
+
+            AI_FINAL.SetActive(true);
         }    
     }
 
@@ -76,7 +80,7 @@ public class Act1_Final_Demo : MonoBehaviour
     {
         yield return new WaitForSeconds(0.40f);
 
-        AI_FINAL.SetActive(true);
+        //AI_FINAL.SetActive(true);
 
         characterController_Script.enabled = false;
         player.transform.position = warpTarget.transform.position;

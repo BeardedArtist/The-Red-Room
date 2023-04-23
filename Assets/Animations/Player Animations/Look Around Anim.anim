@@ -427,7 +427,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 14
+  - time: 13.916667
     functionName: PlaySfxOnce
     data: 
     objectReferenceParameter: {fileID: 0}
