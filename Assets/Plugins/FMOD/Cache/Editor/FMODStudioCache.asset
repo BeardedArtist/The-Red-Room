@@ -321,6 +321,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &-6728089719395372778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Monster/Monster Scream
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Monster/Monster Scream
+  Guid:
+    Data1: -133205553
+    Data2: 1158607357
+    Data3: -1954893911
+    Data4: 1925472793
+  Banks:
+  - {fileID: 8314209105398047819}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4414
 --- !u!114 &-6641018879134826814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,12 +1486,13 @@ MonoBehaviour:
   - {fileID: 5574081017862840894}
   - {fileID: -2925391612749795540}
   - {fileID: 1808650189273285899}
+  - {fileID: -6728089719395372778}
   EditorParameters: []
   MasterBanks:
   - {fileID: 8314209105398047819}
   StringsBanks:
   - {fileID: 8720146056034989211}
-  cacheTime: 638185761606549228
+  cacheTime: 638185789344058214
   cacheVersion: 131593
 --- !u!114 &195500917690746578
 MonoBehaviour:
@@ -2722,10 +2750,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638185761606487526
+  lastModified: 638185789343978075
   FileSizes:
   - Name: Desktop
-    Value: 31173696
+    Value: 31206976
   Exists: 1
 --- !u!114 &8494034773999964504
 MonoBehaviour:
@@ -2796,10 +2824,10 @@ MonoBehaviour:
   Path: Audio/Banks/Desktop/Test_Audio/Build/Desktop/Test_Audo_2/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638185761606549228
+  lastModified: 638185789344058214
   FileSizes:
   - Name: Desktop
-    Value: 6048
+    Value: 6096
   Exists: 1
 --- !u!114 &8876252173545206695
 MonoBehaviour:

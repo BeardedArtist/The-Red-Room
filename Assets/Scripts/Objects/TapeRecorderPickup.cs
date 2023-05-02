@@ -50,7 +50,7 @@ public class TapeRecorderPickup : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {
                 audioSource.Stop();
-                goBackMessage.SetActive(true);
+                //goBackMessage.SetActive(true);
 
                 tapeRecorderCollider.enabled = false;
                 Trig = false;
@@ -78,7 +78,7 @@ public class TapeRecorderPickup : MonoBehaviour
     private IEnumerator closeMessage()
     {
         yield return new WaitForSeconds (5.0f);
-        goBackMessage.SetActive(false);
+        //goBackMessage.SetActive(false);
         Destroy(gameObject);
     }
 

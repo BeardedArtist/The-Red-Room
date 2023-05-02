@@ -43,6 +43,8 @@ public class AIController : MonoBehaviour
     [SerializeField] EventReference eventName;
     private static FMOD.Studio.EventInstance AIVoice;
 
+    private bool canScreamPlay = true;
+
 
 
     // Start is called before the first frame update
@@ -102,6 +104,8 @@ public class AIController : MonoBehaviour
                 NavMesh.SamplePosition(transform.position + randomPosition, out navHit, 50f, NavMesh.AllAreas); 
                 agent.speed = 1;
                 // finding a random spot from where the AI is standing on the NavMesh
+
+                canScreamPlay = true;
                 
                 // search for player 
                 if (highAlert)
@@ -138,6 +142,8 @@ public class AIController : MonoBehaviour
             //search
             if (state == "search")
             {
+                canScreamPlay = true;
+
                 if (wait > 0f)
                 {
                     wait -= Time.deltaTime;
@@ -153,6 +159,12 @@ public class AIController : MonoBehaviour
             if (state == "chase")
             {
                 agent.destination = playerTransform.position;
+
+                if (canScreamPlay == true)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Monster/Monster Scream");
+                    canScreamPlay = false;
+                }
 
                 //lose sight of player
                 float distance = Vector3.Distance(transform.position, playerTransform.position);
