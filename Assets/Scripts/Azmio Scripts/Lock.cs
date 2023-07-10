@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Lock : MonoBehaviour
 {
-    public InputField inputField;
+    public TMP_InputField inputField;
 
     const string correctCombination = "vile";
 
