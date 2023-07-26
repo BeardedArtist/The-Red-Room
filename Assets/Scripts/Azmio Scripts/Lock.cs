@@ -11,7 +11,7 @@ public class Lock : MonoBehaviour
 
     void Update()
     {
-        //if enter pressed && inputfiled active then
+        //if enter pressed
         //CheckCombination();
     }
 
@@ -19,20 +19,14 @@ public class Lock : MonoBehaviour
     {
         string input = inputField.text.ToLower(); // Convert the input to lowercase for case insensitivity
 
-        if (input.Length != 4)
-        {
-            Debug.Log("Invalid combination! Combination must have exactly 4 letters.");
-            return;
-        }
-
         if (input == correctCombination)
         {
-            Debug.Log("Correct combination! The door opens.");
-            gameObject.SetActive(false); // Disable the door GameObject to open it
+            //Letters turn green
+            gameObject.SetActive(false); // Disable the door GameObject to open it | Launch Animation
         }
         else
         {
-            Debug.Log("Incorrect combination! The door remains locked.");
+            //Letters turn red AND dissapear;
         }
     }
 }
