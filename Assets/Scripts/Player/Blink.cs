@@ -10,27 +10,48 @@ public class Blink : MonoBehaviour
     [SerializeField] private Animator blink_Anim_2;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float timer;
+    float blinkTimer = 2f;
 
-    private void Start() 
+    void Start() 
     {
-        timer = Random.Range(30.0f, 50.0f);    
+        timer = Random.Range(40.0f, 60.0f); 
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         timer -= Time.deltaTime;
 
-        if (timer <= 0)
+        if (timer <= 0 && !isBlinking)
         {
-            timer = Random.Range(30.0f, 50.0f);
+            timer = Random.Range(40.0f, 60.0f);
             isBlinking = true;
         }
 
+        if (Input.GetMouseButton(1) && !isBlinking)
+        {
+            isBlinking = true;
+        }
+        
         if (isBlinking == true)
         {
-            blink_Anim.Play("TopLidBlink", 0, 0.25f);
-            blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-            isBlinking = false;
+            BlinkActive();
+            blinkTimer -= Time.deltaTime;
+            // isBlinking is true and therefor activates the animation for the entire 2sec it's true
+
+            if(blinkTimer != 0)
+            {
+                isBlinking = false;
+                blinkTimer = 2f;
+            }
         }
+    }
+
+
+    void BlinkActive()
+    {
+        blink_Anim.Play("TopLidBlink", 0, 0.25f);
+        blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+        Debug.Log("yeah");
     }
 }
