@@ -12,7 +12,7 @@ public class Blink : MonoBehaviour
     [SerializeField] private float randomBlinkTimer;
     float blinkTimer = 1.1f;
 
-    void Start() 
+    void Start()
     {
         randomBlinkTimer = Random.Range(40.0f, 60.0f);
     }
@@ -22,7 +22,7 @@ public class Blink : MonoBehaviour
     {
         randomBlinkTimer -= Time.deltaTime;
 
-        if ((randomBlinkTimer <= 0 || Input.GetMouseButton(1) && blinkTimer == 1.1f))
+        if ((randomBlinkTimer <= 0 || Input.GetMouseButtonDown(1) && blinkTimer == 1.1f))
         {
             randomBlinkTimer = Random.Range(40.0f, 60.0f);
             StartBlink();
@@ -31,9 +31,27 @@ public class Blink : MonoBehaviour
         if (isBlinking)
         {
             blinkTimer -= Time.deltaTime;
+
+            if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
+            {
+                blinkTimer += Time.deltaTime;
+
+                blink_Anim.SetTrigger("Hold");
+                blink_Anim_2.SetTrigger("Hold");
+
+                if (Input.GetMouseButtonUp(1)) //Animation doesn't reset once blinkHold is activarted + Blinkhold animation broken (Maybe Mouse up doesn't register)
+                {
+                    blink_Anim.ResetTrigger("Hold");
+                    blink_Anim_2.ResetTrigger("Hold");
+                    
+                    blink_Anim.SetTrigger("StopHold");
+                    blink_Anim_2.SetTrigger("StopHold");
+                }
+            }
+            Debug.Log(blinkTimer);
         }
 
-        if(blinkTimer <= 0)
+        if (blinkTimer <= 0)
         {
             isBlinking = false;
             blinkTimer = 1.1f;
