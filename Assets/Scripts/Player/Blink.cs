@@ -38,23 +38,25 @@ public class Blink : MonoBehaviour
 
                 blink_Anim.SetTrigger("Hold");
                 blink_Anim_2.SetTrigger("Hold");
-
-                if (Input.GetMouseButtonUp(1)) //Animation doesn't reset once blinkHold is activarted + Blinkhold animation broken (Maybe Mouse up doesn't register)
-                {
-                    blink_Anim.ResetTrigger("Hold");
-                    blink_Anim_2.ResetTrigger("Hold");
-                    
-                    blink_Anim.SetTrigger("StopHold");
-                    blink_Anim_2.SetTrigger("StopHold");
-                }
             }
-            Debug.Log(blinkTimer);
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                blink_Anim.ResetTrigger("Hold");
+                blink_Anim_2.ResetTrigger("Hold");
+
+                blink_Anim.SetTrigger("StopHold");
+                blink_Anim_2.SetTrigger("StopHold");
+            }
         }
 
         if (blinkTimer <= 0)
         {
             isBlinking = false;
             blinkTimer = 1.1f;
+
+            blink_Anim.ResetTrigger("StopHold");
+            blink_Anim_2.ResetTrigger("StopHold");
         }
     }
 
