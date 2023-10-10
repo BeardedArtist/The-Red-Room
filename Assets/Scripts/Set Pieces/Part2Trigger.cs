@@ -29,7 +29,7 @@ public class Part2Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.tag == "Player" && flashlight_PickupScript.pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true && hasBeenTriggered == false)
+        if (other.tag == "Player" && flashlight_PickupScript._pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true && hasBeenTriggered == false)
         {          
             //BlackoutAnimation.SetBool("PlayBlackOut", true);
 

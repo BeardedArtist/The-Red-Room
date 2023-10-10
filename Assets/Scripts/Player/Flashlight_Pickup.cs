@@ -7,7 +7,7 @@ public class Flashlight_Pickup : MonoBehaviour
     private bool Trig;
     public GameObject playersFlashlight;
     public GameObject pickUpUI;
-    public bool pickedUpFlashlight = false;
+    public bool _pickedUpFlashlight = false;
 
     private void OnTriggerStay(Collider other) 
     {
@@ -34,7 +34,7 @@ public class Flashlight_Pickup : MonoBehaviour
                 gameObject.SetActive(false);
                 pickUpUI.SetActive(false);
                 playersFlashlight.SetActive(true);
-                pickedUpFlashlight = true;
+                _pickedUpFlashlight = true;
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/FlashlightPickup");
             }
         }

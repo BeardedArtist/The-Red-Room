@@ -27,7 +27,7 @@ public class PlayMusic_TEST : MonoBehaviour
         }
 
 
-        if (other.tag == "Player" && flashlight_PickupScript.pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true)
+        if (other.tag == "Player" && flashlight_PickupScript._pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true)
         {
             //Music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             //Music.release();
