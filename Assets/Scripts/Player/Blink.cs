@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Blink : MonoBehaviour
 {
-    [SerializeField] private GameObject topLid;
-    [SerializeField] private GameObject bottomLid;
     [SerializeField] private Animator blink_Anim;
     [SerializeField] private Animator blink_Anim_2;
     [SerializeField] public bool isBlinking;
