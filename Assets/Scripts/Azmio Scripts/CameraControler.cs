@@ -6,22 +6,36 @@ public class CameraControler : MonoBehaviour
 {
     [SerializeField] private Animator camera_Anim;
     [SerializeField] private ObjectManager objectManager;
+    [SerializeField] private float cameraTimer;
+    private float cameraMaxTime;
 
 
     void Start()
     {
-        camera_Anim.Play("TakeOut_Camera", 0, 0.1f);
+        cameraMaxTime = cameraTimer;
+        
+        camera_Anim.Play("TakeOut_Camera", 0, 0);
     }
 
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            camera_Anim.SetTrigger("CameraAway");
-            objectManager._CameraEnabled = false;
-        }
+        cameraTimer -= Time.deltaTime;
 
-        //camera_Anim.ResetTrigger("CameraOut");
+        if(Input.GetKeyDown(KeyCode.C) || cameraTimer <= 0)
+        {
+            StartCoroutine(AnimationOutTimer());
+        }
+    }
+
+    IEnumerator AnimationOutTimer()
+    {
+        camera_Anim.SetTrigger("CameraAway");
+
+        yield return new WaitForSeconds(1f);
+
+        cameraTimer = cameraMaxTime;
+        camera_Anim.ResetTrigger("CameraOut");
+        objectManager._CameraEnabled = false;
     }
 }

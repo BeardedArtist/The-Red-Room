@@ -7,11 +7,11 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] private GameObject flashlightGO;
     [SerializeField] private GameObject CameraGO;
     [SerializeField] private Flashlight_Pickup _flashlight_Pickup;
-    public bool _CameraEnabled = false;
+    public bool _CameraEnabled;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C))// && _flashlight_Pickup._pickedUpFlashlight == true) // Make sure to have flashlight pick up check when done testing
+        if(Input.GetKeyDown(KeyCode.C))// && _flashlight_Pickup._pickedUpFlashlight == true) // Make sure to have condition to the <-- not commented when done testing
         {
             flashlightGO.SetActive(false);
             CameraGO.SetActive(true);
@@ -19,7 +19,7 @@ public class ObjectManager : MonoBehaviour
             _CameraEnabled = true;
         }
 
-        if(_CameraEnabled == false) //Only want this to play when Camera is put away
+        if(_CameraEnabled == false)
         {
             CameraGO.SetActive(false);
             flashlightGO.SetActive(true);
