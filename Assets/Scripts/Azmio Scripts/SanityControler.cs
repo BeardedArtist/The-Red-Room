@@ -5,32 +5,42 @@ using UnityEngine.UI;
 
 public class SanityControler : MonoBehaviour
 {
-    public Slider sanitySlider;
-    public float maxSanity = 100f;
-    public float sanityDecreaseRate = 0.5f;  // Amount of sanity decrease per seconds
-    float currentSanity;
+    [SerializeField] private Slider sanitySlider;
+    [SerializeField] private float maxSanity; // Make it so that this also displays the Sanity value going down
+    [SerializeField] private float sanityDecreaseRate;  // Amount of sanity decrease per seconds
+    private float currentSanity;
+    private float everySecondTimer = 1f;
 
 
     void Start()
     {
         currentSanity = maxSanity;
         UpdateSanityUI();
-        InvokeRepeating("DecreaseSanity", 1f, 1f);  // Start decreasing sanity every second
     }
 
 
-    void DecreaseSanity()
+    void Update()
     {
-        if (currentSanity > 0f)
+        everySecondTimer -= Time.deltaTime;
+
+        if (everySecondTimer <= 0 && currentSanity > 0f)
         {
-            currentSanity -= sanityDecreaseRate;
-            UpdateSanityUI();
+            _DecreaseSanity(sanityDecreaseRate);
+
+            everySecondTimer = 1f;
         }
     }
 
 
-    void UpdateSanityUI()
+    public void _DecreaseSanity(float decreaseAmount)
     {
-        sanitySlider.value = currentSanity / maxSanity;  // Update the slider value
+        currentSanity -= decreaseAmount;
+        UpdateSanityUI();
+    }
+
+
+    void UpdateSanityUI() // Update the slider value
+    {
+        sanitySlider.value = currentSanity / maxSanity;
     }
 }

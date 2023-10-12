@@ -7,6 +7,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] private GameObject flashlightGO;
     [SerializeField] private GameObject CameraGO;
     [SerializeField] private Flashlight_Pickup _flashlight_Pickup;
+    [SerializeField] private SanityControler _sanityControler;
     public bool _CameraEnabled;
 
     void Update()
@@ -15,6 +16,7 @@ public class ObjectManager : MonoBehaviour
         {
             flashlightGO.SetActive(false);
             CameraGO.SetActive(true);
+            _sanityControler._DecreaseSanity(5f);
 
             _CameraEnabled = true;
         }
