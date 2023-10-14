@@ -6,6 +6,7 @@ public class Blink : MonoBehaviour
 {
     [SerializeField] private Animator blink_Anim;
     [SerializeField] private Animator blink_Anim_2;
+    [SerializeField] private SanityControler _sanityControler;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float randomBlinkTimer;
     float blinkTimer = 1.1f;
@@ -33,6 +34,7 @@ public class Blink : MonoBehaviour
             if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
             {
                 blinkTimer += Time.deltaTime;
+                _sanityControler._DecreaseSanity(0.75f);
 
                 blink_Anim.SetTrigger("Hold");
                 blink_Anim_2.SetTrigger("Hold");

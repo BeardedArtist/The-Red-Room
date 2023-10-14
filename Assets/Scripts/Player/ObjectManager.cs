@@ -12,7 +12,7 @@ public class ObjectManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C))// && _flashlight_Pickup._pickedUpFlashlight == true) // Make sure to have condition to the <-- not commented when done testing
+        if(Input.GetKeyDown(KeyCode.C)) // && _flashlight_Pickup._pickedUpFlashlight == true) // Make sure to have condition to the <-- not commented when done testing
         {
             flashlightGO.SetActive(false);
             CameraGO.SetActive(true);
