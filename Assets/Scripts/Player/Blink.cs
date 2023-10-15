@@ -9,7 +9,8 @@ public class Blink : MonoBehaviour
     [SerializeField] private SanityControler _sanityControler;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float randomBlinkTimer;
-    float blinkTimer = 1.1f;
+    private float blinkTimer = 1.1f;
+    private float everySecondTimer = 1f;
 
     void Start()
     {
@@ -34,10 +35,17 @@ public class Blink : MonoBehaviour
             if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
             {
                 blinkTimer += Time.deltaTime;
-                _sanityControler._DecreaseSanity(0.75f);
+                everySecondTimer -= Time.deltaTime;
 
                 blink_Anim.SetTrigger("Hold");
                 blink_Anim_2.SetTrigger("Hold");
+
+                if (everySecondTimer <= 0)
+                {
+                    _sanityControler._DecreaseSanity(0.5f);
+
+                    everySecondTimer = 1f;
+                }
             }
 
             if (Input.GetMouseButtonUp(1))
@@ -47,6 +55,8 @@ public class Blink : MonoBehaviour
 
                 blink_Anim.SetTrigger("StopHold");
                 blink_Anim_2.SetTrigger("StopHold");
+
+                everySecondTimer = 1f;
             }
         }
 
