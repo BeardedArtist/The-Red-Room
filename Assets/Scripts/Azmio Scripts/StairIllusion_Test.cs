@@ -1,40 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.ProBuilder.Shapes;
 
 public class StairIllusion_Test : MonoBehaviour
 {
     [SerializeField] GameObject stairs;
+    [SerializeField] Transform playerBody;
     Transform stairsTF;
-    float zRotationAngle = 4.5f;
-    bool hasRotated = false;
+    float currentRotationAngle = 0f;
+    float RotationAngleOriginal = 0f;
+    float RotationAngleNew = -45f;
+    float RotationSpeed = 22.75f;
+    bool isRotating = false;
+    bool rotateDownNext = true;
 
     void Start()
     {
         stairsTF = stairs.GetComponent<Transform>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void Update()
     {
-        GameObject otherGO = other.gameObject;
-
-        if (other.tag == "Player" && !hasRotated)
+        if (isRotating)
         {
-            StartCoroutine(IncrementalStairMovement());
-            hasRotated = true;
+            if (rotateDownNext)
+            {
+                RotateDown();
+            }
+            else
+            {
+                RotateUp();
+            }
         }
     }
 
-
-    IEnumerator IncrementalStairMovement() //Make it so that Rotation is done incrementally every frame instead of through a for loop
+    void OnTriggerEnter(Collider other)
     {
-        WaitForSeconds incrementalStairMovementTime = new WaitForSeconds(0.1f);
-
-        for (int i = 0; i < 10; i++)
+        if (other.CompareTag("Player") && !isRotating)
         {
-            stairsTF.Rotate(0f, 0f, zRotationAngle);
-            yield return incrementalStairMovementTime;
+            isRotating = true;
+        }
+    }
+
+    void RotateDown()
+    {
+        float step = -(RotationSpeed * Time.deltaTime);
+
+        stairsTF.Rotate(step, 0f, 0f);
+        currentRotationAngle += step;
+        
+        if (currentRotationAngle <= RotationAngleNew)
+        {
+            isRotating = false;
+            rotateDownNext = false;
+        }
+    }
+
+    void RotateUp()
+    {
+        float step = (RotationSpeed * Time.deltaTime);
+
+        stairsTF.Rotate(step, 0f, 0f);
+        currentRotationAngle += step;
+
+        if (currentRotationAngle >= RotationAngleOriginal)
+        {
+            isRotating = false;
+            rotateDownNext = true;
         }
     }
 }
+
