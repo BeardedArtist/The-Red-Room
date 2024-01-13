@@ -16,9 +16,9 @@ public class PlayerWarp : MonoBehaviour
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && hasBeenTriggered == false)
+        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && hasBeenTriggered == false)
         {
             StartCoroutine(DelayTransition());
         }
@@ -26,7 +26,7 @@ public class PlayerWarp : MonoBehaviour
 
     IEnumerator DelayTransition()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.05f);
 
         playerCharacterController.enabled = false;
         player.transform.position = warpPlayerDestination.transform.position;

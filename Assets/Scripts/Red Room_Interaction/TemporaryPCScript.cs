@@ -33,26 +33,26 @@ public class TemporaryPCScript : MonoBehaviour
     private bool hasViewedOnce = false;
 
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Flashlight Eyes 2")
         {
             trig = true;
             redRoomInteractUI.SetActive(true);
-        }    
+        }
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         trig = false;
-        redRoomInteractUI.SetActive(false);    
+        redRoomInteractUI.SetActive(false);
     }
 
-    private void Update() 
+    private void Update()
     {
         PlayAudio();
 
-        
+
         if (trig == true && isViewingComputer == false)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -96,9 +96,21 @@ public class TemporaryPCScript : MonoBehaviour
                     {
                         objectsToDisappear[i].SetActive(false);
                     }
+
+                    for (int j = 0; j < objectsToAppear.Length; j++)
+                    {
+                        if (objectsToAppear[j] == null)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            objectsToAppear[j].SetActive(true);
+                        }
+                    }
                 }
             }
-        }    
+        }
     }
 
 
