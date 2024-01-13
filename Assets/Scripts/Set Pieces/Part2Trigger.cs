@@ -27,7 +27,7 @@ public class Part2Trigger : MonoBehaviour
         characterController = player.GetComponent<CharacterController>();
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && flashlight_PickupScript._pickedUpFlashlight == true && tapeRecorderPickupScript.pickedUpTapeRecorder == true && hasBeenTriggered == false)
         {          
