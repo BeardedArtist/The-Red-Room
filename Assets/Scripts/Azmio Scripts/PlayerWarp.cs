@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerWarp : MonoBehaviour
 {
     [SerializeField] GameObject warpPlayerDestination;
+    [SerializeField] GameObject warpPlayerFinalDestination;
     [SerializeField] GameObject player;
     CharacterController playerCharacterController;
+
+    [SerializeField] int loopAmount = 1;
+    int loopNumber = 1;
     bool hasBeenTriggered = false;
+    bool playerInTrigger = false;
+    bool eKeyPressed = false;
 
 
     void Start()
@@ -16,23 +22,53 @@ public class PlayerWarp : MonoBehaviour
     }
 
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && hasBeenTriggered == false)
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(DelayTransition());
+            playerInTrigger = true;
         }
     }
 
-    IEnumerator DelayTransition()
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
+            eKeyPressed = false;
+        }
+    }
+
+
+    void Update()
+    {
+        if (playerInTrigger && Input.GetKey(KeyCode.E) && !hasBeenTriggered && !eKeyPressed)
+        {
+            eKeyPressed = true;
+
+            if (loopNumber < loopAmount)
+            {
+                StartCoroutine(DelayTransition(warpPlayerDestination));
+                loopNumber += 1;
+            }
+
+            else
+            {
+                StartCoroutine(DelayTransition(warpPlayerFinalDestination));
+                hasBeenTriggered = true;
+            }
+        }
+    }
+
+
+    IEnumerator DelayTransition(GameObject warpPlayer)
     {
         yield return new WaitForSeconds(0.05f);
 
         playerCharacterController.enabled = false;
-        player.transform.position = warpPlayerDestination.transform.position;
-        player.transform.rotation = warpPlayerDestination.transform.rotation;
+        player.transform.position = warpPlayer.transform.position;
+        player.transform.rotation = warpPlayer.transform.rotation;
         playerCharacterController.enabled = true;
-
-        hasBeenTriggered = true;
     }
 }
