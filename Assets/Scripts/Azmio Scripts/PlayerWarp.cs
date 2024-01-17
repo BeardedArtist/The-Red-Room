@@ -18,7 +18,7 @@ public class PlayerWarp : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && hasBeenTriggered == false)
+        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && hasBeenTriggered == false)
         {
             StartCoroutine(DelayTransition());
         }

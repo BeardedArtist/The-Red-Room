@@ -27,24 +27,24 @@ public class Notes : MonoBehaviour
     [SerializeField] private Blink blink_Script;
 
 
-    private void Start() 
+    private void Start()
     {
-        characterController = player.GetComponent<CharacterController>();    
+        characterController = player.GetComponent<CharacterController>();
     }
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Flashlight Eyes 2")
         {
             trig = true;
             pickUpUI.SetActive(true);
-        }    
+        }
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         trig = false;
-        pickUpUI.SetActive(false);    
+        pickUpUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -57,6 +57,19 @@ public class Notes : MonoBehaviour
                 for (int i = 0; i < ObjectsToInteract.Length; i++)
                 {
                     if (ObjectsToInteract[i].name == "Journal")
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
+                        noteUI.SetActive(true);
+                        characterController.enabled = false;
+                        mouseLook.mouseSensitivity = 0;
+                        pickUpUI.SetActive(false);
+                        isPickedUp = true;
+
+                        blink_Script.enabled = false;
+                        isJournalPickedUp = true;
+                    }
+
+                    if (ObjectsToInteract[i].name == "Mr.Toshi Note")
                     {
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
                         noteUI.SetActive(true);
