@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerWarp : MonoBehaviour
 {
     [SerializeField] GameObject warpPlayerDestination;
-    [SerializeField] GameObject warpPlayerFinalDestination;
+
     [SerializeField] GameObject player;
     CharacterController playerCharacterController;
-
+    [SerializeField] bool instantWarp;
+    [SerializeField] bool warpLoops;
     [SerializeField] int loopAmount = 1;
+    [SerializeField] GameObject warpPlayerFinalDestination;
     int loopNumber = 1;
     bool hasBeenTriggered = false;
     bool playerInTrigger = false;
@@ -47,16 +50,25 @@ public class PlayerWarp : MonoBehaviour
         {
             eKeyPressed = true;
 
-            if (loopNumber < loopAmount)
+            if (!warpLoops)
             {
                 StartCoroutine(DelayTransition(warpPlayerDestination));
-                loopNumber += 1;
+                hasBeenTriggered = true;
             }
 
             else
             {
-                StartCoroutine(DelayTransition(warpPlayerFinalDestination));
-                hasBeenTriggered = true;
+                if (loopNumber < loopAmount)
+                {
+                    StartCoroutine(DelayTransition(warpPlayerDestination));
+                    loopNumber += 1;
+                }
+
+                else
+                {
+                    StartCoroutine(DelayTransition(warpPlayerFinalDestination));
+                    hasBeenTriggered = true;
+                }
             }
         }
     }
@@ -64,8 +76,9 @@ public class PlayerWarp : MonoBehaviour
 
     IEnumerator DelayTransition(GameObject warpPlayer)
     {
-        yield return new WaitForSeconds(0.05f);
+        float waitBeforeWarp = instantWarp ? 0f : 0.05f;
 
+        yield return new WaitForSeconds(waitBeforeWarp);
         playerCharacterController.enabled = false;
         player.transform.position = warpPlayer.transform.position;
         player.transform.rotation = warpPlayer.transform.rotation;
