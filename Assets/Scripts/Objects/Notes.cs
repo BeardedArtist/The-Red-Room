@@ -9,7 +9,7 @@ public class Notes : MonoBehaviour
     [SerializeField] private GameObject noteUI;
     [SerializeField] private GameObject pickUpUI;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject[] ObjectsToInteract;
+    [SerializeField] private GameObject[] gameObjectAndTextPages;
     [SerializeField] private GameObject[] ObjectsToAppear;
     [SerializeField] private GameObject[] ObjectsToDisappear;
 
@@ -25,6 +25,8 @@ public class Notes : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private BloodAnimation bloodAnimation = default;
     [SerializeField] private Blink blink_Script;
+
+    int pageCount = 2;
 
 
     private void Start()
@@ -54,9 +56,24 @@ public class Notes : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                for (int i = 0; i < ObjectsToInteract.Length; i++)
+                for (int i = 0; i < gameObjectAndTextPages.Length; i++)
                 {
-                    if (ObjectsToInteract[i].name == "Journal")
+                    if (gameObjectAndTextPages[i].name == "Journal")
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
+
+                        noteUI.SetActive(true); //Making background of page appear
+                        gameObjectAndTextPages[1].SetActive(true); //Making text of first page appear
+                        characterController.enabled = false;
+                        mouseLook.mouseSensitivity = 0;
+                        pickUpUI.SetActive(false);
+                        isPickedUp = true;
+
+                        blink_Script.enabled = false;
+                        //isJournalPickedUp = true;
+                    }
+
+                    if (gameObjectAndTextPages[i].name == "Mr.Toshi Note")
                     {
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
                         noteUI.SetActive(true);
@@ -66,23 +83,10 @@ public class Notes : MonoBehaviour
                         isPickedUp = true;
 
                         blink_Script.enabled = false;
-                        isJournalPickedUp = true;
+                        //isJournalPickedUp = true;
                     }
 
-                    if (ObjectsToInteract[i].name == "Mr.Toshi Note")
-                    {
-                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
-                        noteUI.SetActive(true);
-                        characterController.enabled = false;
-                        mouseLook.mouseSensitivity = 0;
-                        pickUpUI.SetActive(false);
-                        isPickedUp = true;
-
-                        blink_Script.enabled = false;
-                        isJournalPickedUp = true;
-                    }
-
-                    if (ObjectsToInteract[i].name == "Note")
+                    if (gameObjectAndTextPages[i].name == "Note")
                     {
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/Page Grab_Updated", GetComponent<Transform>().position);
                         noteUI.SetActive(true);
@@ -94,7 +98,7 @@ public class Notes : MonoBehaviour
                         blink_Script.enabled = false;
                     }
 
-                    if (ObjectsToInteract[i].name == "Note_2" && isBathroomNotePickedUp == false)
+                    if (gameObjectAndTextPages[i].name == "Note_2" && isBathroomNotePickedUp == false)
                     {
                         NotePickUp();
                         isPickedUp = true;
@@ -104,7 +108,7 @@ public class Notes : MonoBehaviour
                         // DISABLE MESH
                     }
 
-                    if (ObjectsToInteract[i].name == "Note_3" && isBloodyNotePickedUp == false)
+                    if (gameObjectAndTextPages[i].name == "Note_3" && isBloodyNotePickedUp == false)
                     {
                         BathroomNotePickUp();
                         isBloodyNotePickedUp = true;
@@ -115,21 +119,34 @@ public class Notes : MonoBehaviour
             }
         }
 
-        else if (trig == true && isPickedUp == true)
+        else if (trig == true && isPickedUp == true && Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (pageCount < gameObjectAndTextPages.Length)
+            {
+                gameObjectAndTextPages[pageCount-1].SetActive(false); //Making previous page disappear
+                gameObjectAndTextPages[pageCount].SetActive(true);   //Making new page disappear
+                pageCount += 1;
+            }
+
+            else
             {
                 noteUI.SetActive(false);
                 characterController.enabled = true;
                 mouseLook.enabled = true;
                 mouseLook.mouseSensitivity = 3;
+
+                //Reseting page count & setting last page off
+                gameObjectAndTextPages[gameObjectAndTextPages.Length - 1].SetActive(false);
+                pageCount = 2;
+
                 isPickedUp = false;
 
                 blink_Script.enabled = true;
+                
 
                 // isBloodyNotePickedUp = true;
 
-                if (isJournalPickedUp == true)
+                if (isPickedUp == true)
                 {
                     SetObjectsActive();
                 }

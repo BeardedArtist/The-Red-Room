@@ -9,8 +9,8 @@ public class PlayerWarp : MonoBehaviour
 
     [SerializeField] GameObject player;
     CharacterController playerCharacterController;
-    [SerializeField] bool instantWarp;
-    [SerializeField] bool warpLoops;
+    [SerializeField] bool isInstantWarp;
+    [SerializeField] bool isWarpLoops;
     [SerializeField] int loopAmount = 1;
     [SerializeField] GameObject warpPlayerFinalDestination;
     int loopNumber = 1;
@@ -50,7 +50,7 @@ public class PlayerWarp : MonoBehaviour
         {
             eKeyPressed = true;
 
-            if (!warpLoops)
+            if (!isWarpLoops)
             {
                 StartCoroutine(DelayTransition(warpPlayerDestination));
                 hasBeenTriggered = true;
@@ -71,12 +71,17 @@ public class PlayerWarp : MonoBehaviour
                 }
             }
         }
+
+        else if (playerInTrigger && isInstantWarp)
+        {
+            StartCoroutine(DelayTransition(warpPlayerDestination));
+        }
     }
 
 
     IEnumerator DelayTransition(GameObject warpPlayer)
     {
-        float waitBeforeWarp = instantWarp ? 0f : 0.05f;
+        float waitBeforeWarp = isInstantWarp ? 0f : 0.05f;
 
         yield return new WaitForSeconds(waitBeforeWarp);
         playerCharacterController.enabled = false;
