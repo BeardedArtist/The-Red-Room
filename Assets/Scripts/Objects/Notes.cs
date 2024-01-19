@@ -63,7 +63,6 @@ public class Notes : MonoBehaviour
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
 
                         noteUI.SetActive(true); //Making background of page appear
-                        gameObjectAndTextPages[1].SetActive(true); //Making text of first page appear
                         characterController.enabled = false;
                         mouseLook.mouseSensitivity = 0;
                         pickUpUI.SetActive(false);
@@ -134,16 +133,12 @@ public class Notes : MonoBehaviour
                 characterController.enabled = true;
                 mouseLook.enabled = true;
                 mouseLook.mouseSensitivity = 3;
+                pickUpUI.SetActive(false);
 
                 //Reseting page count & setting last page off
                 gameObjectAndTextPages[gameObjectAndTextPages.Length - 1].SetActive(false);
                 pageCount = 2;
-
-                isPickedUp = false;
-
-                blink_Script.enabled = true;
                 
-
                 // isBloodyNotePickedUp = true;
 
                 if (isPickedUp == true)
@@ -156,6 +151,9 @@ public class Notes : MonoBehaviour
                     bloodAnimation.BloodRiseAnimation_1_BathroomSink();
                     bloodAnimation.BloodRiseAnimation_2_BathroomRoom();
                 }
+
+                isPickedUp = false;
+                blink_Script.enabled = true;
             }
         }
     }

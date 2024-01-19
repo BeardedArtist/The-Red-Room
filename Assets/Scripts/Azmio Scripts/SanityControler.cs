@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SanityControler : MonoBehaviour
 {
+    [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] private Slider sanitySlider;
     [SerializeField] private float maxSanity; // Make it so that this also displays the Sanity value going down
     [SerializeField] private float sanityDecreaseRate;  // Amount of sanity decrease per seconds
@@ -23,11 +24,22 @@ public class SanityControler : MonoBehaviour
     {
         everySecondTimer -= Time.deltaTime;
 
-        if (everySecondTimer <= 0 && currentSanity > 0f)
+        if (everySecondTimer <= 0 && currentSanity > 0)
         {
             _DecreaseSanity(sanityDecreaseRate);
 
+            if (currentSanity <= 50)
+            {
+                _playerMovement.sprintSpeed -= 2f / 50; // Sprint speed - walk speed = currently equals to 2, so we divide it by the 50 seconds left.
+            }
+
             everySecondTimer = 1f;
+        }
+
+        // Test
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentSanity = 50;
         }
     }
 
