@@ -6,12 +6,13 @@ using TMPro;
 
 public class ChoHan : MonoBehaviour
 {
-    [SerializeField] private TMP_Text resultText;
-    [SerializeField] private TMP_Text winLossText;
-    [SerializeField] private Blink blink_Script;
+    [SerializeField] TMP_Text resultText;
+    [SerializeField] TMP_Text winLossText;
+    [SerializeField] Blink blink_Script;
     
-    private float clickCooldown = 0.05f;
-    private bool canClick = true;
+    float clickCooldown = 0.05f;
+    bool canClick = true;
+    bool isDoubles = false;
     
 
     void Update()
@@ -34,10 +35,16 @@ public class ChoHan : MonoBehaviour
         int diceRoll1 = Random.Range(1, 7);
         int diceRoll2 = Random.Range(1, 7);
 
+        //Calculations
         int total = diceRoll1 + diceRoll2;
         bool result = total % 2 == 0;
-
         resultText.text = total.ToString();
+
+        if (diceRoll1 == diceRoll2)
+        {
+            isDoubles = true;
+            resultText.text = total.ToString() + " Doubles";
+        }
 
         if ((result && isEven) || (!result && !isEven))
         {
@@ -50,7 +57,8 @@ public class ChoHan : MonoBehaviour
             // Player loses
             winLossText.text = "You Picked Even = " + isEven + " And you Lost!";
         }
-
+        
+        isDoubles = false;
         StartCoroutine(ClickCooldown());
     }
 
