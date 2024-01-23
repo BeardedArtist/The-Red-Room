@@ -8,10 +8,8 @@ public class LightPop : MonoBehaviour
     [SerializeField] private AudioClip audioClip;
     [SerializeField] private GameObject lightToDestroy;
 
-    private bool hasAudioPlayed = false;
-
-
     public Flashlight flashlightScript;
+    private bool hasAudioPlayed = false;
 
     
     private void OnTriggerEnter(Collider other) 
@@ -22,8 +20,8 @@ public class LightPop : MonoBehaviour
             Destroy(lightToDestroy);
             hasAudioPlayed = true;
 
-            flashlightScript.flashlight.SetActive(false);
-            flashlightScript.lightIsOn = false;
+            flashlightScript.flashlight.enabled = false;
+            flashlightScript._lightIsOn = false;
         }    
     }
 }

@@ -29,7 +29,7 @@ public class BreakFlashlight : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         flashlight_Flicker.SetActive(false);
-        flashlight_Script.lightIsOn = false;
+        flashlight_Script._lightIsOn = false;
 
         flashlight_Script.enabled = false;
     }

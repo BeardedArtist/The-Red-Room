@@ -30,8 +30,8 @@ public class BehindTrigger : MonoBehaviour
             flickerControl.enabled = false;
             lightToBeTurnedOff.SetActive(false);
 
-            flashlightScript.flashlight.SetActive(false);
-            flashlightScript.lightIsOn = false;
+            flashlightScript.flashlight.enabled = false;
+            flashlightScript._lightIsOn = false;
 
             hasColliderTriggered = true;
         }    

@@ -33,7 +33,7 @@ public class AIController_Stalking : MonoBehaviour
             if (pointsToWalkTo[i] == null)
             {
                 flashlight_Light.SetActive(false);
-                flashlight_Script.lightIsOn = false;
+                flashlight_Script._lightIsOn = false;
                 gameObject.SetActive(false);
                 Debug.Log("Destroy");
             }

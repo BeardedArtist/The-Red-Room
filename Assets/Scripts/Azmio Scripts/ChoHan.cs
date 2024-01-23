@@ -1,30 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ChoHan : MonoBehaviour
 {
+    [SerializeField] SanityControler _sanityControler;
+    [SerializeField] TMP_Text betChoiceText;
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text winLossText;
-    [SerializeField] Blink blink_Script;
     
-    float clickCooldown = 0.05f;
+    public bool _rolledChoHan = false;
     bool canClick = true;
     bool isDoubles = false;
     
 
     void Update()
     {
-        if (canClick && Input.GetKey(KeyCode.F))
+        if (_rolledChoHan)
         {
-            blink_Script.enabled = false;
+            betChoiceText.gameObject.SetActive(true);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             PlayGame(true);
 
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             PlayGame(false);
         }
     }
@@ -43,30 +43,30 @@ public class ChoHan : MonoBehaviour
         if (diceRoll1 == diceRoll2)
         {
             isDoubles = true;
-            resultText.text = total.ToString() + " Doubles";
+            resultText.text = total.ToString() + " (Doubles)";
         }
 
-        if ((result && isEven) || (!result && !isEven))
+        if ((result && isEven) || (!result && !isEven)) // Player wins
         {
-            // Player wins
             winLossText.text = "You Picked Even = " + isEven + " And you Won!";
+            
+            if (isDoubles)
+            {
+                _sanityControler.currentSanity += total * 2;
+            }
+            else
+            {
+                _sanityControler.currentSanity += total;
+            }
+            
         }
-
-        else
+        else // Player loses
         {
-            // Player loses
             winLossText.text = "You Picked Even = " + isEven + " And you Lost!";
         }
         
+        betChoiceText.gameObject.SetActive(false);
         isDoubles = false;
-        StartCoroutine(ClickCooldown());
-    }
-
-
-    IEnumerator ClickCooldown()
-    {
-        canClick = false;
-        yield return new WaitForSeconds(clickCooldown);
-        canClick = true;
+        _rolledChoHan = false;
     }
 }
