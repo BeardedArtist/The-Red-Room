@@ -52,5 +52,10 @@ public class ItemPickup : MonoBehaviour
                 Pickup();
             }
         }
+
+        else
+        {
+            pickupUI.SetActive(false);
+        }
     }
 }

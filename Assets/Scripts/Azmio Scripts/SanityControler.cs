@@ -11,6 +11,7 @@ public class SanityControler : MonoBehaviour
     [SerializeField] private float sanityDecreaseRate;  // Amount of sanity decrease per seconds
 
     public float currentSanity;
+    public float sprintSpeedDecreaseRate;
     private float everySecondTimer = 1f;
 
 
@@ -31,7 +32,7 @@ public class SanityControler : MonoBehaviour
 
             if (currentSanity <= 50)
             {
-                _playerMovement.sprintSpeed -= 2f / 50; // Sprint speed - walk speed = currently equals to 2, so we divide it by the 50 seconds left to get a smooth slow down.
+                _playerMovement.sprintSpeed -= sprintSpeedDecreaseRate / 50; // Sprint speed - walk speed = currently equals to 2, so we divide it by the 50 seconds left to get a smooth slow down.
             }
 
             everySecondTimer = 1f;
