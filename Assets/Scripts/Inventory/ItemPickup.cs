@@ -6,8 +6,8 @@ public class ItemPickup : MonoBehaviour
 {
     public Item Item;
     private bool trig;
-
     [SerializeField] private GameObject pickupUI;
+    [SerializeField] private GameObject[] ObjectsToAppear;
 
     void Pickup()
     {
@@ -15,9 +15,21 @@ public class ItemPickup : MonoBehaviour
         Destroy(gameObject);
         InventoryManager.Instance.Add(Item);
         pickupUI.SetActive(false);
+
+        for (int j = 0; j < ObjectsToAppear.Length; j++)
+        {
+            if (ObjectsToAppear[j] == null)
+            {
+                return;
+            }
+            else
+            {
+                ObjectsToAppear[j].SetActive(true);
+            }
+        }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Flashlight Eyes 2")
         {
@@ -25,20 +37,20 @@ public class ItemPickup : MonoBehaviour
             pickupUI.SetActive(true);
         }
     }
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         trig = false;
         pickupUI.SetActive(false);
     }
 
-    private void Update() 
+    private void Update()
     {
         if (trig)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Pickup();
-            }    
+            }
         }
     }
 }
