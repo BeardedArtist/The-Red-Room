@@ -44,8 +44,8 @@ public class DialogueManager : MonoBehaviour
         if(StopPlayer){
             playerMovement.walkSpeed = 0;
             Debug.Log("Stopping Player");
-          
         }
+
         switch (Dialogue.Count)
         {
             case 1:
@@ -76,7 +76,6 @@ public class DialogueManager : MonoBehaviour
                 Debug.LogError("No Dialogue Entered");
                 break;
         }
-
     }
 
     private void PlayAudioClip(AudioClip clip)
@@ -116,12 +115,10 @@ public class DialogueManager : MonoBehaviour
                     false,
                     null,
                     true);
-
             });
         }
 
     }
-
 }
 
 
