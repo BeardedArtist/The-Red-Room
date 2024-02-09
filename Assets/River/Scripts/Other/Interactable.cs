@@ -7,15 +7,22 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl,BookShelf }
+    public enum InteractableType { FishBowl,BookShelf,TestObject }
+    [Serializable]
+    public struct Response{
+        public string ResponseShort;
+        public List<string> ResponseLong;
+        public List<AudioClip> Responseclips;
+
+        [Range(1f, 10f)] public float DisableDelay;
+    }
     
     [Serializable]
     public struct Details
     {
         [TextArea(1,5)]public List<string> Dialogue;
         public List<AudioClip> DialogueAudio;
-        public List<string> Responses;
-        public List<AudioClip> ResponseClips;
+        public List<Response> Responses;
         public bool DisableAfterDialogue;
         [Range(1f, 10f)] public float DisableDelay;
         [Range(1, 4)] public int Day;
@@ -38,11 +45,15 @@ public class Interactable : MonoBehaviour
         switch (type)
         {
             case InteractableType.BookShelf :
-                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio);
+                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,false,null,false);
                 break;
             case InteractableType.FishBowl :
-                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio);
+                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,false,null,false);
                 break;
+            case InteractableType.TestObject:
+                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,true,AllDetails[0].Responses,true);
+                break;
+
             default:
                 throw new ArgumentOutOfRangeException();
         }

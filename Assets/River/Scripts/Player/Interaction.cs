@@ -5,6 +5,8 @@ using UnityEngine;
 public class Interaction : MonoBehaviour
 {
     public GameObject Camera;
+    public GameObject Interacttext;
+
 
     [Range(1f,10f)] public float InteractionRange;
     public RaycastHit HitInfo;
@@ -14,12 +16,22 @@ public class Interaction : MonoBehaviour
     {
         if(Physics.Raycast(Camera.transform.position, Camera.transform.forward, out HitInfo,InteractionRange)){
             if(HitInfo.transform.GetComponent<Interactable>()!=null){
-                Debug.Log(HitInfo.trasform.gameObject.name);
+                Interacttext.SetActive(true);
+                Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
-                if(Input.GetMouseButtonDown(0)){
+                if(Input.GetKeyDown(KeyCode.E)){
+                     Interacttext.SetActive(false);
                     interactable.Interact();
+                    interactable.GetComponent<Collider>().enabled = false;
                 }
             }
+            else{
+                Interacttext.SetActive(false);
+            }
         }
+        else{
+             Interacttext.SetActive(false);
+        }
+        
     }
 }
