@@ -294,6 +294,10 @@ PrefabInstance:
       value: corridor_wall_C_window (9)
       objectReference: {fileID: 0}
     - target: {fileID: 4320061722140364, guid: 644ea7c39f6b2d54ea335d5ff07131a0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320061722140364, guid: 644ea7c39f6b2d54ea335d5ff07131a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
