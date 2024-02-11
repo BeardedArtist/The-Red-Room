@@ -20,7 +20,7 @@ public class MouseLook : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (CanLook)
         {
@@ -33,8 +33,11 @@ public class MouseLook : MonoBehaviour
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f); // limit player camera movement for up and down. 
 
-            transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-            playerBody.Rotate(Vector3.up * mouseX); // allows for players to look left/right w/mouse.
+           
+                transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+                playerBody.Rotate(Vector3.up * mouseX); // allows for players to look left/right w/mouse.
         }
+            
+       
     }
 }
