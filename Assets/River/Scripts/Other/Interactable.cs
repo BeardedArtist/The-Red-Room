@@ -13,7 +13,8 @@ public class Interactable : MonoBehaviour
         public string ResponseShort;
         public List<string> ResponseLong;
         public List<AudioClip> Responseclips;
-
+        public bool StopCameraMovement;
+        [Tooltip("Optional")]public Transform LookAtWhileTalking;
         [Range(1f, 10f)] public float DisableDelay;
     }
     
@@ -25,6 +26,9 @@ public class Interactable : MonoBehaviour
         public List<Response> Responses;
         public bool DisableAfterDialogue;
         [Range(1f, 10f)] public float DisableDelay;
+        public bool StopPlayer;
+        public bool StopCameraMovement;
+        [Tooltip("Optional")]public Transform LookAtWhileTalking;
         [Range(1, 4)] public int Day;
     }
 
@@ -42,16 +46,17 @@ public class Interactable : MonoBehaviour
     [ButtonMethod]
     public void Interact()
     {
+        var DialogueDetails = AllDetails[0];
         switch (type)
         {
             case InteractableType.BookShelf :
-                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,false,null,false);
+                DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,false,null,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
             case InteractableType.FishBowl :
-                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,false,null,false);
+                DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,false,null,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
             case InteractableType.TestObject:
-                DialogueManager.instance.ShowDialogue("Player",AllDetails[0].Dialogue,AllDetails[0].DisableAfterDialogue,AllDetails[0].DisableDelay,AllDetails[0].DialogueAudio,true,AllDetails[0].Responses,true);
+                DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.Responses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
 
             default:
