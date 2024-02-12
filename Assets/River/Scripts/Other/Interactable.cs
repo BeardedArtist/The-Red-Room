@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl,BookShelf,TestObject }
+    public enum InteractableType { FishBowl,BookShelf,TestObject,Gizmo}
     [Serializable]
     public struct Response{
         public string ResponseShort;
