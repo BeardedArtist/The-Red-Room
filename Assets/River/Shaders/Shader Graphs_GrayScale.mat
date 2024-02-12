@@ -37,9 +37,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FilmGrain: 0
-    - _Fresnel_Effect: 0
-    - _Use_Scene_Light: 0
+    - _FilmGrain: 100000
+    - _Fresnel_Effect: 0.674
+    - _Use_Scene_Light: 1
     m_Colors:
     - _Overlay: {r: 0.8980392, g: 0.07058823, b: 0.078607254, a: 0.682353}
   m_BuildTextureStacks: []
