@@ -18,6 +18,9 @@ public class DialogueManager : MonoBehaviour
 
     public PlayerMovement playerMovement;
     public MouseLook MouseLookScript;
+
+    public Transform Player, Camera;
+    
     public List<GameObject> Responses;
     public GameObject ResponsePanel;
 
@@ -168,16 +171,21 @@ public class DialogueManager : MonoBehaviour
     {
         while (true)
         {
-            var cameraDirection = MouseLookScript.transform.forward;
-            var directionToTarget = (target.position - MouseLookScript.transform.position).normalized;
+            var cameraDirection = Camera.forward;
+            var directionToTarget = (target.position - Camera.position).normalized;
 
             if (Vector3.Dot(cameraDirection, directionToTarget) > 0.99f)
             {
                 StopCoroutine(LookAtObjectCoroutine);
-                yield break; // Camera is looking almost directly at the target
+                yield break; 
             }
 
-            MouseLookScript.transform.rotation = Quaternion.Slerp(MouseLookScript.transform.rotation, Quaternion.LookRotation(directionToTarget), Time.deltaTime);
+            var targetRotation = Quaternion.LookRotation(directionToTarget);
+            // Apply Y rotation to Player
+            Player.rotation = Quaternion.Slerp(Player.rotation, Quaternion.Euler(0, targetRotation.eulerAngles.y, 0), Time.deltaTime);
+            // Apply X rotation to Camera
+            Camera.rotation = Quaternion.Slerp(Camera.rotation, Quaternion.Euler(targetRotation.eulerAngles.x, Camera.eulerAngles.y, 0), Time.deltaTime);
+            
             yield return null;
         }
     }

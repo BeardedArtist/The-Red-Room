@@ -9,10 +9,10 @@ public class Interaction : MonoBehaviour
 
 
     [Range(1f,10f)] public float InteractionRange;
-    public RaycastHit HitInfo;
+    private RaycastHit HitInfo;
 
 
-    void Update()
+    private void Update()
     {
         if(Physics.Raycast(Camera.transform.position, Camera.transform.forward, out HitInfo,InteractionRange)){
             if(HitInfo.transform.GetComponent<Interactable>()!=null){
@@ -32,6 +32,5 @@ public class Interaction : MonoBehaviour
         else{
              Interacttext.SetActive(false);
         }
-        
     }
 }
