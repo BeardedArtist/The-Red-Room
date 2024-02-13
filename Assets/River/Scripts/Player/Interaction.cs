@@ -12,7 +12,7 @@ public class Interaction : MonoBehaviour
     private RaycastHit HitInfo;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(Physics.Raycast(Camera.transform.position, Camera.transform.forward, out HitInfo,InteractionRange)){
             if(HitInfo.transform.GetComponent<Interactable>()!=null){

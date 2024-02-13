@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f; // apply a speed to mouse movement.
+    [Range(0f,100f)]public float mouseSensitivity = 100f; // apply a speed to mouse movement.
 
     float xRotation = 0f;
 
@@ -12,11 +12,24 @@ public class MouseLook : MonoBehaviour
     
     public bool CanLook = true;
 
+    [HideInInspector]public float UpdatedMouseSensitivity;
     // Start is called before the first frame update
     void Start()
     {
+        UpdatedMouseSensitivity = mouseSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
-        // hide and lock cursor.
+        PauseMenuManager.MenuStatusToggled += (opened) =>
+        {
+            if (opened)
+            {
+                UpdatedMouseSensitivity = mouseSensitivity;
+                mouseSensitivity = 0f; 
+            }
+            else
+            {
+                mouseSensitivity = UpdatedMouseSensitivity; 
+            }
+        };
     }
 
     // Update is called once per frame

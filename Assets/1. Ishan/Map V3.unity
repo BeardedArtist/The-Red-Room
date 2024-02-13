@@ -3574,6 +3574,7 @@ MonoBehaviour:
     Day: 1
   GizmoSize: 0.75
   GizmoColor: {r: 0.49019608, g: 0.78431374, b: 0.7843137, a: 0.24705882}
+  ThingsToDisable: []
 --- !u!135 &143933502
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11305,6 +11306,7 @@ MonoBehaviour:
     Day: 4
   GizmoSize: 0.75
   GizmoColor: {r: 0.49019608, g: 0.78431374, b: 0.7843137, a: 0.24705882}
+  ThingsToDisable: []
 --- !u!135 &378405147
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -27341,6 +27343,7 @@ MonoBehaviour:
     Day: 4
   GizmoSize: 1.61
   GizmoColor: {r: 1, g: 0, b: 0, a: 0.53333336}
+  ThingsToDisable: []
 --- !u!65 &1067502203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49134,6 +49137,63 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1865130917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1865130919}
+  - component: {fileID: 1865130918}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1865130918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865130917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99bad25836569b745951fe5bd53b88f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  AllDetails: []
+  GizmoSize: 0
+  GizmoColor: {r: 0, g: 0, b: 0, a: 0}
+  ThingsToDisable:
+  - ObjectToUpdate: {fileID: 625406574}
+    Status: 0
+  - ObjectToUpdate: {fileID: 0}
+    Status: 0
+  - ObjectToUpdate: {fileID: 0}
+    Status: 0
+  - ObjectToUpdate: {fileID: 0}
+    Status: 0
+--- !u!4 &1865130919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865130917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.7663825, y: 1.0569336, z: 2.0875802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1865252111
 GameObject:
   m_ObjectHideFlags: 0
@@ -58400,8 +58460,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   AllDetails: []
-  GizmoSize: 2.5
-  GizmoColor: {r: 0.7509433, g: 0.7509433, b: 0.7509433, a: 0}
+  GizmoSize: 0.75
+  GizmoColor: {r: 0.7509433, g: 0.7509433, b: 0.7509433, a: 0.2784314}
+  ThingsToDisable: []
 --- !u!1001 &1637430059533028503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58810,8 +58871,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   AllDetails: []
-  GizmoSize: 10
-  GizmoColor: {r: 0.9924528, g: 0.51328504, b: 0, a: 0}
+  GizmoSize: 0.56
+  GizmoColor: {r: 0.9924528, g: 0.51328504, b: 0, a: 0.6117647}
+  ThingsToDisable: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -58834,3 +58896,4 @@ SceneRoots:
   - {fileID: 1950936785}
   - {fileID: 1231485740}
   - {fileID: 259024346}
+  - {fileID: 1865130919}

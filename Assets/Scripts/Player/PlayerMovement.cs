@@ -93,10 +93,21 @@ public class PlayerMovement : MonoBehaviour
         mouseLook = GetComponent<MouseLook>(); // TEST
         defaultYPos = playerCamera.transform.localPosition.y;
 
-
-
-        Cursor.lockState = CursorLockMode.Locked; // THIS MAY CAUSE ISSUES WITH CURRENT IMPLEMENTATION
-        Cursor.visible = false; // MAY CAUSE ISSUES
+        var InitialSpeed = walkSpeed;
+        PauseMenuManager.MenuStatusToggled += (opened) =>
+        {
+            if (opened)
+            {
+                InitialSpeed = walkSpeed;
+                walkSpeed = 0f; 
+            }
+            else
+            {
+                walkSpeed = InitialSpeed; 
+            }
+           
+        };
+        
     }
 
     private void Update() 
