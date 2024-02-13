@@ -19,11 +19,10 @@ public class Interaction : MonoBehaviour
                 Interacttext.SetActive(true);
                 Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
-                if(Input.GetKeyDown(KeyCode.E)){
-                     Interacttext.SetActive(false);
-                    interactable.Interact();
-                    interactable.GetComponent<Collider>().enabled = false;
-                }
+                if (!Input.GetKeyDown(KeyCode.E)) return;
+                Interacttext.SetActive(false);
+                interactable.Interact();
+                if(interactable.type != Interactable.InteractableType.Door)interactable.GetComponent<Collider>().enabled = false;
             }
             else{
                 Interacttext.SetActive(false);

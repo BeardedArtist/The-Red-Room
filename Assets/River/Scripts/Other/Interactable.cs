@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl,BookShelf,TestObject,Gizmo,Note}
+    public enum InteractableType { FishBowl,BookShelf,TestObject,Gizmo,Note,Door}
     [Serializable]
     public struct Response{
         public string ResponseShort;
@@ -60,6 +60,10 @@ public class Interactable : MonoBehaviour
         var DialogueDetails = AllDetails[0];
         switch (type)
         {
+            case InteractableType.Door :
+                var animator = GetComponent<Animator>();
+                animator.SetBool("Open",!animator.GetBool("Open"));
+                break;
             case InteractableType.BookShelf :
                 DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,false,null,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
