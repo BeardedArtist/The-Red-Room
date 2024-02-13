@@ -62510,6 +62510,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Altered School Building
       objectReference: {fileID: 0}
+    - target: {fileID: 4730875651407382304, guid: 5fd0bb0b1ebba224c89c41a4acfea9c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62737,6 +62741,10 @@ PrefabInstance:
     - target: {fileID: 291826533209800930, guid: e1fe792ccd062a74aa72f98b0f0f80fc, type: 3}
       propertyPath: m_Name
       value: Altered Building Props set
+      objectReference: {fileID: 0}
+    - target: {fileID: 291826533209800930, guid: e1fe792ccd062a74aa72f98b0f0f80fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3783986183985458617, guid: e1fe792ccd062a74aa72f98b0f0f80fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62991,6 +62999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Altered Staircase
       objectReference: {fileID: 0}
+    - target: {fileID: 7214099911616962703, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9009605309821221973, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -51.839
@@ -63098,7 +63110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6631018727051127521, guid: a9945352f37728f42b65984b76cc0c9f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -63152,10 +63164,10 @@ SceneRoots:
   - {fileID: 88875284022408594}
   - {fileID: 2836952482959880784}
   - {fileID: 6241779719983364793}
+  - {fileID: 53287463}
   - {fileID: 2125125881}
   - {fileID: 1950936785}
   - {fileID: 1231485740}
   - {fileID: 259024346}
   - {fileID: 1865130919}
   - {fileID: 1046019175}
-  - {fileID: 53287463}
