@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 5325994062328604391}
   - component: {fileID: 680075934298577623}
   - component: {fileID: 8456895247113722}
+  - component: {fileID: 6871647761031175867}
   m_Layer: 0
   m_Name: Door 1
   m_TagString: Untagged
@@ -163,6 +164,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99499995, y: 1.99, z: 0.045}
   m_Center: {x: -0.4725, y: 1.005, z: 0.02}
+--- !u!114 &6871647761031175867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292816072448539456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99bad25836569b745951fe5bd53b88f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 5
+  AllDetails: []
+  GizmoSize: 0
+  GizmoColor: {r: 0, g: 0, b: 0, a: 0}
+  ThingsToDisable: []
 --- !u!1 &3665880269031350614
 GameObject:
   m_ObjectHideFlags: 0
