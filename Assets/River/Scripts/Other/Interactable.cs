@@ -57,14 +57,19 @@ public class Interactable : MonoBehaviour
     [ButtonMethod]
     public void Interact()
     {
-        var DialogueDetails = AllDetails[0];
+        
+        Details DialogueDetails = new Details();
+            
+        if(AllDetails.Count>0) DialogueDetails = AllDetails[0];
         switch (type)
         {
+            
             case InteractableType.Door :
-                var animator = GetComponent<Animator>();
+                var animator = GetComponentInParent<Animator>();
                 animator.SetBool("Open",!animator.GetBool("Open"));
                 break;
             case InteractableType.BookShelf :
+                
                 DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,false,null,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
             case InteractableType.FishBowl :

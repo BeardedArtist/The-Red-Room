@@ -17,7 +17,7 @@ public class Interaction : MonoBehaviour
         if(Physics.Raycast(Camera.transform.position, Camera.transform.forward, out HitInfo,InteractionRange)){
             if(HitInfo.transform.GetComponent<Interactable>()!=null){
                 Interacttext.SetActive(true);
-                Debug.Log(HitInfo.transform.gameObject.name);
+                //Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
                 if (!Input.GetKeyDown(KeyCode.E)) return;
                 Interacttext.SetActive(false);

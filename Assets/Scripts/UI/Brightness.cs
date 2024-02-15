@@ -8,30 +8,31 @@ using UnityEngine.Rendering.Universal;
 
 public class Brightness : MonoBehaviour
 {
-    [SerializeField] private Volume volume;
-    private ColorAdjustments colorAdjustments;
-    public Slider brightnessSlider;
-
-    private void Start() 
-    {
-        //volume = GetComponent<Volume>();
-        volume.profile.TryGet(out colorAdjustments);
-
-        Test(brightnessSlider.value);
-
-    }
-
-    public void Test(float value)
-    {
-        if (value != 0)
-        {
-            colorAdjustments.postExposure.value = value;
-        }
-        else
-        {
-            colorAdjustments.postExposure.value = 0f;
-        }
-    }
+    //@Azmio @Bearded This code is obsolete in the latest build and therefore has been commented out
+    // [SerializeField] private Volume volume;
+    // private ColorAdjustments colorAdjustments;
+    // public Slider brightnessSlider;
+    //
+    // private void Start() 
+    // {
+    //     //volume = GetComponent<Volume>();
+    //     volume.profile.TryGet(out colorAdjustments);
+    //
+    //     Test(brightnessSlider.value);
+    //
+    // }
+    //
+    // public void Test(float value)
+    // {
+    //     if (value != 0)
+    //     {
+    //         colorAdjustments.postExposure.value = value;
+    //     }
+    //     else
+    //     {
+    //         colorAdjustments.postExposure.value = 0f;
+    //     }
+    // }
 
 
 
