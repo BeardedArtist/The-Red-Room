@@ -2,9 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-
+using UnityEngine.Serialization;
+using System;
+using MyBox;
 public class PlayerWarp : MonoBehaviour
 {
+    #region Predefined
+    [Serializable]
+    public struct UpdatableGameobjects
+    {
+        public GameObject ObjectToUpdate;
+        public bool Status;
+    }
+    
+    #endregion
     [SerializeField] GameObject warpPlayerDestination;
 
     [SerializeField] GameObject player;
@@ -18,6 +29,12 @@ public class PlayerWarp : MonoBehaviour
     bool playerInTrigger = false;
     bool eKeyPressed = false;
 
+    [Foldout("Details", true)] 
+    [SerializeField]public List<UpdatableGameobjects> ThingsToDisable;
+
+    public bool EnableGameObjectsOnLoop;
+
+    [FormerlySerializedAs("RotatePlayer")] public bool KeepPlayerRotation;
 
     void Start()
     {
@@ -86,7 +103,19 @@ public class PlayerWarp : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeWarp);
         playerCharacterController.enabled = false;
         player.transform.position = warpPlayer.transform.position;
-        player.transform.rotation = warpPlayer.transform.rotation;
+        if (!KeepPlayerRotation)
+        {
+            player.transform.rotation = warpPlayer.transform.rotation;
+        }
+
+       
         playerCharacterController.enabled = true;
+        if (EnableGameObjectsOnLoop)
+        {
+            foreach (var Object in ThingsToDisable)
+            {
+                Object.ObjectToUpdate.SetActive(Object.Status);
+            }
+        }
     }
 }

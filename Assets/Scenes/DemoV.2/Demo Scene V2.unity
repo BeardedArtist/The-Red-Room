@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011208198, g: 0.0016114975, b: 0.0030456455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1856,6 +1856,11 @@ Transform:
   - {fileID: 184473446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &64763436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 291826533209800930, guid: e1fe792ccd062a74aa72f98b0f0f80fc, type: 3}
+  m_PrefabInstance: {fileID: 2836952482959880784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &83063398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,6 +3457,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &132691743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2558739500694110985, guid: a3bf2e0a6f3d49c498f9c18e7905619e, type: 3}
+  m_PrefabInstance: {fileID: 1637430059533028503}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143933499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3529,7 +3539,6 @@ MonoBehaviour:
     Day: 1
   GizmoSize: 0.75
   GizmoColor: {r: 0.49019608, g: 0.78431374, b: 0.7843137, a: 0.24705882}
-  ThingsToDisable: []
 --- !u!135 &143933502
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4942,6 +4951,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &176343522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4730875651407382304, guid: 5fd0bb0b1ebba224c89c41a4acfea9c5, type: 3}
+  m_PrefabInstance: {fileID: 88875284022408594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &177329870
 Mesh:
   m_ObjectHideFlags: 0
@@ -11991,7 +12005,6 @@ MonoBehaviour:
     Day: 4
   GizmoSize: 0.75
   GizmoColor: {r: 0.49019608, g: 0.78431374, b: 0.7843137, a: 0.24705882}
-  ThingsToDisable: []
 --- !u!135 &378405147
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12372,6 +12385,9 @@ MonoBehaviour:
   isWarpLoops: 0
   loopAmount: 0
   warpPlayerFinalDestination: {fileID: 0}
+  ThingsToDisable: []
+  EnableGameObjectsOnLoop: 0
+  KeepPlayerRotation: 0
 --- !u!65 &386521979
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21954,6 +21970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700878247}
   - component: {fileID: 700878246}
+  - component: {fileID: 700878248}
   m_Layer: 0
   m_Name: TP trigger (Start)
   m_TagString: Untagged
@@ -21997,6 +22014,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700878248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700878245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26e505bff2198a49b653d59f99fb5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpPlayerDestination: {fileID: 473567264}
+  player: {fileID: 99793229}
+  isInstantWarp: 1
+  isWarpLoops: 0
+  loopAmount: 1
+  warpPlayerFinalDestination: {fileID: 473567264}
+  ThingsToDisable:
+  - ObjectToUpdate: {fileID: 288626416}
+    Status: 1
+  - ObjectToUpdate: {fileID: 176343522}
+    Status: 1
+  - ObjectToUpdate: {fileID: 64763436}
+    Status: 1
+  - ObjectToUpdate: {fileID: 1487522352}
+    Status: 1
+  - ObjectToUpdate: {fileID: 132691743}
+    Status: 0
+  - ObjectToUpdate: {fileID: 1645847461}
+    Status: 0
+  - ObjectToUpdate: {fileID: 2095322568}
+    Status: 0
+  - ObjectToUpdate: {fileID: 184473445}
+    Status: 1
+  - ObjectToUpdate: {fileID: 1456642388}
+    Status: 0
+  - ObjectToUpdate: {fileID: 422709328}
+    Status: 1
+  EnableGameObjectsOnLoop: 1
+  KeepPlayerRotation: 1
 --- !u!1001 &714306730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22390,7 +22448,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 3
   GizmoColor: {r: 1, g: 0.77003056, b: 0, a: 0.44313726}
-  ThingsToDisable: []
 --- !u!1 &720162787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8190613055865516631, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
@@ -30440,7 +30497,6 @@ MonoBehaviour:
     Day: 4
   GizmoSize: 1.61
   GizmoColor: {r: 1, g: 0, b: 0, a: 0.53333336}
-  ThingsToDisable: []
 --- !u!65 &1067502203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30882,7 +30938,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 1.5
   GizmoColor: {r: 1, g: 0.8210957, b: 0, a: 0.44313726}
-  ThingsToDisable: []
 --- !u!1 &1077065002
 GameObject:
   m_ObjectHideFlags: 0
@@ -32117,6 +32172,9 @@ MonoBehaviour:
   isWarpLoops: 1
   loopAmount: 4
   warpPlayerFinalDestination: {fileID: 461132725}
+  ThingsToDisable: []
+  EnableGameObjectsOnLoop: 0
+  KeepPlayerRotation: 0
 --- !u!65 &1102056847
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32914,6 +32972,9 @@ MonoBehaviour:
   isWarpLoops: 1
   loopAmount: 4
   warpPlayerFinalDestination: {fileID: 909164757}
+  ThingsToDisable: []
+  EnableGameObjectsOnLoop: 0
+  KeepPlayerRotation: 0
 --- !u!65 &1128966053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33412,15 +33473,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.849
+      value: 18.104
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.764
+      value: -2.254
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.937
+      value: -11.929
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33735,6 +33796,9 @@ MonoBehaviour:
   isWarpLoops: 1
   loopAmount: 4
   warpPlayerFinalDestination: {fileID: 178435300}
+  ThingsToDisable: []
+  EnableGameObjectsOnLoop: 0
+  KeepPlayerRotation: 0
 --- !u!65 &1179768997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43744,7 +43808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1456642389
 Transform:
   m_ObjectHideFlags: 0
@@ -44351,6 +44415,11 @@ Transform:
   - {fileID: 325597627}
   m_Father: {fileID: 259024346}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1487522352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7214099911616962703, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+  m_PrefabInstance: {fileID: 6241779719983364793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1490297865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6588101533244761843, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
@@ -48854,6 +48923,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6185427514470611722, guid: 8bab74f9e65da69469d9a5629cd30592, type: 3}
   m_PrefabInstance: {fileID: 1631013364}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1645847461 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6631018727051127521, guid: a9945352f37728f42b65984b76cc0c9f, type: 3}
+  m_PrefabInstance: {fileID: 6608881611555820866}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1649021741
 Mesh:
   m_ObjectHideFlags: 0
@@ -53174,6 +53248,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 5f6398f2d4b96834a9bf18f51df451b7, type: 2}
+    - target: {fileID: 4713916814210405459, guid: be3b2136cf55d574fb88f64424628d60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1653563271270862, guid: be3b2136cf55d574fb88f64424628d60, type: 3}
@@ -53697,15 +53775,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 0
   GizmoColor: {r: 0, g: 0, b: 0, a: 0}
-  ThingsToDisable:
-  - ObjectToUpdate: {fileID: 625406574}
-    Status: 0
-  - ObjectToUpdate: {fileID: 0}
-    Status: 0
-  - ObjectToUpdate: {fileID: 0}
-    Status: 0
-  - ObjectToUpdate: {fileID: 0}
-    Status: 0
 --- !u!4 &1865130919
 Transform:
   m_ObjectHideFlags: 0
@@ -76254,7 +76323,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 0.75
   GizmoColor: {r: 0.7509433, g: 0.7509433, b: 0.7509433, a: 0.2784314}
-  ThingsToDisable: []
 --- !u!1 &319071860079181868 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3629623476365024044, guid: 7e86e053fc012f640938a547a27206ab, type: 3}
@@ -76286,7 +76354,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 1.2
   GizmoColor: {r: 1, g: 0.9319992, b: 0, a: 0.5058824}
-  ThingsToDisable: []
 --- !u!114 &319071860079181872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76303,7 +76370,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 0.6
   GizmoColor: {r: 1, g: 0.92165136, b: 0, a: 0.4392157}
-  ThingsToDisable: []
 --- !u!114 &319071860079181873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76320,7 +76386,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 1.2
   GizmoColor: {r: 1, g: 0.9372549, b: 0, a: 0.45490196}
-  ThingsToDisable: []
 --- !u!1001 &1637430059533028503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76376,6 +76441,10 @@ PrefabInstance:
     - target: {fileID: 4596143777693191408, guid: a3bf2e0a6f3d49c498f9c18e7905619e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488729789337372930, guid: a3bf2e0a6f3d49c498f9c18e7905619e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -80552,7 +80621,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 0.56
   GizmoColor: {r: 0.9924528, g: 0.51328504, b: 0, a: 0.6117647}
-  ThingsToDisable: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

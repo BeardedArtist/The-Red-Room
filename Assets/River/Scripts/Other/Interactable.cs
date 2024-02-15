@@ -34,12 +34,7 @@ public class Interactable : MonoBehaviour
         [Range(1, 4)] public int Day;
     }
 
-    [Serializable]
-    public struct UpdatableGameobjects
-    {
-        public GameObject ObjectToUpdate;
-        public bool Status;
-    }
+   
     #endregion
     
     public InteractableType type;
@@ -51,9 +46,7 @@ public class Interactable : MonoBehaviour
     [Range(0f, 10f)] public float GizmoSize;
     public Color GizmoColor;
 
-    [Foldout("Note Details", true)] 
-    [SerializeField]public List<UpdatableGameobjects> ThingsToDisable;
-    
+   
     [ButtonMethod]
     public void Interact()
     {
@@ -77,12 +70,6 @@ public class Interactable : MonoBehaviour
                 break;
             case InteractableType.TestObject:
                 DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.Responses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
-                break;
-            case InteractableType.Note:
-                foreach (var Object in ThingsToDisable)
-                {
-                    Object.ObjectToUpdate.SetActive(Object.Status);
-                }
                 break;
             case InteractableType.Gizmo:
                 break;
