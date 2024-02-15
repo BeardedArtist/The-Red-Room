@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011208198, g: 0.0016114975, b: 0.0030456455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22180,6 +22180,11 @@ MonoBehaviour:
   GizmoSize: 3
   GizmoColor: {r: 1, g: 0.77003056, b: 0, a: 0.44313726}
   ThingsToDisable: []
+--- !u!1 &720162787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8190613055865516631, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+  m_PrefabInstance: {fileID: 1171383439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &723145794
 Mesh:
   m_ObjectHideFlags: 0
@@ -72178,9 +72183,17 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6416340811932823137, guid: 7e86e053fc012f640938a547a27206ab, type: 3}
+      propertyPath: noteUI
+      value: 
+      objectReference: {fileID: 720162787}
+    - target: {fileID: 6416340811932823137, guid: 7e86e053fc012f640938a547a27206ab, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 99793229}
+    - target: {fileID: 6416340811932823137, guid: 7e86e053fc012f640938a547a27206ab, type: 3}
+      propertyPath: pickUpUI
+      value: 
+      objectReference: {fileID: 1171383441}
     - target: {fileID: 6417185367238843310, guid: 7e86e053fc012f640938a547a27206ab, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
