@@ -177,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4111636835209448}
+  - component: {fileID: 8673114111053978344}
   m_Layer: 0
   m_Name: door01_1
   m_TagString: Untagged
@@ -202,6 +203,27 @@ Transform:
   - {fileID: 4046795674746942}
   m_Father: {fileID: 4608684358066390}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &8673114111053978344
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576025297619292}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.081286, y: 2.099929, z: 0.25954366}
+  m_Center: {x: -0.009321213, y: 1.0067147, z: 0.007404834}
 --- !u!1 &1803865142340820
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +235,7 @@ GameObject:
   - component: {fileID: 4608684358066390}
   - component: {fileID: 33568002639597244}
   - component: {fileID: 23430645396343256}
+  - component: {fileID: 1865596868939629329}
   m_Layer: 0
   m_Name: corridor_wall_end_A2
   m_TagString: Untagged
@@ -288,6 +311,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1865596868939629329
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803865142340820}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: dcc2b1051367866408b45bc5c20ee7c0, type: 3}
 --- !u!1 &1855382226792712
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +427,7 @@ GameObject:
   - component: {fileID: 6420659146455289171}
   - component: {fileID: 5597380735436146082}
   - component: {fileID: 7478019208255468903}
+  - component: {fileID: 1661722886310528262}
   m_Layer: 0
   m_Name: corridor_wall_end_A2
   m_TagString: Untagged
@@ -455,3 +501,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1661722886310528262
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9051704476654264673}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: dcc2b1051367866408b45bc5c20ee7c0, type: 3}
