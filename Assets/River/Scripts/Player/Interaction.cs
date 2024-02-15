@@ -22,7 +22,7 @@ public class Interaction : MonoBehaviour
                 if (!Input.GetKeyDown(KeyCode.E)) return;
                 Interacttext.SetActive(false);
                 interactable.Interact();
-                if(interactable.type != Interactable.InteractableType.Door)interactable.GetComponent<Collider>().enabled = false;
+                interactable.GetComponent<Collider>().enabled = false;
             }
             else{
                 Interacttext.SetActive(false);

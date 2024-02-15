@@ -5,8 +5,8 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/DemoV.1/Start Screen.unity
+  - enabled: 1
+    path: Assets/Scenes/DemoV.2/Start Screen.unity
     guid: 46212a4300998fc41bd2854e1dbf0cfa
   - enabled: 0
     path: Assets/Scenes/DemoV.1/Intro Video.unity
@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoV.1/Demo_V.1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoV.2/DemoV.2_Blockout.unity
     guid: 6e1ef4834590f964ba6c64e082c1e23f
+  - enabled: 1
+    path: Assets/Scenes/DemoV.2/Demo Scene V2.unity
+    guid: bbb5cedcef152ed49b107b19d112f020
   m_configObjects: {}

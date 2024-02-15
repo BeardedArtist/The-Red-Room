@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using MyBox;
 using TMPro;
@@ -59,10 +60,11 @@ public class Interactable : MonoBehaviour
             
             case InteractableType.Door :
                 var animator = GetComponentInParent<Animator>();
+                Debug.Log("Updating Door"+ !animator.GetBool("Open"));
                 animator.SetBool("Open",!animator.GetBool("Open"));
+                DOVirtual.Float(0, 1, 0.1f, (value) => { }).OnComplete(() => { GetComponent<Collider>().enabled = true; });
                 break;
             case InteractableType.BookShelf :
-                
                 DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,false,null,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
                 break;
             case InteractableType.FishBowl :
