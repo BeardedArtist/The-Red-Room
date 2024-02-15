@@ -12,7 +12,7 @@ public class Flashlight : MonoBehaviour
     public GameObject lightFlashAbility;
 
     public bool _lightIsOn;
-    private float maxIntensity = 6f;
+    private float maxIntensity = 8f;
     private float intensityDecreaseRate = 0.05f;
 
 
