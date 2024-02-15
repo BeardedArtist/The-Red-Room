@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 5921541159786162756}
   - component: {fileID: 1412097860687235853}
   - component: {fileID: 8114254506730168742}
-  - component: {fileID: 5130436243710968092}
+  - component: {fileID: 6243428259372059429}
   m_Layer: 0
   m_Name: Big Room
   m_TagString: Untagged
@@ -382,8 +382,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5130436243710968092
-MeshCollider:
+--- !u!65 &6243428259372059429
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -400,10 +400,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.0000002, z: 6.123235e-17}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6725864941314852090
 GameObject:
   m_ObjectHideFlags: 0
