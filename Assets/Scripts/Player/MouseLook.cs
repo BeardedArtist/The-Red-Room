@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
     [Range(0f,100f)]public float mouseSensitivity = 100f; // apply a speed to mouse movement.
 
     float xRotation = 0f;
-
+    private float mouseX, mouseY;
     public Transform playerBody;
     
     public bool CanLook = true;
@@ -38,19 +38,21 @@ public class MouseLook : MonoBehaviour
         if (CanLook)
         {
             // TEST - Trying without Time.deltaTime;
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity; // get preprogrammed input for mouse on x-axis.
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity; // get preprogrammed input for mouse on x-axis.
+            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity; // get preprogrammed input for mouse on x-axis.
+            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity; // get preprogrammed input for mouse on x-axis.
             // TEST - Trying without Time.deltaTime;
 
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f); // limit player camera movement for up and down. 
 
-           
-                transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-                playerBody.Rotate(Vector3.up * mouseX); // allows for players to look left/right w/mouse.
+
+            transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            playerBody.Rotate(Vector3.up * mouseX); // allows for players to look left/right w/mouse.
         }
-            
-       
+        else
+        {
+            xRotation = transform.rotation.eulerAngles.x;
+        }
     }
 }
