@@ -121,7 +121,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 54d883e6fe38b9b4b992b50ecce077fa, type: 2}
-  - {fileID: 2100000, guid: f344a10582ca98e439b542a5a335f2d8, type: 2}
+  - {fileID: 2100000, guid: 08961c61d643a6b43b9b6247d333f367, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,7 +180,6 @@ MonoBehaviour:
   AllDetails: []
   GizmoSize: 0
   GizmoColor: {r: 0, g: 0, b: 0, a: 0}
-  ThingsToDisable: []
 --- !u!1 &3665880269031350614
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +357,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 54d883e6fe38b9b4b992b50ecce077fa, type: 2}
-  - {fileID: 2100000, guid: f344a10582ca98e439b542a5a335f2d8, type: 2}
+  - {fileID: 2100000, guid: 08961c61d643a6b43b9b6247d333f367, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
