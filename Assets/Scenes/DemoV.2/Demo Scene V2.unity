@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011208198, g: 0.0016114975, b: 0.0030456455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -34995,6 +34995,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1551603945}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: EnemyTag
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: _lightIsOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: _sanityControler
+      value: 
+      objectReference: {fileID: 1784189768}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: FlashingRaycastDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: FlashIntensityMultiplier
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1550934235617954682, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: ladderToVent
       value: 
@@ -35079,7 +35103,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2100335529492584770, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
   m_PrefabInstance: {fileID: 1171383439}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1551603945}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0f38959d0ee2cc4fbfb6902f2242f77, type: 3}
@@ -35090,7 +35114,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8748475635239227832, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
   m_PrefabInstance: {fileID: 1171383439}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1551603945}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a11aad4f818288249b590fa2f09a7955, type: 3}
@@ -48220,6 +48244,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1551603945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3055935346302374654, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+  m_PrefabInstance: {fileID: 1171383439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1564506914
 GameObject:
   m_ObjectHideFlags: 0
@@ -54286,6 +54315,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4459609215902526, guid: afc28c37ddffdce44972cb01ad82797e, type: 3}
   m_PrefabInstance: {fileID: 1775171604}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1784189768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8643565367684733760, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+  m_PrefabInstance: {fileID: 1171383439}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b559cd7b1dce124d9692225c2dd7236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1796781637
 Mesh:
   m_ObjectHideFlags: 0

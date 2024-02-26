@@ -104,7 +104,6 @@ public class Flashlight : MonoBehaviour
             {
                 Debug.Log("Hit Enemy Ghost");
                 _sanityControler.AlterSanity(40);
-                
             }
             else
             {
