@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 33660157142359502}
   - component: {fileID: 23795296072898246}
   - component: {fileID: 7129614777827127954}
+  - component: {fileID: 3505351438892645142}
   m_Layer: 0
   m_Name: wall_women
   m_TagString: Untagged
@@ -706,6 +707,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 88d75e2f20534504b9c82f756df15b2b, type: 3}
+--- !u!65 &3505351438892645142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750266511384632}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8368254, y: 3.05, z: 0.2107944}
+  m_Center: {x: 0.90221083, y: 1.475, z: -3.989933}
 --- !u!1 &1791716140350740
 GameObject:
   m_ObjectHideFlags: 0
