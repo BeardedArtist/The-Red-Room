@@ -42,7 +42,7 @@ public class Blink : MonoBehaviour
 
                 if (everySecondTimer <= 0)
                 {
-                    _sanityControler._DecreaseSanity(0.5f);
+                    _sanityControler.AlterSanity(0.5f);
 
                     everySecondTimer = 1f;
                 }

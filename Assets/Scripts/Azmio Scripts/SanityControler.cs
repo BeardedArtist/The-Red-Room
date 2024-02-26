@@ -15,20 +15,20 @@ public class SanityControler : MonoBehaviour
     private float everySecondTimer = 1f;
 
 
-    void Start()
+    private void Start()
     {
         currentSanity = maxSanity;
         UpdateSanityUI();
     }
 
 
-    void Update()
+    private void Update()
     {
         everySecondTimer -= Time.deltaTime;
 
         if (everySecondTimer <= 0 && currentSanity > 0)
         {
-            _DecreaseSanity(sanityDecreaseRate);
+            AlterSanity(-sanityDecreaseRate);
 
             if (currentSanity <= 50)
             {
@@ -40,14 +40,14 @@ public class SanityControler : MonoBehaviour
     }
 
 
-    public void _DecreaseSanity(float decreaseAmount)
+    public void AlterSanity(float decreaseAmount)
     {
-        currentSanity -= decreaseAmount;
+        currentSanity += decreaseAmount;
         UpdateSanityUI();
     }
 
 
-    void UpdateSanityUI() // Update the slider value
+    private void UpdateSanityUI() // Update the slider value
     {
         sanitySlider.value = currentSanity / maxSanity;
     }

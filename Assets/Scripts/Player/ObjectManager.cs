@@ -16,7 +16,7 @@ public class ObjectManager : MonoBehaviour
         {
             flashlightGO.SetActive(false);
             CameraGO.SetActive(true);
-            _sanityControler._DecreaseSanity(5f);
+            _sanityControler.AlterSanity(5f);
 
             _CameraEnabled = true;
         }
