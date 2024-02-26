@@ -90,16 +90,19 @@ public class Flashlight : MonoBehaviour
     {
         var initialIntensity = flashlight.intensity;
         flashlight.intensity *= FlashIntensityMultiplier;
+
+        RaycastEnemy();
+
         yield return new WaitForSeconds(0.2f);
         flashlight.intensity = initialIntensity;
-        
-        RaycastEnemy();
+    
     }
 
     private void RaycastEnemy()
     {
         if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastResult, FlashingRaycastDistance))
         {
+            Debug.DrawRay
             if (RaycastResult.transform.gameObject.tag == EnemyTag)
             {
                 Debug.Log("Hit Enemy Ghost");
