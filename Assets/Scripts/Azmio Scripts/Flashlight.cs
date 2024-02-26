@@ -35,6 +35,7 @@ public class Flashlight : MonoBehaviour
             Spin();
         }
 
+Debug.DrawRay(Camera.transform.position,Camera.transform.forward * FlashingRaycastDistance, Color.red);
         if (Input.GetKeyDown(FlashInputButton) && _lightIsOn)
         {
             StartCoroutine(FlashAbility());
@@ -102,7 +103,7 @@ public class Flashlight : MonoBehaviour
     {
         if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastResult, FlashingRaycastDistance))
         {
-            Debug.DrawRay
+            
             if (RaycastResult.transform.gameObject.tag == EnemyTag)
             {
                 Debug.Log("Hit Enemy Ghost");
