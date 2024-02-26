@@ -52,5 +52,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "The-Red-Room.sln"
+    "dotnet.defaultSolution": "The-Red-Room.sln",
+    "dotnet.preferCSharpExtension": true
 }
