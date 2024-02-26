@@ -13,7 +13,7 @@ public class Flashlight : MonoBehaviour
     public Light flashlight;
     public GameObject Camera;
     
-    [Range(1.1f,10f)] public float FlashIntensityMultiplier;
+    [Range(1.1f,20f)] public float FlashIntensityMultiplier;
 
     [Range(1f, 100f)] public float FlashingRaycastDistance;
     [MyBox.Tag] public string EnemyTag;
@@ -35,7 +35,7 @@ public class Flashlight : MonoBehaviour
             Spin();
         }
 
-Debug.DrawRay(Camera.transform.position,Camera.transform.forward * FlashingRaycastDistance, Color.red);
+        Debug.DrawRay(Camera.transform.position,Camera.transform.forward * FlashingRaycastDistance, Color.red);
         if (Input.GetKeyDown(FlashInputButton) && _lightIsOn)
         {
             StartCoroutine(FlashAbility());

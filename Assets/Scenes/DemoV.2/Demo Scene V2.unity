@@ -35001,7 +35001,7 @@ PrefabInstance:
       objectReference: {fileID: 1551603945}
     - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: EnemyTag
-      value: Enemy
+      value: Vent
       objectReference: {fileID: 0}
     - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: _lightIsOn
@@ -35013,11 +35013,11 @@ PrefabInstance:
       objectReference: {fileID: 1784189768}
     - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: FlashingRaycastDistance
-      value: 10
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: FlashIntensityMultiplier
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1550934235617954682, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: ladderToVent
@@ -38243,6 +38243,10 @@ PrefabInstance:
     - target: {fileID: 1909082442925870, guid: cf91cc9e50b39ce449ffe308f5ac8e78, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909082442925870, guid: cf91cc9e50b39ce449ffe308f5ac8e78, type: 3}
+      propertyPath: m_TagString
+      value: Vent
       objectReference: {fileID: 0}
     - target: {fileID: 4488785214988480, guid: cf91cc9e50b39ce449ffe308f5ac8e78, type: 3}
       propertyPath: m_LocalScale.x
