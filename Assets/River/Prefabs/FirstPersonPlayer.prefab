@@ -5489,9 +5489,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ChoHan: {fileID: 7489703280341669797}
   spinResultText: {fileID: 1520865059818961303}
+  _sanityControler: {fileID: 8643565367684733760}
   flashlight: {fileID: 4432546437866650366}
-  lightFlashAbility: {fileID: 3728402922037071671}
-  _lightIsOn: 0
+  Camera: {fileID: 3055935346302374654}
+  FlashIntensityMultiplier: 20
+  FlashingRaycastDistance: 4.5
+  EnemyTag: Vent
+  _lightIsOn: 1
+  SpinKeyInputButton: 102
+  FlashInputButton: 113
 --- !u!1 &2832742661678323089
 GameObject:
   m_ObjectHideFlags: 0
@@ -6132,9 +6138,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 100
-  field of view: 60.5
+  near clip plane: 0.1
+  far clip plane: 57
+  field of view: 60.499985
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -20026,7 +20032,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.4
   m_SlopeLimit: 150
-  m_StepOffset: 0
+  m_StepOffset: 1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
