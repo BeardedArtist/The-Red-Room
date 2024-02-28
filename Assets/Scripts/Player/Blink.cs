@@ -7,6 +7,7 @@ public class Blink : MonoBehaviour
     [SerializeField] private Animator blink_Anim;
     [SerializeField] private Animator blink_Anim_2;
     [SerializeField] private SanityControler _sanityControler;
+    [SerializeField] GameObject monsterCamera;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float randomBlinkTimer;
     private float blinkTimer = 1.1f;
@@ -39,6 +40,8 @@ public class Blink : MonoBehaviour
 
                 blink_Anim.SetTrigger("Hold");
                 blink_Anim_2.SetTrigger("Hold");
+                
+                monsterCamera.SetActive(true);
 
                 if (everySecondTimer <= 0)
                 {
@@ -67,6 +70,8 @@ public class Blink : MonoBehaviour
 
             blink_Anim.ResetTrigger("StopHold");
             blink_Anim_2.ResetTrigger("StopHold");
+
+            monsterCamera.SetActive(false);
         }
     }
 

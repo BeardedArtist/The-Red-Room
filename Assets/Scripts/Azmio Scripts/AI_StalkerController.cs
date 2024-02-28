@@ -15,13 +15,12 @@ public class AI_StalkerController : MonoBehaviour
     public MeshRenderer mainPlayerMesh;
     player Player;
 
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         Player = GetComponent<player>();
 
-        agent.speed = 1f;
+        agent.speed = 2f;
     }
 
     // Update is called once per frame
