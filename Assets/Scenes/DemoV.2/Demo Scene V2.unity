@@ -64406,7 +64406,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125125878}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 10
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -65029,7 +65029,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 60
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -67050,7 +67050,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -67210,7 +67210,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    separateAxes: 1
+    separateAxes: 0
     frequency: 0.5
     damping: 1
     octaves: 1
@@ -69130,7 +69130,7 @@ Transform:
   m_GameObject: {fileID: 2125125878}
   serializedVersion: 2
   m_LocalRotation: {x: -0.69510645, y: -0.12971912, z: 0.12971912, w: 0.69510645}
-  m_LocalPosition: {x: -61.323, y: 16.65, z: 13.86}
+  m_LocalPosition: {x: -73.03, y: 15.16, z: 13.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
