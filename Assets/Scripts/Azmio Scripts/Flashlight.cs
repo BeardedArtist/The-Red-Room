@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using MyBox;
@@ -27,6 +28,8 @@ public class Flashlight : MonoBehaviour
     [SerializeField]private KeyCode FlashInputButton = KeyCode.Q;
 
     private RaycastHit RaycastResult;
+
+    [SerializeField] private MeshRenderer SpinSlotOne, SpinSlotTwo, SpinSlotThree;
     
     private void Update()
     {
@@ -61,14 +64,26 @@ public class Flashlight : MonoBehaviour
     
     private void Spin()
     {
-        var spin = Random.Range(0f, 10f);
+         var spin = Random.Range(0f, 10f);
+    float rotationDuration = 1f; // Initial duration for one rotation
+    int totalLoops = 10; // Total number of loops
+    float speedMultiplier = 2f; // Speed increase factor for each loop
 
         switch (spin)
         {
             //Cho-Han
             case >= 0f and < 1.5f:
                 spinResultText.text = "Spin = Cho-Han";
-
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f));
                 _ChoHan._rolledChoHan = true;
                 break;
             //Monster
@@ -85,6 +100,11 @@ public class Flashlight : MonoBehaviour
                 spinResultText.text = "Spin = Nothing";
                 break;
         }
+    }
+
+    private void SpinTo(int index)
+    {
+        
     }
 
     private IEnumerator FlashAbility()
