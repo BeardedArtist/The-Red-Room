@@ -77,13 +77,13 @@ public class Flashlight : MonoBehaviour
 
                 mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f))
                 .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f))
                 .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f));
+                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f));
 
 
                 _ChoHan._rolledChoHan = true;
