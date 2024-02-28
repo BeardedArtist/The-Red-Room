@@ -30,6 +30,8 @@ public class Flashlight : MonoBehaviour
     private RaycastHit RaycastResult;
 
     [SerializeField] private MeshRenderer SpinSlotOne, SpinSlotTwo, SpinSlotThree;
+
+    [SerializeField,Range(0,10)] private float rotationDuration, totalLoops, speedMultiplier;
     
     private void Update()
     {
@@ -64,17 +66,15 @@ public class Flashlight : MonoBehaviour
     
     private void Spin()
     {
-         var spin = Random.Range(0f, 10f);
-    float rotationDuration = 1f; // Initial duration for one rotation
-    int totalLoops = 10; // Total number of loops
-    float speedMultiplier = 2f; // Speed increase factor for each loop
+        var spin = Random.Range(0f, 10f);
+        Sequence mySequence = DOTween.Sequence();
 
         switch (spin)
         {
             //Cho-Han
             case >= 0f and < 1.5f:
                 spinResultText.text = "Spin = Cho-Han";
-                Sequence mySequence = DOTween.Sequence();
+
                 mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
@@ -84,15 +84,42 @@ public class Flashlight : MonoBehaviour
                 .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f));
+
+
                 _ChoHan._rolledChoHan = true;
                 break;
             //Monster
             case >= 1.5f and < 2f:
                 spinResultText.text = "Spin = Monster";
+
+                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f));
+
+
                 break;
             //Light
             case >= 2f and < 7f:
                 spinResultText.text = "Spin = Light";
+
+                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f))
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f));
+
+
+
                 TurnOnFlashlight();
                 break;
             //Nothing
