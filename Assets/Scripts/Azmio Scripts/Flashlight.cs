@@ -72,16 +72,16 @@ public class Flashlight : MonoBehaviour
         switch (spin)
         {
             //Cho-Han
-            case >= 0f and < 1.5f:
+            case >= 0f and < 1.5f: // Cho - han was picked
                 spinResultText.text = "Spin = Cho-Han";
 
                 mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f))
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear)) // Spins the first slot randomly 10 times
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f)) // after spinning 10 times randomly , land on cho-han icon
                 .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f))
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear)) //Spins the second slot randomly 10 times
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f)) //after spinning 10 times randomly , land on cho-han
+                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); }) 
                     .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f));
 
