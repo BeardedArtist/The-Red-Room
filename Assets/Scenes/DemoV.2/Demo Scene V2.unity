@@ -5,7 +5,7 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
+    smallestOccluder: 2
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: bbb5cedcef152ed49b107b19d112f020
@@ -37087,6 +37087,10 @@ PrefabInstance:
       propertyPath: ladderToVent
       value: 
       objectReference: {fileID: 636113778}
+    - target: {fileID: 2460425147138102530, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3392547178732447512, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
