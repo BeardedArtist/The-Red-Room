@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using MyBox;
+using UnityEngine.Serialization;
 
 public class Flashlight : MonoBehaviour
 {
@@ -31,8 +32,14 @@ public class Flashlight : MonoBehaviour
 
     [SerializeField] private MeshRenderer SpinSlotOne, SpinSlotTwo, SpinSlotThree;
 
-    [SerializeField,Range(0,10)] private float rotationDuration, totalLoops, speedMultiplier;
-    
+    [SerializeField] private Material[] SpinSlotMaterials;
+    [SerializeField] private Material[] DiceMaterials;
+
+    [SerializeField,Range(0,10)] private int  totalLoops;
+    [SerializeField,Range(0,10)] private float PerLoopDuration;
+
+    [SerializeField,Range(0f,1f)] private float[] DiceOffsets;
+
     private void Update()
     {
         if (Input.GetKeyDown(SpinKeyInputButton))
@@ -69,62 +76,112 @@ public class Flashlight : MonoBehaviour
         var spin = Random.Range(0f, 10f);
         Sequence mySequence = DOTween.Sequence();
 
+        SpinSlotOne.sharedMaterial = SpinSlotMaterials[0];
+        SpinSlotTwo.sharedMaterial = SpinSlotMaterials[1];
+        SpinSlotThree.sharedMaterial = SpinSlotMaterials[2];
         switch (spin)
         {
             //Cho-Han
             case >= 0f and < 1.5f: // Cho - han was picked
                 spinResultText.text = "Spin = Cho-Han";
 
-                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear)) // Spins the first slot randomly 10 times
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f)) // after spinning 10 times randomly , land on cho-han icon
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear)) //Spins the second slot randomly 10 times
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f)) //after spinning 10 times randomly , land on cho-han
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); }) 
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.39f));
+                var DieDigit1 = 1;
+                var DieDigit2 = 1;
 
+                mySequence.Append(DOVirtual
+                        .Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental)
+                        .SetEase(Ease.Linear)) // Spins the first slot randomly 10 times
+                    .AppendCallback(() =>
+                        SpinSlotOne.sharedMaterial.mainTextureOffset =
+                            new Vector2(0, 0.54f)) // after spinning 10 times randomly , land on cho-han icon
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental)
+                        .SetEase(Ease.Linear)) //Spins the second slot randomly 10 times
+                    .AppendCallback(() =>
+                        SpinSlotTwo.sharedMaterial.mainTextureOffset =
+                            new Vector2(0, 0.54f)) //after spinning 10 times randomly , land on cho-han
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.54f))
+                    .Append(DOVirtual.Float(0, 1, 0.1f, (value) =>
+                    {
+                        SpinSlotOne.sharedMaterial = DiceMaterials[0];
+                        SpinSlotTwo.sharedMaterial = DiceMaterials[1];
+                        DieDigit1 = Random.Range(1, 7);
+                        DieDigit2 = Random.Range(1, 7);
+                    }))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental)
+                        .SetEase(Ease.Linear)) 
+                    .AppendCallback(() =>
+                        SpinSlotOne.sharedMaterial.mainTextureOffset =
+                            new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit1 - 1]))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental)
+                        .SetEase(Ease.Linear)) 
+                    .AppendCallback(() =>
+                        SpinSlotTwo.sharedMaterial.mainTextureOffset =
+                            new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]));
 
-                _ChoHan._rolledChoHan = true;
+                if (DieDigit2 + DieDigit1 / 2 == 0)
+                {
+                    Debug.Log("Won Cho Han");
+                }
+                else
+                {
+                    Debug.Log("Lose Cho Han");
+                }
+                
                 break;
             //Monster
             case >= 1.5f and < 2f:
                 spinResultText.text = "Spin = Monster";
 
-                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
+                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                 .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f));
-
-
                 break;
             //Light
             case >= 2f and < 7f:
                 spinResultText.text = "Spin = Light";
 
-                mySequence.Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f))
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f))
-                .Append(DOVirtual.Float(0, 1, 0.1f, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(10, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.1f));
-
-
-
+                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f));
+                
                 TurnOnFlashlight();
                 break;
+            
             //Nothing
             case >= 7.5f and <= 10f:
                 spinResultText.text = "Spin = Nothing";
+                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.54f));
                 break;
         }
     }
