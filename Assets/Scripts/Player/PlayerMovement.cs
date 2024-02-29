@@ -77,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject player;
     // TESTING CHECKPOINT SYSTEM ---------------------------------------------
 
+    public bool IsMonsterNearby;
+
 
 
     private CharacterController characterController;
@@ -149,9 +151,10 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovementInput()
     {
         //currentInput = new Vector2((isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal")); // Gets our front & back movement -- Gets our left & right movements
-        currentInput = new Vector2((isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Horizontal")); // Gets our front & back movement -- Gets our left & right movements
-
-        float moveDirectionY = moveDirection.y;
+        
+        currentInput = !IsMonsterNearby ? new Vector2((isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Horizontal")) : // Gets our front & back movement -- Gets our left & right movements
+            new Vector2((isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed/2 : isCrouching ? crouchSpeed/2 : walkSpeed/2) * Input.GetAxis("Horizontal"));
+        var moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         moveDirection.y = moveDirectionY;
     }

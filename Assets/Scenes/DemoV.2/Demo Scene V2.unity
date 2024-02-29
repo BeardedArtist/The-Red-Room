@@ -14916,6 +14916,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 797276823}
     - target: {fileID: 6024348987963051864, guid: f08a1ee5b30e4e84b8e43f1c96fa8335, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1574073690}
+    - target: {fileID: 6024348987963051864, guid: f08a1ee5b30e4e84b8e43f1c96fa8335, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 797276824}
