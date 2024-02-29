@@ -119,6 +119,86 @@ MonoBehaviour:
   - {fileID: 6745047855539697503}
   - {fileID: 8368563543909690577}
   - {fileID: 6730959449881937590}
+  - {fileID: 2275426169906571368}
+--- !u!114 &2275426169906571368
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4265a041954897941afec871c608473b, type: 3}
+  m_Name: Crt
+  m_EditorClassIdentifier: 
+  active: 0
+  scanlinesWeight:
+    m_OverrideState: 1
+    m_Value: 1
+  noiseWeight:
+    m_OverrideState: 1
+    m_Value: 1
+  screenBendX:
+    m_OverrideState: 1
+    m_Value: 1000
+  screenBendY:
+    m_OverrideState: 1
+    m_Value: 1000
+  vignetteAmount:
+    m_OverrideState: 1
+    m_Value: 0
+  vignetteSize:
+    m_OverrideState: 1
+    m_Value: 2
+  vignetteRounding:
+    m_OverrideState: 1
+    m_Value: 2
+  vignetteSmoothing:
+    m_OverrideState: 1
+    m_Value: 1
+  scanlinesDensity:
+    m_OverrideState: 1
+    m_Value: 200
+  scanlinesSpeed:
+    m_OverrideState: 1
+    m_Value: -10
+  noiseAmount:
+    m_OverrideState: 1
+    m_Value: 250
+  chromaticRed:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  chromaticGreen:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  chromaticBlue:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  grilleOpacity:
+    m_OverrideState: 1
+    m_Value: 0.4
+  grilleCounterOpacity:
+    m_OverrideState: 1
+    m_Value: 0.2
+  grilleResolution:
+    m_OverrideState: 1
+    m_Value: 360
+  grilleCounterResolution:
+    m_OverrideState: 1
+    m_Value: 540
+  grilleUvRotation:
+    m_OverrideState: 1
+    m_Value: 90
+  grilleBrightness:
+    m_OverrideState: 1
+    m_Value: 15
+  grilleUvMidPoint:
+    m_OverrideState: 1
+    m_Value: 0.5
+  grilleShift:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1}
 --- !u!114 &6730959449881937590
 MonoBehaviour:
   m_ObjectHideFlags: 3
