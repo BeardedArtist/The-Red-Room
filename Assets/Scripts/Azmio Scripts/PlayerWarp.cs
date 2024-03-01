@@ -14,7 +14,7 @@ public class PlayerWarp : MonoBehaviour
         public GameObject ObjectToUpdate;
         public bool Status;
     }
-    
+
     #endregion
     [SerializeField] GameObject warpPlayerDestination;
 
@@ -29,8 +29,11 @@ public class PlayerWarp : MonoBehaviour
     bool playerInTrigger = false;
     bool eKeyPressed = false;
 
-    [Foldout("Details", true)] 
-    [SerializeField]public List<UpdatableGameobjects> ThingsToDisable;
+    [Foldout("Details", true)]
+    [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop1;
+    [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop2;
+    [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop3;
+    [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop4;
 
     public bool EnableGameObjectsOnLoop;
 
@@ -69,7 +72,7 @@ public class PlayerWarp : MonoBehaviour
 
             if (!isWarpLoops)
             {
-                StartCoroutine(DelayTransition(warpPlayerDestination));
+                StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
                 hasBeenTriggered = true;
             }
 
@@ -77,13 +80,13 @@ public class PlayerWarp : MonoBehaviour
             {
                 if (loopNumber < loopAmount)
                 {
-                    StartCoroutine(DelayTransition(warpPlayerDestination));
+                    StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
                     loopNumber += 1;
                 }
 
                 else
                 {
-                    StartCoroutine(DelayTransition(warpPlayerFinalDestination));
+                    StartCoroutine(DelayTransition(warpPlayerFinalDestination, loopNumber));
                     hasBeenTriggered = true;
                 }
             }
@@ -91,12 +94,12 @@ public class PlayerWarp : MonoBehaviour
 
         else if (playerInTrigger && isInstantWarp)
         {
-            StartCoroutine(DelayTransition(warpPlayerDestination));
+            StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
         }
     }
 
 
-    IEnumerator DelayTransition(GameObject warpPlayer)
+    IEnumerator DelayTransition(GameObject warpPlayer, float loopNumber)
     {
         float waitBeforeWarp = isInstantWarp ? 0f : 0.05f;
 
@@ -108,13 +111,35 @@ public class PlayerWarp : MonoBehaviour
             player.transform.rotation = warpPlayer.transform.rotation;
         }
 
-       
         playerCharacterController.enabled = true;
+
         if (EnableGameObjectsOnLoop)
         {
-            foreach (var Object in ThingsToDisable)
+            switch (loopNumber)
             {
-                Object.ObjectToUpdate.SetActive(Object.Status);
+                case 1:
+                    foreach (var Object in ThingsToDisableLoop1)
+                        Object.ObjectToUpdate.SetActive(Object.Status);
+
+                    break;
+
+                case 2:
+                    foreach (var Object in ThingsToDisableLoop2)
+                        Object.ObjectToUpdate.SetActive(Object.Status);
+
+                    break;
+
+                case 3:
+                    foreach (var Object in ThingsToDisableLoop3)
+                        Object.ObjectToUpdate.SetActive(Object.Status);
+
+                    break;
+
+                default:
+                    foreach (var Object in ThingsToDisableLoop4)
+                        Object.ObjectToUpdate.SetActive(Object.Status);
+
+                    break;
             }
         }
     }
