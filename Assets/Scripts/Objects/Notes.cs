@@ -72,6 +72,20 @@ public class Notes : MonoBehaviour
                         //isJournalPickedUp = true;
                     }
 
+                    if (gameObjectAndTextPages[i].name == "RedRoom PC_1")
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
+
+                        noteUI.SetActive(true); //Making background of page appear
+                        characterController.enabled = false;
+                        mouseLook.mouseSensitivity = 0;
+                        pickUpUI.SetActive(false);
+                        isPickedUp = true;
+
+                        blink_Script.enabled = false;
+                        //isJournalPickedUp = true;
+                    }
+
                     if (gameObjectAndTextPages[i].name == "Mr.Toshi Note")
                     {
                         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/JOURNALOPEN", GetComponent<Transform>().position);
