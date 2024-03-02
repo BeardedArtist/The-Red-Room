@@ -4,35 +4,17 @@ using UnityEngine;
 
 public class PlaytestOnlyObjectRemove : MonoBehaviour
 {
-    [SerializeField] private GameObject pickUpUI;
-    private bool trig;
-    private float holdTimer;
-    private float holdLenght = 2.5f;
+    private float holdTimer = 0;
+    private float holdLenght = 2f;
 
 
-    private void OnTriggerStay(Collider other)
+    public void PlankDeactivate()
     {
-        if (other.tag == "Flashlight Eyes 2")
-        {
-            trig = true;
-            pickUpUI.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        trig = false;
-        pickUpUI.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (trig == true && Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.E))
         {
             holdTimer += Time.deltaTime;
 
-            if (holdTimer == holdLenght)
+            if (holdTimer >= holdLenght)
             {
                 gameObject.SetActive(false);
                 holdTimer = 0;

@@ -13,7 +13,6 @@ public class AI_StalkerController : MonoBehaviour
     public Transform playerTransform;
     public GameObject mainPlayer;
     public MeshRenderer mainPlayerMesh;
-
     public PlayerMovement playerMovement;
 
     [Range(1f, 100f),SerializeField] private float DistanceFromPlayerToSlowDown; //@Azmio , Set Accordingly
@@ -27,7 +26,7 @@ public class AI_StalkerController : MonoBehaviour
         agent.speed = 1.7f;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         Vector3 targetPosition = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);

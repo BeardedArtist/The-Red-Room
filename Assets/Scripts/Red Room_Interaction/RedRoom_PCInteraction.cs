@@ -32,26 +32,26 @@ public class RedRoom_PCInteraction : MonoBehaviour
     private bool isViewingComputer = false;
 
 
-    private void OnTriggerStay(Collider other) 
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Flashlight Eyes 2")
         {
             trig = true;
             redRoomInteractUI.SetActive(true);
-        }    
+        }
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         trig = false;
-        redRoomInteractUI.SetActive(false);    
+        redRoomInteractUI.SetActive(false);
     }
 
-    private void Update() 
+    private void Update()
     {
         //PlayAudio();
 
-        
+
         if (trig == true && isViewingComputer == false)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -80,17 +80,14 @@ public class RedRoom_PCInteraction : MonoBehaviour
 
                 blink_Script.enabled = true;
 
-
-                if (hasViewedOnce == true)
+                for (int i = 0; i < objectsToAppear.Length; i++)
                 {
-                    for (int i = 0; i < objectsToAppear.Length; i++)
-                    {
-                        objectsToDisappear[i].SetActive(true);
-                    }
+                    objectsToAppear[i].SetActive(true);
                 }
             }
-        }    
+        }
     }
+}
 
 
     //private void PlayAudio()
@@ -121,4 +118,4 @@ public class RedRoom_PCInteraction : MonoBehaviour
     //     redRoomComputerSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     //     redRoomComputerSFX.release();
     // }
-}
+//}
