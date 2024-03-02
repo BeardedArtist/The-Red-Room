@@ -24,13 +24,15 @@ public class AI_StalkerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         Player = GetComponent<player>();
 
-        agent.speed = 2f;
+        agent.speed = 1.7f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.destination = playerTransform.position;
+        Vector3 targetPosition = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
+
+        agent.destination = targetPosition;
         playerMovement.IsMonsterNearby = Vector3.Distance(transform.position, playerTransform.position) < DistanceFromPlayerToSlowDown;
     }
 }
