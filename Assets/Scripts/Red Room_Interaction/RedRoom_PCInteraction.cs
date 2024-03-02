@@ -25,7 +25,6 @@ public class RedRoom_PCInteraction : MonoBehaviour
     // [SerializeField] EventReference eventName;
     // private static FMOD.Studio.EventInstance redRoomComputerSFX;
 
-    [SerializeField] private AudioSource audioSource;
     private bool hasEdwardAudioPlayed = false;
     // FMOD Parameters ---------------------------
 
@@ -50,7 +49,7 @@ public class RedRoom_PCInteraction : MonoBehaviour
 
     private void Update() 
     {
-        PlayAudio();
+        //PlayAudio();
 
         
         if (trig == true && isViewingComputer == false)
@@ -84,9 +83,9 @@ public class RedRoom_PCInteraction : MonoBehaviour
 
                 if (hasViewedOnce == true)
                 {
-                    for (int i = 0; i < objectsToDisappear.Length; i++)
+                    for (int i = 0; i < objectsToAppear.Length; i++)
                     {
-                        objectsToDisappear[i].SetActive(false);
+                        objectsToDisappear[i].SetActive(true);
                     }
                 }
             }
@@ -94,12 +93,12 @@ public class RedRoom_PCInteraction : MonoBehaviour
     }
 
 
-    private void PlayAudio()
-    {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }
+    //private void PlayAudio()
+   // {
+        //if (!audioSource.isPlaying)
+        //{
+           // audioSource.Play();
+       // }
 
         // if (!FMODExtension.IsPlaying(redRoomComputerSFX))
         // {
@@ -109,7 +108,7 @@ public class RedRoom_PCInteraction : MonoBehaviour
         //     //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/RRCOMPSCREEN", GetComponent<Transform>().position);
 
         // }
-    }
+    //}
 
     // private void StopAudio()
     // {
