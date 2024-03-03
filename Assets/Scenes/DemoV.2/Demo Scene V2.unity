@@ -50054,7 +50054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6942707680889615117, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 4223
+      value: 12415
       objectReference: {fileID: 0}
     - target: {fileID: 7095127964067959986, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_StepOffset
