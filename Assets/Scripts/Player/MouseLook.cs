@@ -52,7 +52,12 @@ public class MouseLook : MonoBehaviour
         }
         else
         {
-            xRotation = transform.rotation.eulerAngles.x;
+            // Convert the angle to -180 to 180 range
+            float angle = transform.rotation.eulerAngles.x;
+            if (angle > 180)
+                angle -= 360;
+            xRotation = angle;
+            Debug.Log(angle);
         }
     }
 }
