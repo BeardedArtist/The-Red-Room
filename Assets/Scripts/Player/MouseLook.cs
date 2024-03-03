@@ -57,7 +57,7 @@ public class MouseLook : MonoBehaviour
             if (angle > 180)
                 angle -= 360;
             xRotation = angle;
-            Debug.Log(angle);
+            //Debug.Log(angle);
         }
     }
 }

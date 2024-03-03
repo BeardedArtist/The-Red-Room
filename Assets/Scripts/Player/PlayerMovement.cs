@@ -129,10 +129,13 @@ public class PlayerMovement : MonoBehaviour
                 HandleJump();
             }
 
+            
             if (canCrouch)
             {
                 HandleCrouch();
             }
+            CheckForGround();
+            
 
             if (canUseHeadbob)
             {
@@ -146,6 +149,16 @@ public class PlayerMovement : MonoBehaviour
 
             ApplyFinalMovements();
         }
+    }
+
+    void CheckForGround()
+    {
+    RaycastHit hit;
+    if (!Physics.Raycast(transform.position, Vector3.down, out hit, 5f))
+    {
+      isCrouching = false;
+    }
+
     }
 
     private void HandleMovementInput()
