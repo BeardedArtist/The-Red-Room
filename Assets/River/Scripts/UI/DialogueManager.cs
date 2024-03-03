@@ -31,6 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     private Coroutine LookAtObjectCoroutine;
 
+
     private void Awake()
     {
         if (instance == null) instance = this;

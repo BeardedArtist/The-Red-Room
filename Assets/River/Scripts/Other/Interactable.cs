@@ -90,14 +90,23 @@ public class Interactable : MonoBehaviour
             
         if(AllDetails.Count>0) DialogueDetails = AllDetails[0];
 
-        if(dsfsfsf && dfdsfdsfsdf)
+        if(dsfsfsf || dfdsfdsfsdf)
         {
             Startcoroutine(MotherDialogue);
             DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.Responses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
         }
     }*/
 
+// public List<Interactable.Response> shndlaksda;
 
+//     public void K()
+//     {
+//         Details DialogueDetails = new Details();
+
+//         if (AllDetails.Count > 0) DialogueDetails = AllDetails[0];
+//         DialogueManager.instance.ShowDialogue ("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, true, shndlaksda, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
+//     }
+    
     public void OnDrawGizmos()
     {
         Gizmos.color = GizmoColor;

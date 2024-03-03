@@ -22,6 +22,9 @@ public class Interaction : MonoBehaviour
                 Interacttext.SetActive(true);
                 //Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
+                // if(interactable.type == Interactable.InteractableType.FishBowl){
+                    
+                // }
                 if (!Input.GetKeyDown(KeyCode.E)) return;
                 Interacttext.SetActive(false);
                 interactable.Interact();
