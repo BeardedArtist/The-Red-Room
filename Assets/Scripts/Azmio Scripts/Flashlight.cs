@@ -40,6 +40,13 @@ public class Flashlight : MonoBehaviour
 
     [SerializeField,Range(0f,1f)] private float[] DiceOffsets;
 
+    [SerializeField] private GameObject ChoHanChoicePanel;
+
+    private void Start()
+    {
+        ChoHanChoicePanel.SetActive(false);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(SpinKeyInputButton))
@@ -186,7 +193,7 @@ public class Flashlight : MonoBehaviour
         }
     }
 
-    private void SpinTo(int index)
+    private void ContinueChoHanGame()
     {
         
     }
