@@ -33,5 +33,7 @@ public class AI_StalkerController : MonoBehaviour
 
         agent.destination = targetPosition;
         playerMovement.IsMonsterNearby = Vector3.Distance(transform.position, playerTransform.position) < DistanceFromPlayerToSlowDown;
+        
+        //Debug.Log("Distance From Player"+Vector3.Distance(transform.position, playerTransform.position));
     }
 }

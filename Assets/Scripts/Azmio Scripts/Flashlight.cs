@@ -42,6 +42,8 @@ public class Flashlight : MonoBehaviour
 
     [SerializeField] private GameObject ChoHanChoicePanel;
 
+    [SerializeField] private int ChoHanCounter;
+
 
     private int DieDigit1, DieDigit2;
     private void Start()
@@ -82,7 +84,14 @@ public class Flashlight : MonoBehaviour
     
     private void Spin()
     {
+        ChoHanCounter++;
         var spin = Random.Range(0f, 10f);
+
+        if (ChoHanCounter == 4)
+        {
+            spin = 0.1f;
+            ChoHanCounter = 0;//Reset The Counter
+        }
         Sequence mySequence = DOTween.Sequence();
 
         SpinSlotOne.sharedMaterial = SpinSlotMaterials[0];
