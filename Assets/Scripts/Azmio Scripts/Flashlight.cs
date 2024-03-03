@@ -42,6 +42,8 @@ public class Flashlight : MonoBehaviour
 
     [SerializeField] private GameObject ChoHanChoicePanel;
 
+
+    private int DieDigit1, DieDigit2;
     private void Start()
     {
         ChoHanChoicePanel.SetActive(false);
@@ -92,9 +94,6 @@ public class Flashlight : MonoBehaviour
             case >= 0f and < 1.5f: // Cho - han was picked
                 spinResultText.text = "Spin = Cho-Han";
 
-                var DieDigit1 = 1;
-                var DieDigit2 = 1;
-
                 mySequence.Append(DOVirtual
                         .Float(0, 1, PerLoopDuration,
                             (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
@@ -118,32 +117,11 @@ public class Flashlight : MonoBehaviour
                     {
                         SpinSlotOne.sharedMaterial = DiceMaterials[0];
                         SpinSlotTwo.sharedMaterial = DiceMaterials[1];
-                        DieDigit1 = Random.Range(1, 7);
-                        DieDigit2 = Random.Range(1, 7);
-                    }))
-                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
-                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, value); })
-                        .SetLoops(totalLoops, LoopType.Incremental)
-                        .SetEase(Ease.Linear)) 
-                    .AppendCallback(() =>
-                        SpinSlotOne.sharedMaterial.mainTextureOffset =
-                            new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit1 - 1]))
-                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
-                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, value); })
-                        .SetLoops(totalLoops, LoopType.Incremental)
-                        .SetEase(Ease.Linear)) 
-                    .AppendCallback(() =>
-                        SpinSlotTwo.sharedMaterial.mainTextureOffset =
-                            new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]));
-
-                if (DieDigit2 + DieDigit1 / 2 == 0)
-                {
-                    Debug.Log("Won Cho Han");
-                }
-                else
-                {
-                    Debug.Log("Lose Cho Han");
-                }
+                        
+                        ChoHanChoicePanel.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        
+                    }));
                 
                 break;
             //Monster
@@ -193,9 +171,39 @@ public class Flashlight : MonoBehaviour
         }
     }
 
-    private void ContinueChoHanGame()
+    public void ContinueChoHanGame(bool even)
     {
+        DieDigit1 = Random.Range(1, 7);
+        DieDigit2 = Random.Range(1, 7);
         
+        ChoHanChoicePanel.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence
+            .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                    (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, value); })
+                .SetLoops(totalLoops, LoopType.Incremental)
+                .SetEase(Ease.Linear)) 
+            .AppendCallback(() =>
+                SpinSlotOne.sharedMaterial.mainTextureOffset =
+                    new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit1 - 1]))
+            .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                    (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, value); })
+                .SetLoops(totalLoops, LoopType.Incremental)
+                .SetEase(Ease.Linear)) 
+            .AppendCallback(() =>
+                SpinSlotTwo.sharedMaterial.mainTextureOffset =
+                    new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]));
+
+        if (even && DieDigit1 + DieDigit2 % 2 == 0)
+        {
+            Debug.Log("Won Cho Han");
+        }
+        else
+        {
+            Debug.Log("Lost Cho Han");
+        }
     }
 
     private IEnumerator FlashAbility()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011208198, g: 0.0016114975, b: 0.0030456455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11497,8 +11497,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17759,8 +17759,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -41819,6 +41819,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -1.1, y: 1.005, z: -0.020000001}
   m_TimeToStationary: 0.5
+--- !u!1 &1000478298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5767069097635495791, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+  m_PrefabInstance: {fileID: 1171383439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1001937254
 GameObject:
   m_ObjectHideFlags: 0
@@ -49625,6 +49630,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+      propertyPath: ChoHanChoicePanel
+      value: 
+      objectReference: {fileID: 1000478298}
+    - target: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: DiceOffsets.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -55936,7 +55945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.0002746582, y: -88.9}
+  m_AnchoredPosition: {x: 0.00024414062, y: -88.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1311069024
@@ -55982,7 +55991,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1311069025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1426669325}
+        m_TargetAssemblyTypeName: Flashlight, Assembly-CSharp
+        m_MethodName: ContinueChoHanGame
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1311069025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64520,6 +64541,17 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1426669325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1261236545312465255, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
+  m_PrefabInstance: {fileID: 1171383439}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32c98fb76e0d8a42bd2964be4e14abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1429055518
 GameObject:
   m_ObjectHideFlags: 0
@@ -71796,7 +71828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.0002746582, y: 0}
+  m_AnchoredPosition: {x: 0.00024414062, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1641739124
@@ -71842,7 +71874,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1641739125}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1426669325}
+        m_TargetAssemblyTypeName: Flashlight, Assembly-CSharp
+        m_MethodName: ContinueChoHanGame
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1641739125
 MonoBehaviour:
   m_ObjectHideFlags: 0
