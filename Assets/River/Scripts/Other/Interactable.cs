@@ -10,7 +10,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, MotherDialogue }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval }
     [Serializable]
     public struct Response
     {
@@ -49,6 +49,11 @@ public class Interactable : MonoBehaviour
     [Range(0f, 10f)] public float GizmoSize;
     public Color GizmoColor;
 
+    private float removeHoldTimer = 0;
+    private float removeHoldLenght = 2f;
+    private bool BookShelfInteracted = false;
+    private bool FishBowlInteracted = false;
+
 
     [ButtonMethod]
     public void Interact()
@@ -67,9 +72,11 @@ public class Interactable : MonoBehaviour
                 break;
             case InteractableType.BookShelf:
                 DialogueManager.instance.ShowDialogue("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, false, null, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
+                BookShelfInteracted = true;
                 break;
             case InteractableType.FishBowl:
                 DialogueManager.instance.ShowDialogue("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, false, null, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
+                FishBowlInteracted = true;
                 break;
             case InteractableType.ChoHan:
                 DialogueManager.instance.ShowDialogue("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, false, null, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
@@ -77,36 +84,30 @@ public class Interactable : MonoBehaviour
             case InteractableType.TestObject:
                 DialogueManager.instance.ShowDialogue("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, true, DialogueDetails.Responses, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
                 break;
+            case InteractableType.ObjectRemoval:
+                if (Input.GetKey(KeyCode.E))
+                {
+                    removeHoldTimer += Time.deltaTime;
+
+                    if (removeHoldTimer >= removeHoldLenght)
+                    {
+                        gameObject.SetActive(false);
+                        removeHoldTimer = 0;
+                    }
+                }
+                break;
             case InteractableType.Gizmo:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
+        if (BookShelfInteracted || FishBowlInteracted)
+        {
+            //MotherDialogue.StartCoroutine(StartMotherDialogue());
+        }
     }
 
-    /*void Update()
-    {
-        Details DialogueDetails = new Details();
-            
-        if(AllDetails.Count>0) DialogueDetails = AllDetails[0];
-
-        if(dsfsfsf || dfdsfdsfsdf)
-        {
-            Startcoroutine(MotherDialogue);
-            DialogueManager.instance.ShowDialogue("Player",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.Responses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
-        }
-    }*/
-
-// public List<Interactable.Response> shndlaksda;
-
-//     public void K()
-//     {
-//         Details DialogueDetails = new Details();
-
-//         if (AllDetails.Count > 0) DialogueDetails = AllDetails[0];
-//         DialogueManager.instance.ShowDialogue ("Player", DialogueDetails.Dialogue, DialogueDetails.DisableAfterDialogue, DialogueDetails.DisableDelay, DialogueDetails.DialogueAudio, true, shndlaksda, DialogueDetails.StopPlayer, DialogueDetails.StopCameraMovement, DialogueDetails.LookAtWhileTalking);
-//     }
-    
     public void OnDrawGizmos()
     {
         Gizmos.color = GizmoColor;

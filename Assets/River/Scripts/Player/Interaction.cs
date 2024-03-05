@@ -22,19 +22,16 @@ public class Interaction : MonoBehaviour
                 Interacttext.SetActive(true);
                 //Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
-                // if(interactable.type == Interactable.InteractableType.FishBowl){
-                    
-                // }
+
+                if(interactable.type == Interactable.InteractableType.ObjectRemoval)
+                {
+                    HoldEtext.SetActive(true);
+                }
+
                 if (!Input.GetKeyDown(KeyCode.E)) return;
                 Interacttext.SetActive(false);
                 interactable.Interact();
                 interactable.GetComponent<Collider>().enabled = false;
-            }
-
-            else if (HitInfo.transform.GetComponent<PlaytestOnlyObjectRemove>() != null)
-            {
-                HoldEtext.SetActive(true);
-                HitInfo.transform.GetComponent<PlaytestOnlyObjectRemove>().PlankDeactivate();
             }
 
             else
