@@ -5880,8 +5880,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   AllDetails:
-  - Dialogue:
-    - This is a initial test dialogue
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses:
     - ResponseShort: 'Short Form 1 '
@@ -5891,7 +5890,7 @@ MonoBehaviour:
       Responseclips: []
       StopCameraMovement: 0
       LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 4.09
+      EndDisableDelay: 0
     - ResponseShort: Short Form 2
       ResponseLong:
       - Dialogue 2 Part 1
@@ -5899,9 +5898,9 @@ MonoBehaviour:
       Responseclips: []
       StopCameraMovement: 0
       LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 3.75
+      EndDisableDelay: 0
     DisableAfterDialogue: 0
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 0
     StopCameraMovement: 0
     LookAtWhileTalking: {fileID: 0}
@@ -17629,47 +17628,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   AllDetails:
-  - Dialogue:
-    - "It\u2019s breakfast time, Shizuoka! Here you go, girl."
-    - Oh
-    - Maybe this could work!
+  - AllDialogueDetails:
+    - Dialogue: "It\u2019s breakfast time, Shizuoka! Here you go, girl."
+      DisableDelay: 3
+    - Dialogue: ' Oh'
+      DisableDelay: 1
+    - Dialogue: Maybe this could work.
+      DisableDelay: 3
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 0
     LookAtWhileTalking: {fileID: 0}
     Day: 1
-  - Dialogue:
-    - How are you in there? Alone?
-    - "Well, maybe that's better than being in a classroom, don\u2019t you think?"
-    - What if the classroom is my fish tank?
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 5
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 0
     LookAtWhileTalking: {fileID: 0}
     Day: 2
-  - Dialogue:
-    - "I\u2019ll feed you later\u2026 I need to go."
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 5
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 0
     LookAtWhileTalking: {fileID: 0}
     Day: 3
-  - Dialogue:
-    - You...
-    - " You don\u2019t deserve the food."
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 5
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 0
     LookAtWhileTalking: {fileID: 0}
@@ -28565,7 +28561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1536639969}
+  - {fileID: 1524787662}
   - {fileID: 1997060139}
   - {fileID: 1579354928}
   m_Father: {fileID: 62361279}
@@ -37305,13 +37301,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   AllDetails:
-  - Dialogue:
-    - "It\u2019s my old flashlight, I used to use it when going to sleep when I was
-      afraid of the dark."
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 0
-    DisableDelay: 0
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 0}
@@ -45653,7 +45647,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1052298196}
   - component: {fileID: 1052298197}
-  - component: {fileID: 1052298198}
   m_Layer: 0
   m_Name: Mother Dialogue
   m_TagString: Untagged
@@ -45688,182 +45681,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bad25836569b745951fe5bd53b88f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 6
-  AllDetails:
-  - Dialogue:
-    - Honey? Are you awake?
-    - " It\u2019s time to go to school."
-    DialogueAudio: []
-    Responses:
-    - ResponseShort: 'I need to find my Math book! '
-      ResponseLong:
-      - 'I need to find my Math book! '
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: 'I need to feed Shizuoka ! '
-      ResponseLong:
-      - Not yet, Mum! Shizuoka needs her breakfast! And you always tell me that I
-        have to take care of her for myself!
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: "I\u2019m coming!"
-      ResponseLong:
-      - "I\u2019m coming!"
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 1
-  - Dialogue:
-    - "Edward ! You\u2019re late!"
-    - Get your backpack, honey!
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 1
-  - Dialogue:
-    - "If you can\u2019t see your backpack, it might be downstairs!"
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 1
-  - Dialogue:
-    - Love! Time to turn off the computer
-    DialogueAudio: []
-    Responses:
-    - ResponseShort: What if I get ill again?
-      ResponseLong:
-      - But, Mum! What if I get ill again? Maybe I can stay here one more time, just
-        to be sure!
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: I need to feed Shizuoka
-      ResponseLong:
-      - "Wait! Shizuoka is hungry\u2026"
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: "I\u2019m going down"
-      ResponseLong:
-      - "I\u2019m going down now"
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 2
-  - Dialogue:
-    - Edward, my dear.
-    - "Do you really still feel ill? It\u2019s about time to go to school."
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 2
-  - Dialogue:
-    - You need to go to school. Please Get your backpack.
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 2
-  - Dialogue:
-    - "Edward\u2026"
-    - ' Please, can you get out of your room today?'
-    DialogueAudio: []
-    Responses:
-    - ResponseShort: '[...]'
-      ResponseLong:
-      - '[...]'
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: 
-      ResponseLong: []
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    - ResponseShort: 
-      ResponseLong: []
-      Responseclips: []
-      StopCameraMovement: 0
-      LookAtWhileTalking: {fileID: 0}
-      DisableDelay: 0
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 3
-  - Dialogue:
-    - "We\u2019re leaving now!"
-    - "This time I\u2019ll make sure you really go to school."
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 3
-  - Dialogue:
-    - Edward, what do you need? What can I do?
-    - "Please, please, let\u2019s go to school."
-    DialogueAudio: []
-    Responses: []
-    DisableAfterDialogue: 0
-    DisableDelay: 0
-    StopPlayer: 0
-    StopCameraMovement: 0
-    LookAtWhileTalking: {fileID: 1052298196}
-    Day: 3
+  type: 3
+  AllDetails: []
   GizmoSize: 0
   GizmoColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &1052298198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052298195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c3022d1610dcd46a1fa2e66bcbca55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllDetails: []
 --- !u!1 &1066334116
 GameObject:
   m_ObjectHideFlags: 0
@@ -45949,55 +45770,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   AllDetails:
-  - Dialogue:
-    - "The Quiet Room\u2019 by Hide Kojima"
-    - 'This one scared me so much that I hid it behind the other novels. '
-    - 'Why is it here? '
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 408523058}
     Day: 1
-  - Dialogue:
-    - "\u2018Shikaku\u2019 by J. Itomi"
-    - "This might be the weirdest manga I\u2019ve ever read."
-    - "It\u2019s about a strange town where everything slowly turns into a square
-      and their inhabitants get obsessed with that shape! "
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 276631454}
     Day: 2
-  - Dialogue:
-    - "\u2018Machine code 101\u2019. "
-    - "This is an old coding manual, I tried to read it but it\u2019s too complicated
-      for me. "
-    - "I wish I could code!\r"
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 976152421}
     Day: 3
-  - Dialogue:
-    - "Sakin\u2019 by Saij\u014D Yaso."
-    - "My favorite poem is \u2018Tomino\u2019s Hell\u2019. People say that it brings
-      bad luck, but I don\u2019t think that\u2019s true. This fragment always makes
-      me shiver:\r"
-    - "Tomino fell into Hell alone,\r"
-    - "Hell is wrapped in darkness, and even the flowers don\u2019t bloom."
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 558266191}
@@ -50774,19 +50578,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7095127964067959986, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_StepOffset
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -55.29
+      value: -50.242
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.85
+      value: 0.887
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.054
+      value: 13.913
       objectReference: {fileID: 0}
     - target: {fileID: 7163832826644165750, guid: 14b3ed81b1dcc3645817d7fc816a4fe8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54383,24 +54187,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   AllDetails:
-  - Dialogue:
-    - Mom tells me I should play with dice rather than computers. I enjoy playing
-      Cho-Han every so often.
-    - What should I pick this time?
+  - AllDialogueDetails:
+    - Dialogue: 
+      DisableDelay: 1
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 0}
     Day: 1
-  - Dialogue:
-    - I need to calm down, Cho-Han always makes me calm down.
+  - AllDialogueDetails: []
     DialogueAudio: []
     Responses: []
     DisableAfterDialogue: 1
-    DisableDelay: 3
+    EndDisableDelay: 0
     StopPlayer: 1
     StopCameraMovement: 1
     LookAtWhileTalking: {fileID: 0}
@@ -68714,6 +68516,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2095322569}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1524787661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524787662}
+  - component: {fileID: 1524787664}
+  - component: {fileID: 1524787663}
+  m_Layer: 0
+  m_Name: TP trigger (End)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524787662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524787661}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.344, y: -8.059, z: 10.68}
+  m_LocalScale: {x: 0.6896548, y: 1, z: 5.043951}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 641836718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524787663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524787661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26e505bff2198a49b653d59f99fb5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpPlayerDestination: {fileID: 0}
+  player: {fileID: 99793229}
+  isInstantWarp: 1
+  isWarpLoops: 0
+  loopAmount: 1
+  warpPlayerFinalDestination: {fileID: 0}
+  ThingsToDisableLoop1: []
+  ThingsToDisableLoop2: []
+  ThingsToDisableLoop3: []
+  ThingsToDisableLoop4: []
+  EnableGameObjectsOnLoop: 1
+  KeepPlayerRotation: 1
+--- !u!65 &1524787664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524787661}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.17500496, y: 4.092725, z: 1.6860495}
+  m_Center: {x: 0.617044, y: 1.6300836, z: 0.061335087}
 --- !u!1 &1528464252
 GameObject:
   m_ObjectHideFlags: 0
@@ -69350,59 +69230,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1536639967
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1536639969}
-  - component: {fileID: 1536639968}
-  m_Layer: 0
-  m_Name: TP trigger (End)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1536639968
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536639967}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.17500496, y: 4.092725, z: 1.6860495}
-  m_Center: {x: 0.617044, y: 1.6300836, z: 0.061335087}
---- !u!4 &1536639969
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536639967}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.739, y: -7.028, z: 8.52}
-  m_LocalScale: {x: 0.6896548, y: 1, z: 5.043951}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 641836718}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1536659414
 Mesh:
   m_ObjectHideFlags: 0
@@ -85112,7 +84939,7 @@ Transform:
   m_GameObject: {fileID: 1997060138}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7390013, y: -2.3360004, z: 8.840003}
+  m_LocalPosition: {x: -0.344, y: -2.977, z: 10.68}
   m_LocalScale: {x: 0.6896548, y: 1, z: 5.043951}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85130,12 +84957,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26e505bff2198a49b653d59f99fb5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpPlayerDestination: {fileID: 1536639967}
+  warpPlayerDestination: {fileID: 0}
   player: {fileID: 99793229}
   isInstantWarp: 1
   isWarpLoops: 0
   loopAmount: 1
-  warpPlayerFinalDestination: {fileID: 1536639967}
+  warpPlayerFinalDestination: {fileID: 0}
   ThingsToDisableLoop1: []
   ThingsToDisableLoop2: []
   ThingsToDisableLoop3: []
@@ -109645,6 +109472,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -9.106002
       objectReference: {fileID: 0}
+    - target: {fileID: 667874640706557826, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970255147822971319, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1319605870727208819, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7540663
@@ -109652,6 +109487,14 @@ PrefabInstance:
     - target: {fileID: 1319605870727208819, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.00782
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392110656404072880, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593943301941395490, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1602128632484187587, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_Layer
@@ -109665,9 +109508,33 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 2526277292342076031, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2550302547690680358, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.106002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675256034813302178, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838863161453931615, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612962718434938747, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946647579117421400, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319965675466879289, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.092
       objectReference: {fileID: 0}
     - target: {fileID: 4439943982887633617, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -109685,29 +109552,61 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.00782
       objectReference: {fileID: 0}
+    - target: {fileID: 4646181845608196167, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4675912736084567182, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.007099915
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725201770881720121, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795965400490047304, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4799092184946986558, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalScale.y
       value: 2.078457
       objectReference: {fileID: 0}
+    - target: {fileID: 4904425579862845031, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4982197247840506812, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.106002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068173719003946906, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5407190730429453051, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.106
       objectReference: {fileID: 0}
+    - target: {fileID: 5412568808002153357, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5493360346771726335, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.128
       objectReference: {fileID: 0}
+    - target: {fileID: 5861008745156068675, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6082648309271583504, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.106002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174682503895583072, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6449884966942389211, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -109729,6 +109628,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7069096016655018202, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7214099911616962703, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_Name
       value: Altered Staircase
@@ -109737,9 +109640,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7652014236162940346, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927083008590115727, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080701629335544712, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8166364760095162902, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0071
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177077245821286325, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8180321777571731345, guid: b92a024a39daf1242be1f0add7dac82f, type: 3}
       propertyPath: m_LocalPosition.x

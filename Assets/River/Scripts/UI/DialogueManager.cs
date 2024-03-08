@@ -61,8 +61,8 @@ public class DialogueManager : MonoBehaviour
     /// <param name="StopPlayer">Stop movement when character is speaking</param>
     /// <param name="StopCameraMovement">Stop Camera panning when the character is speaking</param>
     /// <param name="LookAT">Look at a specific object while the camera is locked</param>
-    public void ShowDialogue(string Character, List<string> Dialogue, bool Disable, float DisableDelay,
-        List<AudioClip> clip, bool HasResponses, List<Interactable.Response> Responses, bool StopPlayer,
+    public void ShowDialogue(string Character, List<Interactable.Details.DialogueElement> AllDialogueDetails, string Dialogue, float DisableDelay, bool Disable, float EndDisableDelay,
+        List<AudioClip> clip, bool HasResponses, List<Interactable.Response> Responses, List<string> SomethingResponses, bool StopPlayer,
         bool StopCameraMovement, Transform LookAT)
     {
         if (StopPlayer)
@@ -78,14 +78,14 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        switch (Dialogue.Count)
+        switch (AllDialogueDetails.Count)
         {
             case 1:
                 PlayerName.text = Character + ": ";
-                PlayerDialogue.ShowText(Dialogue[0]);
+                PlayerDialogue.ShowText(AllDialogueDetails[0].Dialogue);
                 if (clip.Count > 0) PlayAudioClip(clip[0]);
                 if (Disable)
-                    DOVirtual.Float(0, 1, DisableDelay, (value) => { }).OnComplete(() =>
+                    DOVirtual.Float(0, 1, EndDisableDelay, (value) => { }).OnComplete(() =>
                     {
                         PlayerDialogue.ShowText("");
                         PlayerName.text = "";
@@ -97,19 +97,19 @@ public class DialogueManager : MonoBehaviour
 
             case > 1:
                 var index = 0;
-                var nSeconds = 5; // Fading Timeout
+                Debug.Log(DisableDelay);
                 PlayerName.text = Character + ": ";
-                PlayerDialogue.ShowText(Dialogue[index]);
-                DOVirtual.Float(0, 1, nSeconds, (value) => { }).SetLoops(Dialogue.Count - 1).OnStepComplete(() =>
+                PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
+                DOVirtual.Float(0, 1, AllDialogueDetails[index].DisableDelay, (value) => { }).SetLoops(AllDialogueDetails.Count - 1).OnStepComplete(() =>
                 {
                     index++;
-                    PlayerDialogue.ShowText(Dialogue[index]);
+                    PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
                 }).OnComplete(() =>
                 {
                     if (HasResponses && Responses != null) ShowResponsePanel(Responses);
 
                     if (Disable)
-                        DOVirtual.Float(0, 1, DisableDelay, (value) => { }).OnComplete(() =>
+                        DOVirtual.Float(0, 1, EndDisableDelay, (value) => { }).OnComplete(() =>
                         {
                             PlayerDialogue.ShowText("");
                             PlayerName.text = "";
@@ -155,12 +155,15 @@ public class DialogueManager : MonoBehaviour
                 }
 
                 ShowDialogue("Player",
-                    AllResponses[index].ResponseLong,
+                    null,
+                    null,
+                    5, //Dialogue delay for responses / calls to the delay of dialogue so probably want to change that to its own response delayvalue
                     true,
-                    AllResponses[index].DisableDelay,
+                    AllResponses[index].EndDisableDelay,
                     AllResponses[index].Responseclips,
                     false,
                     null,
+                    AllResponses[index].ResponseLong,
                     true,
                     AllResponses[index].StopCameraMovement,
                     AllResponses[index].LookAtWhileTalking);

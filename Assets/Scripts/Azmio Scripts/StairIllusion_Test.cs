@@ -46,9 +46,9 @@ public class StairIllusion_Test : MonoBehaviour
 
     void RotateDown()
     {
-        float step = -(RotationSpeed * Time.deltaTime);
+        float step =- (RotationSpeed * Time.deltaTime);
 
-        stairsTF.Rotate(step, 0f, 0f);
+        stairsTF.Rotate(0f, 0f, step);
         currentRotationAngle += step;
         
         if (currentRotationAngle <= RotationAngleNew)
@@ -62,7 +62,7 @@ public class StairIllusion_Test : MonoBehaviour
     {
         float step = (RotationSpeed * Time.deltaTime);
 
-        stairsTF.Rotate(step, 0f, 0f);
+        stairsTF.Rotate(0f, 0f, step);
         currentRotationAngle += step;
 
         if (currentRotationAngle >= RotationAngleOriginal)
