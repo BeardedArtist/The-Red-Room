@@ -7,11 +7,12 @@ using UnityEngine.ProBuilder.Shapes;
 public class StairIllusion_Test : MonoBehaviour
 {
     [SerializeField] GameObject stairs;
+    [SerializeField] MouseLook MouseLook;
     [SerializeField] Transform playerBody;
     Transform stairsTF;
     float currentRotationAngle = 0f;
     float RotationAngleOriginal = 0f;
-    float RotationAngleNew = -45f;
+    float RotationAngleNew = 45f;
     float RotationSpeed = 22.75f;
     bool isRotating = false;
     bool rotateDownNext = true;
@@ -49,6 +50,7 @@ public class StairIllusion_Test : MonoBehaviour
         float step =- (RotationSpeed * Time.deltaTime);
 
         stairsTF.Rotate(0f, 0f, step);
+        MouseLook.xRotation = step;
         currentRotationAngle += step;
         
         if (currentRotationAngle <= RotationAngleNew)
@@ -60,11 +62,12 @@ public class StairIllusion_Test : MonoBehaviour
 
     void RotateUp()
     {
-        float step = (RotationSpeed * Time.deltaTime);
+        float step = RotationSpeed * Time.deltaTime;
 
         stairsTF.Rotate(0f, 0f, step);
+        MouseLook.xRotation -= step;
         currentRotationAngle += step;
-
+        
         if (currentRotationAngle >= RotationAngleOriginal)
         {
             isRotating = false;

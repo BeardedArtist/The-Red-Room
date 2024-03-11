@@ -17,15 +17,12 @@ public class PlayerWarp : MonoBehaviour
 
     #endregion
     [SerializeField] GameObject warpPlayerDestination;
-
     [SerializeField] GameObject player;
     CharacterController playerCharacterController;
     [SerializeField] bool isInstantWarp;
-    [SerializeField] bool isWarpLoops;
     [SerializeField] int loopAmount = 1;
     [SerializeField] GameObject warpPlayerFinalDestination;
     int loopNumber = 1;
-    bool hasBeenTriggered = false;
     bool playerInTrigger = false;
     bool eKeyPressed = false;
 
@@ -66,35 +63,25 @@ public class PlayerWarp : MonoBehaviour
 
     void Update()
     {
-        if (playerInTrigger && Input.GetKey(KeyCode.E) && !hasBeenTriggered && !eKeyPressed)
+        if (playerInTrigger && loopNumber < loopAmount)
         {
-            eKeyPressed = true;
-
-            if (!isWarpLoops)
+            if (playerInTrigger && Input.GetKey(KeyCode.E) && !eKeyPressed)
             {
+                eKeyPressed = true;
                 StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
-                hasBeenTriggered = true;
+                loopNumber += 1;
             }
 
-            else
+            else if (playerInTrigger && isInstantWarp)
             {
-                if (loopNumber < loopAmount)
-                {
-                    StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
-                    loopNumber += 1;
-                }
-
-                else
-                {
-                    StartCoroutine(DelayTransition(warpPlayerFinalDestination, loopNumber));
-                    hasBeenTriggered = true;
-                }
+                StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
+                loopNumber += 1;
             }
         }
 
-        else if (playerInTrigger && isInstantWarp)
+        else if (playerInTrigger)
         {
-            StartCoroutine(DelayTransition(warpPlayerDestination, loopNumber));
+            StartCoroutine(DelayTransition(warpPlayerFinalDestination, loopNumber));
         }
     }
 
@@ -120,25 +107,21 @@ public class PlayerWarp : MonoBehaviour
                 case 1:
                     foreach (var Object in ThingsToDisableLoop1)
                         Object.ObjectToUpdate.SetActive(Object.Status);
-
                     break;
 
                 case 2:
                     foreach (var Object in ThingsToDisableLoop2)
                         Object.ObjectToUpdate.SetActive(Object.Status);
-
                     break;
 
                 case 3:
                     foreach (var Object in ThingsToDisableLoop3)
                         Object.ObjectToUpdate.SetActive(Object.Status);
-
                     break;
 
                 default:
                     foreach (var Object in ThingsToDisableLoop4)
                         Object.ObjectToUpdate.SetActive(Object.Status);
-
                     break;
             }
         }

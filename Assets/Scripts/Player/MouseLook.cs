@@ -6,7 +6,7 @@ public class MouseLook : MonoBehaviour
 {
     [Range(0f,100f)]public float mouseSensitivity = 100f; // apply a speed to mouse movement.
 
-    float xRotation = 0f;
+    public float xRotation = 0f;
     private float mouseX, mouseY;
     public Transform playerBody;
     
@@ -32,7 +32,7 @@ public class MouseLook : MonoBehaviour
         };
     }
 
-    // Update is called once per frame
+
     private void Update()
     {
         if (CanLook)
