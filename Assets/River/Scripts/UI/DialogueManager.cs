@@ -100,6 +100,7 @@ public class DialogueManager : MonoBehaviour
                 float DisableDelay = AllDialogueDetails[index].DisableDelay;
                 PlayerName.text = Character + ": ";
                 PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
+                
                 DOVirtual.Float(0, 1, DisableDelay, (value) => {}).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
                 {
                     index++;

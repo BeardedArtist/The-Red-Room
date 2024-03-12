@@ -71,7 +71,7 @@ public class Interactable : MonoBehaviour
         Details.DialogueElement DialogueDetails = new Details.DialogueElement();
 
         if (AllDetails.Count > 0) OtherDetails = AllDetails[0];
-        if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
+        //if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
         //DialogueDetails = OtherDetails.AllDialogueDetails;
 
         switch (type)
