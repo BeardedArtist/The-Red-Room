@@ -4,7 +4,6 @@ using System.Threading;
 using DG.Tweening;
 using UnityEngine;
 using TMPro;
-using MyBox;
 using UnityEngine.Serialization;
 
 public class Flashlight : MonoBehaviour

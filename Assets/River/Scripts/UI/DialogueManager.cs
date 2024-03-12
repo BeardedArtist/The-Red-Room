@@ -97,12 +97,14 @@ public class DialogueManager : MonoBehaviour
 
             case > 1:
                 var index = 0;
-                Debug.Log(AllDialogueDetails[index].DisableDelay); //Disabledelay not updating with index, only going through this debug log once
+                float DisableDelay = AllDialogueDetails[index].DisableDelay;
                 PlayerName.text = Character + ": ";
                 PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
-                DOVirtual.Float(0, 1, AllDialogueDetails[index].DisableDelay, (value) => { }).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
+                DOVirtual.Float(0, 1, DisableDelay, (value) => {}).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
                 {
                     index++;
+                    DisableDelay = AllDialogueDetails[index].DisableDelay;
+                    Debug.Log(DisableDelay);
                     PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
                 }).OnComplete(() =>
                 {

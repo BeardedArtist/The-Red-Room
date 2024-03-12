@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System;
-using MyBox;
+//using MyBox;
 public class PlayerWarp : MonoBehaviour
 {
     #region Predefined
@@ -26,7 +26,7 @@ public class PlayerWarp : MonoBehaviour
     bool playerInTrigger = false;
     bool eKeyPressed = false;
 
-    [Foldout("Details", true)]
+    //[Foldout("Details", true)]
     [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop1;
     [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop2;
     [SerializeField] public List<UpdatableGameobjects> ThingsToDisableLoop3;

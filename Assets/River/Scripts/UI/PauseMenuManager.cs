@@ -1,18 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MyBox;
+//using MyBox;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
-   [Foldout("Component References", true)] 
+   //[Foldout("Component References", true)] 
    [SerializeField] private GameObject PauseMenu;
    [SerializeField] private KeyCode PauseButton;
    [SerializeField] private Slider BrightnessSlider, VolumeSlider, SensitivitySlider;
 
-   [Foldout("Player Values", true)] 
+   //[Foldout("Player Values", true)] 
    [SerializeField] private MouseLook _mouseLook;
    
    #region Delegates
