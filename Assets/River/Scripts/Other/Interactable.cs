@@ -68,10 +68,10 @@ public class Interactable : MonoBehaviour
     public void Interact()
     {
         Details OtherDetails = new Details();
-        List<Details.DialogueElement> DialogueDetails = new List<Details.DialogueElement>();
+        Details.DialogueElement DialogueDetails = new Details.DialogueElement();
 
         if (AllDetails.Count > 0) OtherDetails = AllDetails[0];
-        if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails;
+        if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
         //DialogueDetails = OtherDetails.AllDialogueDetails;
 
         switch (type)
@@ -84,7 +84,7 @@ public class Interactable : MonoBehaviour
                 DOVirtual.Float(0, 1, 0.1f, (value) => { }).OnComplete(() => { GetComponent<Collider>().enabled = true; });
                 break;
             case InteractableType.BookShelf:
-                //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false, null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, /*DialogueDetails.Dialogue, DialogueDetails.DisableDelay,*/ OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false, null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
                 BookShelfInteracted = true;
                 break;
             case InteractableType.FishBowl:

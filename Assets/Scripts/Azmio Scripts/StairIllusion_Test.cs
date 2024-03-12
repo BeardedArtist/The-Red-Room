@@ -12,7 +12,7 @@ public class StairIllusion_Test : MonoBehaviour
     Transform stairsTF;
     float currentRotationAngle = 0f;
     float RotationAngleOriginal = 0f;
-    float RotationAngleNew = 45f;
+    float RotationAngleNew = 90f;
     float RotationSpeed = 22.75f;
     bool isRotating = false;
     bool rotateDownNext = true;
@@ -47,13 +47,13 @@ public class StairIllusion_Test : MonoBehaviour
 
     void RotateDown()
     {
-        float step =- (RotationSpeed * Time.deltaTime);
+        float step = RotationSpeed * Time.deltaTime;
 
         stairsTF.Rotate(0f, 0f, step);
-        MouseLook.xRotation = step;
+        MouseLook.xRotation += step;
         currentRotationAngle += step;
         
-        if (currentRotationAngle <= RotationAngleNew)
+        if (currentRotationAngle >= RotationAngleNew)
         {
             isRotating = false;
             rotateDownNext = false;
@@ -64,11 +64,11 @@ public class StairIllusion_Test : MonoBehaviour
     {
         float step = RotationSpeed * Time.deltaTime;
 
-        stairsTF.Rotate(0f, 0f, step);
+        stairsTF.Rotate(0f, 0f, -step);
         MouseLook.xRotation -= step;
-        currentRotationAngle += step;
+        currentRotationAngle -= step;
         
-        if (currentRotationAngle >= RotationAngleOriginal)
+        if (currentRotationAngle <= RotationAngleOriginal)
         {
             isRotating = false;
             rotateDownNext = true;

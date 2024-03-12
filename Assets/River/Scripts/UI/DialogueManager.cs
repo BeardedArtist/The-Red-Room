@@ -61,7 +61,7 @@ public class DialogueManager : MonoBehaviour
     /// <param name="StopPlayer">Stop movement when character is speaking</param>
     /// <param name="StopCameraMovement">Stop Camera panning when the character is speaking</param>
     /// <param name="LookAT">Look at a specific object while the camera is locked</param>
-    public void ShowDialogue(string Character, List<Interactable.Details.DialogueElement> AllDialogueDetails, string Dialogue, float DisableDelay, bool Disable, float EndDisableDelay,
+    public void ShowDialogue(string Character, List<Interactable.Details.DialogueElement> AllDialogueDetails, /*string Dialogue, float DisableDelay,*/ bool Disable, float EndDisableDelay,
         List<AudioClip> clip, bool HasResponses, List<Interactable.Response> Responses, List<string> SomethingResponses, bool StopPlayer,
         bool StopCameraMovement, Transform LookAT)
     {
@@ -97,10 +97,10 @@ public class DialogueManager : MonoBehaviour
 
             case > 1:
                 var index = 0;
-                Debug.Log(DisableDelay);
+                Debug.Log(AllDialogueDetails[index].DisableDelay); //Disabledelay not updating with index, only going through this debug log once
                 PlayerName.text = Character + ": ";
                 PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
-                DOVirtual.Float(0, 1, AllDialogueDetails[index].DisableDelay, (value) => { }).SetLoops(AllDialogueDetails.Count - 1).OnStepComplete(() =>
+                DOVirtual.Float(0, 1, AllDialogueDetails[index].DisableDelay, (value) => { }).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
                 {
                     index++;
                     PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
@@ -154,7 +154,7 @@ public class DialogueManager : MonoBehaviour
                     Button.gameObject.SetActive(false);
                 }
 
-                ShowDialogue("Player",
+                /*ShowDialogue("Player",
                     null,
                     null,
                     5, //Dialogue delay for responses / calls to the delay of dialogue so probably want to change that to its own response delayvalue
@@ -166,7 +166,7 @@ public class DialogueManager : MonoBehaviour
                     AllResponses[index].ResponseLong,
                     true,
                     AllResponses[index].StopCameraMovement,
-                    AllResponses[index].LookAtWhileTalking);
+                    AllResponses[index].LookAtWhileTalking);*/
             });
         }
     }
