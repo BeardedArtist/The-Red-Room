@@ -19,11 +19,15 @@ public class Interaction : MonoBehaviour
         {
             if (HitInfo.transform.GetComponent<Interactable>() != null)
             {
-                Interacttext.SetActive(true);
+
                 //Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
 
-                if(interactable.type == Interactable.InteractableType.ObjectRemoval)
+                if (interactable.ActivatedOnTriggerCollision) return;
+
+                Interacttext.SetActive(true);
+
+                if (interactable.type == Interactable.InteractableType.ObjectRemoval)
                 {
                     HoldEtext.SetActive(true);
                 }

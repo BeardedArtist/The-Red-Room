@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger }
     [Serializable]
     public struct Response
     {
@@ -52,6 +52,10 @@ public class Interactable : MonoBehaviour
     [Foldout("Interactable Details", true)]
     [SerializeField]
     public List<Details> AllDetails;
+
+    [SerializeField] public bool ActivatedOnTriggerCollision;
+    [SerializeField] private bool DisableAfterTriggerCollision;
+    [SerializeField, MyBox.Tag] private string CollisionWithTag;
 
 
     [Foldout("Debug", true)]
@@ -125,8 +129,8 @@ public class Interactable : MonoBehaviour
     public IEnumerator StartMotherDialogue()
     {
         Details DialogueDetails = new Details();
-        if(AllDetails.Count>0) DialogueDetails = AllDetails[0];
-        
+        if (AllDetails.Count > 0) DialogueDetails = AllDetails[0];
+
         yield return new WaitForSeconds(5);
         //DialogueManager.instance.ShowDialogue("Mother",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.MotherDialogueResponses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
     }
@@ -136,5 +140,28 @@ public class Interactable : MonoBehaviour
     {
         Gizmos.color = GizmoColor;
         Gizmos.DrawSphere(transform.position, GizmoSize);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (ActivatedOnTriggerCollision && other.gameObject.tag == CollisionWithTag)
+        {
+            switch (type)
+            {
+                case InteractableType.UncrouchOnTrigger:
+                    if (other.gameObject.GetComponent<PlayerMovement>() != null)
+                    {
+                        other.gameObject.GetComponent<PlayerMovement>().ForceUncrouch();
+                    }
+                    break;
+            }
+
+            if (DisableAfterTriggerCollision)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+
     }
 }

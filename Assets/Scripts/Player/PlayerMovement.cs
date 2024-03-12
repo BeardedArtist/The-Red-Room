@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public bool CanMove { get; private set; } = true;
     private bool isSprinting => canSprint && Input.GetKey(sprintKey) && !isCrouching; // Checks if canSprint is TRUE && sprintKey is pressed
     private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded; // Checks if jumpKey is pressed && character is grounded
-    private bool shouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
+    private bool shouldCrouch => (Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded);
     // => is called Lambda 
 
 
@@ -22,12 +22,12 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Controls")]
     // KeyCode variable allows us to choose a key in inspector
-    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift; 
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
 
 
-    [Header("Movement Parameters")] 
+    [Header("Movement Parameters")]
     [SerializeField] public float walkSpeed = 3.0f;
     [SerializeField] public float sprintSpeed = 6.0f;
 
@@ -42,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float standingHeight = 2f;
     [SerializeField] private float timeToCrouch = 0.25f;
     [SerializeField] private float crouchSpeed = 1.5f;
-    [SerializeField] private Vector3 crouchingCenter = new Vector3 (0, 0.5f, 0);
-    [SerializeField] private Vector3 standingCenter = new Vector3 (0, 0, 0);
+    [SerializeField] private Vector3 crouchingCenter = new Vector3(0, 0.5f, 0);
+    [SerializeField] private Vector3 standingCenter = new Vector3(0, 0, 0);
     private bool isCrouching;
     private bool duringCrouchAnimation;
 
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 currentInput;
 
 
-    private void Awake() 
+    private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         mouseLook = GetComponent<MouseLook>(); // TEST
@@ -101,18 +101,18 @@ public class PlayerMovement : MonoBehaviour
             if (opened)
             {
                 InitialSpeed = walkSpeed;
-                walkSpeed = 0f; 
+                walkSpeed = 0f;
             }
             else
             {
-                walkSpeed = InitialSpeed; 
+                walkSpeed = InitialSpeed;
             }
-           
+
         };
-        
+
     }
 
-    private void Update() 
+    private void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Q))
         // {
@@ -123,19 +123,19 @@ public class PlayerMovement : MonoBehaviour
         if (CanMove)
         {
             HandleMovementInput();
-            
+
             if (canJump)
             {
                 HandleJump();
             }
 
-            
+
             if (canCrouch)
             {
                 HandleCrouch();
             }
             CheckForGround();
-            
+
 
             if (canUseHeadbob)
             {
@@ -153,27 +153,27 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckForGround()
     {
-    RaycastHit hit;
-    if (!Physics.Raycast(transform.position, Vector3.down, out hit, 5f))
-    {
-      isCrouching = false;
-    }
+        RaycastHit hit;
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 5f))
+        {
+            isCrouching = false;
+        }
 
     }
 
     private void HandleMovementInput()
     {
         //currentInput = new Vector2((isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal")); // Gets our front & back movement -- Gets our left & right movements
-        
+
         if (!IsMonsterNearby)
         {
-            currentInput = new Vector2((isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical"), 
+            currentInput = new Vector2((isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical"),
                                        (isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Horizontal")); // Gets our front & back movement -- Gets our left & right movements
         }
         else
         {
-            currentInput = new Vector2((isSprinting ? sprintSpeed/2 : isCrouching ? crouchSpeed/2 : walkSpeed/2) * Input.GetAxis("Vertical"), 
-                                       (isSprinting ? sprintSpeed/2 : isCrouching ? crouchSpeed/2 : walkSpeed/2) * Input.GetAxis("Horizontal"));
+            currentInput = new Vector2((isSprinting ? sprintSpeed / 2 : isCrouching ? crouchSpeed / 2 : walkSpeed / 2) * Input.GetAxis("Vertical"),
+                                       (isSprinting ? sprintSpeed / 2 : isCrouching ? crouchSpeed / 2 : walkSpeed / 2) * Input.GetAxis("Horizontal"));
             Debug.Log("Monster is Nearby");
         }
         var moveDirectionY = moveDirection.y;
@@ -205,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
+        if (Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
         {
             timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isSprinting ? sprintBobSpeed : walkBobSpeed);
             // In Parenthesis --> (If isCrouching == true then use crouchBobSpeed. Else if isSprinting == true then use sprintBobSpeed
@@ -224,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        
+
         if (currentInput == Vector2.zero)
         {
             return;
@@ -236,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 5))
             {
-                switch(hit.collider.tag)
+                switch (hit.collider.tag)
                 {
                     case "Wood":
                         FMODUnity.RuntimeManager.PlayOneShot(woodFootsteps);
@@ -310,5 +310,23 @@ public class PlayerMovement : MonoBehaviour
         isCrouching = !isCrouching;
 
         duringCrouchAnimation = false;
+    }
+
+    public void ForceUncrouch()
+    {
+        if (isCrouching)
+        {
+            // Immediately set the character controller to standing parameters
+            characterController.height = standingHeight;
+            characterController.center = standingCenter;
+
+            // Update the isCrouching flag
+            isCrouching = false;
+
+            // Optionally, stop the crouch animation if it's running
+            StopCoroutine(CrouchStand());
+
+            // Any additional logic you want to execute when forcing uncrouch
+        }
     }
 }
