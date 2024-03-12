@@ -7,6 +7,7 @@ using MyBox;
 using TMPro;
 using System.Runtime.CompilerServices;
 
+[SelectionBase]
 public class Interactable : MonoBehaviour
 {
     #region PreDefined
@@ -162,7 +163,14 @@ public class Interactable : MonoBehaviour
                     }
                     break;
                 case InteractableType.BathRoomReveal:
-                    DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() => { interactable_animator.SetTrigger("Activate"); });
+                    Camera.main.DOFarClipPlane(1000, 2f);
+                    RenderSettings.fog = false;
+                    DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() =>
+                    {
+                        interactable_animator.SetTrigger("Activate");
+
+
+                    });
                     break;
             }
 
