@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal }
     [Serializable]
     public struct Response
     {
@@ -53,9 +53,16 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     public List<Details> AllDetails;
 
+    [Foldout("Trigger Details", true)]
     [SerializeField] public bool ActivatedOnTriggerCollision;
     [SerializeField] private bool DisableAfterTriggerCollision;
     [SerializeField, MyBox.Tag] private string CollisionWithTag;
+
+    [Foldout("AnimationDetails", true)]
+    [SerializeField] private Animator interactable_animator;
+    [SerializeField, Range(0f, 10f)] private float AnimationDelay;
+    //[ConditionalField(nameof(type), false, InteractableType.BathRoomReveal)] public GameObject BathroomLight;
+
 
 
     [Foldout("Debug", true)]
@@ -153,6 +160,9 @@ public class Interactable : MonoBehaviour
                     {
                         other.gameObject.GetComponent<PlayerMovement>().ForceUncrouch();
                     }
+                    break;
+                case InteractableType.BathRoomReveal:
+                    DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() => { interactable_animator.SetTrigger("Activate"); });
                     break;
             }
 
