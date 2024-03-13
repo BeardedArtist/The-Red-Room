@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Blink : MonoBehaviour
 {
-    [SerializeField] private Animator blink_Anim;
-    [SerializeField] private Animator blink_Anim_2;
+    //[SerializeField] private Animator blink_Anim;
+    //[SerializeField] private Animator blink_Anim_2;
     [SerializeField] private SanityControler _sanityControler;
     [SerializeField] GameObject monsterCamera;
     [SerializeField] public bool isBlinking;
@@ -13,9 +15,16 @@ public class Blink : MonoBehaviour
     private float blinkTimer = 1.1f;
     private float everySecondTimer = 1f;
 
+    [SerializeField] private Image TopLid, BottomLid;
+
+    [SerializeField, Range(0.1f, 2f)] private float BlinkSpeed = 1f;
+
+    //Sequence RandomBlinking;
+
     void Start()
     {
         randomBlinkTimer = Random.Range(40.0f, 60.0f);
+
     }
 
 
@@ -23,64 +32,91 @@ public class Blink : MonoBehaviour
     {
         randomBlinkTimer -= Time.deltaTime;
 
-        if ((randomBlinkTimer <= 0 || Input.GetMouseButtonDown(1) && blinkTimer == 1.1f))
+        if (Input.GetMouseButtonDown(1))
         {
-            randomBlinkTimer = Random.Range(40.0f, 60.0f);
-            StartBlink();
+            Sequence blinkSequence = DOTween.Sequence();
+            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed));
+            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
+
+
+            Sequence bottomLidSequence = DOTween.Sequence();
+            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed)).AppendCallback(() => monsterCamera.SetActive(true));
+            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
         }
 
-        if (isBlinking)
+        else if (Input.GetMouseButtonUp(1))
         {
-            blinkTimer -= Time.deltaTime;
+            Sequence blinkSequence = DOTween.Sequence();
+            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed));
+            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
 
-            if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
-            {
-                blinkTimer += Time.deltaTime;
-                everySecondTimer -= Time.deltaTime;
 
-                blink_Anim.SetTrigger("Hold");
-                blink_Anim_2.SetTrigger("Hold");
-                
-                monsterCamera.SetActive(true);
+            Sequence bottomLidSequence = DOTween.Sequence();
+            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed)).AppendCallback(() => monsterCamera.SetActive(false));
+            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
 
-                if (everySecondTimer <= 0)
-                {
-                    _sanityControler.AlterSanity(0.5f);
-
-                    everySecondTimer = 1f;
-                }
-            }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                blink_Anim.ResetTrigger("Hold");
-                blink_Anim_2.ResetTrigger("Hold");
-
-                blink_Anim.SetTrigger("StopHold");
-                blink_Anim_2.SetTrigger("StopHold");
-
-                everySecondTimer = 1f;
-            }
         }
 
-        if (blinkTimer <= 0)
-        {
-            isBlinking = false;
-            blinkTimer = 1.1f;
+        #region Redundant
+        //if ((randomBlinkTimer <= 0 || Input.GetMouseButtonDown(1) && blinkTimer == 1.1f))
+        //{
+        //    randomBlinkTimer = Random.Range(40.0f, 60.0f);
+        //    StartBlink();
+        //}
 
-            blink_Anim.ResetTrigger("StopHold");
-            blink_Anim_2.ResetTrigger("StopHold");
+        //if (isBlinking)
+        //{
+        //    blinkTimer -= Time.deltaTime;
 
-            monsterCamera.SetActive(false);
-        }
+        //    if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
+        //    {
+        //        blinkTimer += Time.deltaTime;
+        //        everySecondTimer -= Time.deltaTime;
+
+        //        blink_Anim.SetTrigger("Hold");
+        //        blink_Anim_2.SetTrigger("Hold");
+
+        //        monsterCamera.SetActive(true);
+
+        //        if (everySecondTimer <= 0)
+        //        {
+        //            _sanityControler.AlterSanity(0.5f);
+
+        //            everySecondTimer = 1f;
+        //        }
+        //    }
+
+        //    if (Input.GetMouseButtonUp(1))
+        //    {
+        //        blink_Anim.ResetTrigger("Hold");
+        //        blink_Anim_2.ResetTrigger("Hold");
+
+        //        blink_Anim.SetTrigger("StopHold");
+        //        blink_Anim_2.SetTrigger("StopHold");
+
+        //        everySecondTimer = 1f;
+        //    }
+        //}
+
+        //if (blinkTimer <= 0)
+        //{
+        //    isBlinking = false;
+        //    blinkTimer = 1.1f;
+
+        //    blink_Anim.ResetTrigger("StopHold");
+        //    blink_Anim_2.ResetTrigger("StopHold");
+
+        //    monsterCamera.SetActive(false);
+        //}
+        #endregion
     }
 
 
-    void StartBlink()
-    {
-        isBlinking = true;
+    //void StartBlink()
+    //{
+    //    isBlinking = true;
 
-        blink_Anim.Play("TopLidBlink", 0, 0.25f);
-        blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-    }
+    //    blink_Anim.Play("TopLidBlink", 0, 0.25f);
+    //    blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
+    //}
 }
