@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage,AiEnemyCrouch }
     [Serializable]
     public struct Response
     {
@@ -187,11 +187,25 @@ public class Interactable : MonoBehaviour
                 Blink.instance.StartBlink(BlinkTimer);
                 DOVirtual.Float(0, 1, Blink.instance.BlinkSpeed, (value) => { }).OnComplete(()=>{Blink.instance.EndBlink(Blink.instance.BlinkSpeed);});
                 break;
+            case InteractableType.AiEnemyCrouch:
+                AI_StalkerController.instance.Crouch();
+                break;
         }
 
         if (DisableAfterTriggerCollision)
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!ActivatedOnTriggerCollision || other.gameObject.tag != CollisionWithTag) return;
+        switch (type)
+        {
+            case InteractableType.AiEnemyCrouch:
+                AI_StalkerController.instance.UnCrouch();
+                break;
         }
     }
 
