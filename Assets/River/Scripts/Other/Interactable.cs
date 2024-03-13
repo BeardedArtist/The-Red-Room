@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink }
     [Serializable]
     public struct Response
     {
@@ -54,8 +54,9 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     public List<Details> AllDetails;
 
-    [Foldout("Trigger Details", true)]
-    [SerializeField] public bool ActivatedOnTriggerCollision;
+    [Foldout("Trigger Details", true)] [SerializeField]
+    public bool DontTriggerByRaycast;
+    [SerializeField] private bool ActivatedOnTriggerCollision;
     [SerializeField] private bool DisableAfterTriggerCollision;
     [SerializeField, MyBox.Tag] private string CollisionWithTag;
 
@@ -63,6 +64,9 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Animator interactable_animator;
     [SerializeField, Range(0f, 10f)] private float AnimationDelay;
     //[ConditionalField(nameof(type), false, InteractableType.BathRoomReveal)] public GameObject BathroomLight;
+
+    [Foldout("Teleport Details", true)] 
+    [SerializeField] private Vector3 TeleportPosition;
 
 
 
@@ -79,8 +83,8 @@ public class Interactable : MonoBehaviour
     [ButtonMethod]
     public void Interact()
     {
-        Details OtherDetails = new Details();
-        Details.DialogueElement DialogueDetails = new Details.DialogueElement();
+        var OtherDetails = new Details();
+        var DialogueDetails = new Details.DialogueElement();
 
         if (AllDetails.Count > 0) OtherDetails = AllDetails[0];
         //if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
@@ -148,38 +152,41 @@ public class Interactable : MonoBehaviour
     {
         Gizmos.color = GizmoColor;
         Gizmos.DrawSphere(transform.position, GizmoSize);
+
+        if (type != InteractableType.ShiftOnBlink) return;
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(TeleportPosition, 0.6f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ActivatedOnTriggerCollision && other.gameObject.tag == CollisionWithTag)
+        if (!ActivatedOnTriggerCollision || other.gameObject.tag != CollisionWithTag) return;
+        switch (type)
         {
-            switch (type)
-            {
-                case InteractableType.UncrouchOnTrigger:
-                    if (other.gameObject.GetComponent<PlayerMovement>() != null)
-                    {
-                        other.gameObject.GetComponent<PlayerMovement>().ForceUncrouch();
-                    }
-                    break;
-                case InteractableType.BathRoomReveal:
-                    Camera.main.DOFarClipPlane(1000, 2f);
-                    RenderSettings.fog = false;
-                    DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() =>
-                    {
-                        interactable_animator.SetTrigger("Activate");
-
-
-                    });
-                    break;
-            }
-
-            if (DisableAfterTriggerCollision)
-            {
-                gameObject.SetActive(false);
-            }
+            case InteractableType.UncrouchOnTrigger:
+                if (other.gameObject.GetComponent<PlayerMovement>() != null)
+                {
+                    other.gameObject.GetComponent<PlayerMovement>().ForceUncrouch();
+                }
+                break;
+            case InteractableType.BathRoomReveal:
+                Camera.main.DOFarClipPlane(1000, 2f);
+                RenderSettings.fog = false;
+                DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() =>
+                {
+                    interactable_animator.SetTrigger("Activate");
+                });
+                break;
         }
 
+        if (DisableAfterTriggerCollision)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
+    public void ShiftOnBlink()
+    {
+        transform.position = TeleportPosition;
     }
 }

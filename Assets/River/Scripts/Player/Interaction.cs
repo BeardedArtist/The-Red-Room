@@ -19,11 +19,9 @@ public class Interaction : MonoBehaviour
         {
             if (HitInfo.transform.GetComponent<Interactable>() != null)
             {
-
-                //Debug.Log(HitInfo.transform.gameObject.name);
                 var interactable = HitInfo.transform.GetComponent<Interactable>();
 
-                if (interactable.ActivatedOnTriggerCollision) return;
+                if (interactable.DontTriggerByRaycast) return;
 
                 Interacttext.SetActive(true);
 
