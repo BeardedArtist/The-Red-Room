@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage }
     [Serializable]
     public struct Response
     {
@@ -68,6 +68,10 @@ public class Interactable : MonoBehaviour
     [Foldout("Teleport Details", true)] 
     [SerializeField] private Vector3 TeleportPosition;
 
+    [Foldout("Flashing Images", true)] 
+    [SerializeField] private GameObject FlashingImage;
+
+    [SerializeField, Range(0.1f, 10f)] private float BlinkTimer;
 
 
     [Foldout("Debug", true)]
@@ -176,6 +180,12 @@ public class Interactable : MonoBehaviour
                 {
                     interactable_animator.SetTrigger("Activate");
                 });
+                break;
+            case InteractableType.FlashingImage:
+                Blink.instance.ShowFlashingImageEnabled = true;
+                Blink.instance.FlashingImage = FlashingImage;
+                Blink.instance.StartBlink(BlinkTimer);
+                DOVirtual.Float(0, 1, Blink.instance.BlinkSpeed, (value) => { }).OnComplete(()=>{Blink.instance.EndBlink(Blink.instance.BlinkSpeed);});
                 break;
         }
 

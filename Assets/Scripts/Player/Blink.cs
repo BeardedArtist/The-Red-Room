@@ -14,52 +14,37 @@ public class Blink : MonoBehaviour
     [SerializeField] GameObject monsterCamera;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float randomBlinkTimer;
-    private float blinkTimer = 1.1f;
+    //private float blinkTimer = 1.1f;
     private float everySecondTimer = 1f;
 
     [SerializeField] private Image TopLid, BottomLid;
 
-    [SerializeField, Range(0.1f, 2f)] private float BlinkSpeed = 1f;
+    [SerializeField, Range(0.1f, 2f)] public float BlinkSpeed = 1f;
 
-    //Sequence RandomBlinking;
+    public static Blink instance;
+
+    [ReadOnly]public bool ShowFlashingImageEnabled;
+    [ReadOnly] public GameObject FlashingImage;
+    
     private void Start()
     {
         randomBlinkTimer = Random.Range(40.0f, 60.0f);
+        instance = this;
     }
 
 
     private void Update()
     {
         randomBlinkTimer -= Time.deltaTime;
-        
 
         if (Input.GetMouseButtonDown(1))
         {
-            var blinkSequence = DOTween.Sequence();
-            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed));
-            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
-
-
-            var bottomLidSequence = DOTween.Sequence();
-            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed)).AppendCallback(() =>
-            {
-                monsterCamera.SetActive(true);
-                ListIntractablesInView();
-            });
-            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
+            StartBlink(BlinkSpeed);
         }
 
         else if (Input.GetMouseButtonUp(1))
         {
-            var blinkSequence = DOTween.Sequence();
-            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed));
-            blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
-
-
-            var bottomLidSequence = DOTween.Sequence();
-            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed)).AppendCallback(() => monsterCamera.SetActive(false));
-            bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
-
+            EndBlink(BlinkSpeed);
         }
 
         #region Redundant
@@ -116,6 +101,49 @@ public class Blink : MonoBehaviour
         #endregion
     }
 
+    public void StartBlink(float _BlinkSpeed)
+    {
+        var blinkSequence = DOTween.Sequence();
+        blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
+        blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
+            
+        var bottomLidSequence = DOTween.Sequence();
+        bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
+        {
+            ListIntractablesInView();
+            if (ShowFlashingImageEnabled)
+            {
+                FlashingImage.SetActive(true);
+            }
+            else
+            {
+                monsterCamera.SetActive(true);
+            }
+
+            isBlinking = true;
+        });
+        bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
+
+    }
+
+    public void EndBlink(float _BlinkSpeed)
+    {
+        var blinkSequence = DOTween.Sequence();
+        blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
+        blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
+
+
+        var bottomLidSequence = DOTween.Sequence();
+        bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
+        {
+            monsterCamera.SetActive(false);
+            FlashingImage.SetActive(false);
+            isBlinking = false;
+        });
+        bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
+
+    }
+
 
     private void ListIntractablesInView()
     {
@@ -129,6 +157,8 @@ public class Blink : MonoBehaviour
             intractable.ShiftOnBlink();
         }
     }
+
+   
 
 
     //void StartBlink()
