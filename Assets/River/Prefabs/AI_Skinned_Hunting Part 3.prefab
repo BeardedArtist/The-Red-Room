@@ -423,7 +423,6 @@ GameObject:
   - component: {fileID: 804683602221228231}
   - component: {fileID: 8216153123841676189}
   - component: {fileID: 8304849068923124429}
-  - component: {fileID: 8440348776290844988}
   m_Layer: 2
   m_Name: Eyes
   m_TagString: Untagged
@@ -476,20 +475,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7a7dba43c2c2f644ab6d3428ec31a101, type: 2}
---- !u!114 &8440348776290844988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940010618552318922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7506fdf965ee734a9892795e57f01c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alive: 1
-  foundPlayer: {fileID: 0}
 --- !u!1 &2365149384793712555
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,15 +698,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3762710594992943610}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061455928, y: 0.0003073078, z: -0.004990945, w: 0.9980973}
-  m_LocalPosition: {x: -0.007000854, y: 0.68700004, z: 0.18299945}
+  m_LocalRotation: {x: 0.22919753, y: 0.0011460929, z: -0.0048672827, w: 0.97336715}
+  m_LocalPosition: {x: -0.007000854, y: 1.534, z: 0.18299945}
   m_LocalScale: {x: 0.36183584, y: 0.3618359, z: 0.36183593}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2472539149989510520}
   - {fileID: 3579579192036959123}
   m_Father: {fileID: 558979650272382772}
-  m_LocalEulerAnglesHint: {x: 7.047, y: 0, z: -0.573}
+  m_LocalEulerAnglesHint: {x: 26.5, y: 0, z: -0.573}
 --- !u!20 &9021294598455317790
 Camera:
   m_ObjectHideFlags: 0
@@ -917,7 +902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4167141135277578896}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -39.87, y: 0.53, z: 0.69}
   m_LocalScale: {x: 2.0406184, y: 2.0406184, z: 2.0406184}
   m_ConstrainProportionsScale: 0
@@ -986,6 +971,11 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   mainPlayer: {fileID: 0}
   mainPlayerMesh: {fileID: 0}
+  playerMovement: {fileID: 0}
+  DistanceFromPlayerToSlowDown: 2
+  CrouchHeight: 0
+  StandHeight: 0
+  MonsterCamera: {fileID: 0}
 --- !u!54 &1364254516914597774
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1259,7 +1249,6 @@ GameObject:
   - component: {fileID: 3412360391426434692}
   - component: {fileID: 8650852727795437009}
   - component: {fileID: 3623040752123760980}
-  - component: {fileID: 5015342643085694760}
   m_Layer: 2
   m_Name: Eyes
   m_TagString: Untagged
@@ -1312,20 +1301,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7a7dba43c2c2f644ab6d3428ec31a101, type: 2}
---- !u!114 &5015342643085694760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5371765151554793343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7506fdf965ee734a9892795e57f01c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alive: 1
-  foundPlayer: {fileID: 0}
 --- !u!1 &5548975280692477125
 GameObject:
   m_ObjectHideFlags: 0

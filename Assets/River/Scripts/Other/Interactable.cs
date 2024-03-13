@@ -88,11 +88,11 @@ public class Interactable : MonoBehaviour
     public void Interact()
     {
         var OtherDetails = new Details();
-        var DialogueDetails = new Details.DialogueElement();
+        //var DialogueDetails = new Details.DialogueElement();
 
         if (AllDetails.Count > 0) OtherDetails = AllDetails[0];
         //if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
-        //DialogueDetails = OtherDetails.AllDialogueDetails;
+        //DialogueDetails = OtherDetails.AllDialogueDetails; This line was causing errors for some unknown reason
 
         switch (type)
         {
