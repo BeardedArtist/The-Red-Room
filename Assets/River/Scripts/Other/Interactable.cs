@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage,AiEnemyCrouch }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage,AiEnemyCrouch,NETransition }
     [Serializable]
     public struct Response
     {
@@ -70,8 +70,12 @@ public class Interactable : MonoBehaviour
 
     [Foldout("Flashing Images", true)] 
     [SerializeField] private GameObject FlashingImage;
-
     [SerializeField, Range(0.1f, 10f)] private float BlinkTimer;
+
+    [Foldout("Non Euclidean Transitions", true)] 
+    [SerializeField] private Transform GoToGameObject,TeleportToGameObject;
+    [SerializeField] private float GoToGameObjectTime, WaitBeforeTeleportTime;
+    [SerializeField] private GameObject PlayerCamera,PlayerBody;
 
 
     [Foldout("Debug", true)]
@@ -197,6 +201,18 @@ public class Interactable : MonoBehaviour
                 break;
             case InteractableType.AiEnemyCrouch:
                 AI_StalkerController.instance.Crouch();
+                break;
+            case InteractableType.NETransition:
+                //Stop Player Motion
+                
+                
+                var Sequence = DOTween.Sequence();
+                Sequence.Append(PlayerCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
+                Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime,(value) => { }));
+                Sequence.Append(PlayerCamera.transform.DOMove(TeleportToGameObject.transform.position, 0));
+                Sequence.Append(PlayerBody.transform.DOMove(TeleportToGameObject.transform.position, 0));
+                
+                //Play the Text
                 break;
         }
 
