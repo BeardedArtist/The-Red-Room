@@ -11,7 +11,7 @@ public class Blink : MonoBehaviour
     //[SerializeField] private Animator blink_Anim;
     //[SerializeField] private Animator blink_Anim_2;
     [SerializeField] private SanityControler _sanityControler;
-    [SerializeField] GameObject monsterCamera;
+    [SerializeField] private GameObject monsterCamera;
     [SerializeField] public bool isBlinking;
     [SerializeField] private float randomBlinkTimer;
     //private float blinkTimer = 1.1f;
@@ -32,19 +32,18 @@ public class Blink : MonoBehaviour
         instance = this;
     }
 
-
     private void Update()
     {
         randomBlinkTimer -= Time.deltaTime;
 
         if (Input.GetMouseButtonDown(1))
         {
-            StartBlink(BlinkSpeed);
+            PlayerToMonsterView(BlinkSpeed);
         }
 
         else if (Input.GetMouseButtonUp(1))
         {
-            EndBlink(BlinkSpeed);
+            MonsterToPlayerView(BlinkSpeed);
         }
 
         #region Redundant
@@ -101,7 +100,7 @@ public class Blink : MonoBehaviour
         #endregion
     }
 
-    public void StartBlink(float _BlinkSpeed)
+    private void PlayerToMonsterView(float _BlinkSpeed)
     {
         var blinkSequence = DOTween.Sequence();
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
@@ -111,14 +110,7 @@ public class Blink : MonoBehaviour
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
         {
             ListIntractablesInView();
-            if (ShowFlashingImageEnabled)
-            {
-                FlashingImage.SetActive(true);
-            }
-            else
-            {
-                monsterCamera.SetActive(true);
-            }
+           
 
             isBlinking = true;
         });
@@ -126,8 +118,9 @@ public class Blink : MonoBehaviour
 
     }
 
-    public void EndBlink(float _BlinkSpeed)
+    private void MonsterToPlayerView(float _BlinkSpeed)
     {
+        FlashingImage.SetActive(false);
         var blinkSequence = DOTween.Sequence();
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
@@ -137,15 +130,40 @@ public class Blink : MonoBehaviour
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
         {
             monsterCamera.SetActive(false);
-            FlashingImage.SetActive(false);
             isBlinking = false;
         });
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
 
     }
 
+    public void CloseEyesForcibly(float _BlinkSpeed)
+    {
+        TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed).SetEase(Ease.Linear);
+        BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed).SetEase(Ease.Linear);
 
-    private void ListIntractablesInView()
+        DOVirtual.Float(0, 1, _BlinkSpeed, (value) =>
+        {
+            if (value > 0.9)
+            {
+                if (ShowFlashingImageEnabled)
+                {
+                    FlashingImage.SetActive(true);
+                }
+            }
+         
+        }).SetEase(Ease.Linear);
+
+    }
+    public void OpenEyesForcibly(float _BlinkSpeed)
+    {
+        FlashingImage.SetActive(false);
+        TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed);
+        BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed);
+    }
+
+
+    // ReSharper disable once IdentifierTypo
+    private static void ListIntractablesInView()
     {
         var renderers = FindObjectsOfType<Renderer>();
         var cam = Camera.main;
@@ -157,15 +175,4 @@ public class Blink : MonoBehaviour
             intractable.ShiftOnBlink();
         }
     }
-
-   
-
-
-    //void StartBlink()
-    //{
-    //    isBlinking = true;
-
-    //    blink_Anim.Play("TopLidBlink", 0, 0.25f);
-    //    blink_Anim_2.Play("BottomLidBlink", 0, 0.25f);
-    //}
 }

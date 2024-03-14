@@ -182,10 +182,18 @@ public class Interactable : MonoBehaviour
                 });
                 break;
             case InteractableType.FlashingImage:
+                GetComponent<Collider>().enabled = false;
                 Blink.instance.ShowFlashingImageEnabled = true;
                 Blink.instance.FlashingImage = FlashingImage;
-                Blink.instance.StartBlink(BlinkTimer);
-                DOVirtual.Float(0, 1, Blink.instance.BlinkSpeed, (value) => { }).OnComplete(()=>{Blink.instance.EndBlink(Blink.instance.BlinkSpeed);});
+                Blink.instance.CloseEyesForcibly(BlinkTimer);
+                DOVirtual.Float(0, 1, BlinkTimer+1, (value) => { }).OnComplete(() =>
+                {
+                    Blink.instance.OpenEyesForcibly(Blink.instance.BlinkSpeed);
+                    DOVirtual.Float(0, 1, BlinkTimer + 1, (value) => { }).OnComplete(() =>
+                    {
+                        GetComponent<Collider>().enabled = true;
+                    });
+                });
                 break;
             case InteractableType.AiEnemyCrouch:
                 AI_StalkerController.instance.Crouch();
