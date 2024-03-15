@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using MyBox;
 using TMPro;
+using Febucci.UI;
 using System.Runtime.CompilerServices;
 
 [SelectionBase]
@@ -12,7 +13,8 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal,ShiftOnBlink,FlashingImage,AiEnemyCrouch,NETransition }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NETransition, ComputerScreen }
+    public enum TransitionType { StaircaseToBedroom }
     [Serializable]
     public struct Response
     {
@@ -54,7 +56,8 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     public List<Details> AllDetails;
 
-    [Foldout("Trigger Details", true)] [SerializeField]
+    [Foldout("Trigger Details", true)]
+    [SerializeField]
     public bool DontTriggerByRaycast;
     [SerializeField] private bool ActivatedOnTriggerCollision;
     [SerializeField] private bool DisableAfterTriggerCollision;
@@ -65,17 +68,26 @@ public class Interactable : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float AnimationDelay;
     //[ConditionalField(nameof(type), false, InteractableType.BathRoomReveal)] public GameObject BathroomLight;
 
-    [Foldout("Teleport Details", true)] 
+    [Foldout("Teleport Details", true)]
     [SerializeField] private Vector3 TeleportPosition;
 
-    [Foldout("Flashing Images", true)] 
+    [Foldout("Flashing Images", true)]
     [SerializeField] private GameObject FlashingImage;
     [SerializeField, Range(0.1f, 10f)] private float BlinkTimer;
 
-    [Foldout("Non Euclidean Transitions", true)] 
-    [SerializeField] private Transform GoToGameObject,TeleportToGameObject;
+    [Foldout("Non Euclidean Transitions", true)]
+    [SerializeField] private Transform GoToGameObject, TeleportToGameObject;
     [SerializeField] private float GoToGameObjectTime, WaitBeforeTeleportTime;
-    [SerializeField] private GameObject PlayerCamera,PlayerBody;
+    [SerializeField] private GameObject PlayerCameraTransition, PlayerBody;
+    [SerializeField] private TransitionType transitionType;
+    [SerializeField, ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom)] private Interactable BedroomomputerScreen;
+
+    [Foldout("Computer Screen", true)]
+    [SerializeField] private TextAnimatorPlayer MonitorContent;
+    [SerializeField] private string content_text;
+    [SerializeField] private GameObject PlayerCamera;
+    [SerializeField] private Transform ComputerScreenViewPosition;
+    [SerializeField, Range(1f, 100f)] private float ExitTime;
 
 
     [Foldout("Debug", true)]
@@ -135,6 +147,12 @@ public class Interactable : MonoBehaviour
                 break;
             case InteractableType.Gizmo:
                 break;
+
+            case InteractableType.ComputerScreen:
+                Transform CameraInitialPosition = PlayerCamera.transform;
+                PlayerCamera.transform.DOMove(ComputerScreenViewPosition.transform.position, 1).OnComplete(() => { PlayerCamera.transform.DOMove(CameraInitialPosition.transform.position, ExitTime); });
+                MonitorContent.ShowText(content_text);
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -190,29 +208,33 @@ public class Interactable : MonoBehaviour
                 Blink.instance.ShowFlashingImageEnabled = true;
                 Blink.instance.FlashingImage = FlashingImage;
                 Blink.instance.CloseEyesForcibly(BlinkTimer);
-                DOVirtual.Float(0, 1, BlinkTimer+1, (value) => { }).OnComplete(() =>
-                {
-                    Blink.instance.OpenEyesForcibly(Blink.instance.BlinkSpeed);
-                    DOVirtual.Float(0, 1, BlinkTimer + 1, (value) => { }).OnComplete(() =>
-                    {
-                        GetComponent<Collider>().enabled = true;
-                    });
-                });
+                DOVirtual.Float(0, 1, BlinkTimer + 1, (value) => { }).OnComplete(() =>
+                  {
+                      Blink.instance.OpenEyesForcibly(Blink.instance.BlinkSpeed);
+                      DOVirtual.Float(0, 1, BlinkTimer + 1, (value) => { }).OnComplete(() =>
+                      {
+                          GetComponent<Collider>().enabled = true;
+                      });
+                  });
                 break;
             case InteractableType.AiEnemyCrouch:
                 AI_StalkerController.instance.Crouch();
                 break;
             case InteractableType.NETransition:
-                //Stop Player Motion
-                
-                
-                var Sequence = DOTween.Sequence();
-                Sequence.Append(PlayerCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
-                Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime,(value) => { }));
-                Sequence.Append(PlayerCamera.transform.DOMove(TeleportToGameObject.transform.position, 0));
-                Sequence.Append(PlayerBody.transform.DOMove(TeleportToGameObject.transform.position, 0));
-                
-                //Play the Text
+
+                if (transitionType == TransitionType.StaircaseToBedroom)
+                {
+                    //Stop Player Motion
+                    var Sequence = DOTween.Sequence();
+                    Sequence.Append(PlayerCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
+                    Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
+                    Sequence.Append(PlayerCamera.transform.DOMove(TeleportToGameObject.transform.position, 0)).OnComplete(() => { BedroomomputerScreen.Interact(); });
+                    Sequence.Append(PlayerBody.transform.DOMove(TeleportToGameObject.transform.position, 0));
+
+
+                    //Play the Text
+                }
+
                 break;
         }
 
