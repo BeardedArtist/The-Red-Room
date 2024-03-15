@@ -13,9 +13,12 @@ public class MouseLook : MonoBehaviour
     public bool CanLook = true;
 
     [HideInInspector]public float UpdatedMouseSensitivity;
+
+    public static MouseLook instance; // Singleton
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        if (instance == null) instance = this;
         UpdatedMouseSensitivity = mouseSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
         PauseMenuManager.MenuStatusToggled += (opened) =>

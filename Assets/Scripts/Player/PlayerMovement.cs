@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool CanMove { get; private set; } = true;
+    public bool CanMove  = true;
     private bool isSprinting => canSprint && Input.GetKey(sprintKey) && !isCrouching; // Checks if canSprint is TRUE && sprintKey is pressed
     private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded; // Checks if jumpKey is pressed && character is grounded
     private bool shouldCrouch => (Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded);
@@ -88,9 +88,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Vector2 currentInput;
 
+    public static PlayerMovement instance;
+
 
     private void Awake()
     {
+        if(instance == null)instance = this;
         characterController = GetComponent<CharacterController>();
         mouseLook = GetComponent<MouseLook>(); // TEST
         defaultYPos = playerCamera.transform.localPosition.y;
