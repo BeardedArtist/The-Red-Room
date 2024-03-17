@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen,Paper }
     public enum TransitionType { StaircaseToBedroom ,Test}
     [Serializable]
     public struct Response
@@ -117,7 +117,6 @@ public class Interactable : MonoBehaviour
 
         switch (type)
         {
-
             case InteractableType.Door:
                 var animator = GetComponentInParent<Animator>();
                 Debug.Log("Updating Door" + !animator.GetBool("Open"));
@@ -203,16 +202,11 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
                             .OnComplete(() => { BedroomomputerScreen.Interact(); });
-                       // Sequence.Append(PlayerBody.transform.DOMove(TeleportToGameObject.transform.position, 0));
-                        //Play the Text
                     });
                 } 
                 break;
-        
-
-     
-            default:
-                throw new ArgumentOutOfRangeException();
+           // default:
+               // throw new ArgumentOutOfRangeException();
         }
 
         if (BookShelfInteracted || FishBowlInteracted)
@@ -224,7 +218,7 @@ public class Interactable : MonoBehaviour
 
     public IEnumerator StartMotherDialogue()
     {
-        Details DialogueDetails = new Details();
+        var DialogueDetails = new Details();
         if (AllDetails.Count > 0) DialogueDetails = AllDetails[0];
 
         yield return new WaitForSeconds(5);
@@ -301,5 +295,13 @@ public class Interactable : MonoBehaviour
     public void ShiftOnBlink()
     {
         transform.position = TeleportPosition;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (type == InteractableType.Paper)
+        {
+            Debug.Log(other.gameObject.name);
+        }
     }
 }
