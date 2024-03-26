@@ -14,19 +14,19 @@ public class Flashlight : MonoBehaviour
     [SerializeField] private SanityControler _sanityControler;
     public Light flashlight;
     public GameObject Camera;
-    
-    [Range(1.1f,20f)] public float FlashIntensityMultiplier;
+
+    [Range(1.1f, 20f)] public float FlashIntensityMultiplier;
 
     [Range(1f, 100f)] public float FlashingRaycastDistance;
     [MyBox.Tag] public string EnemyTag;
 
-    
-    public bool _lightIsOn;
+
+    public bool _lightIsOn, IsLightEquipped;
     private float maxIntensity = 8f;
     private float intensityDecreaseRate = 0.05f;
 
-    [SerializeField]private KeyCode SpinKeyInputButton = KeyCode.F;
-    [SerializeField]private KeyCode FlashInputButton = KeyCode.Q;
+    [SerializeField] private KeyCode SpinKeyInputButton = KeyCode.F;
+    [SerializeField] private KeyCode FlashInputButton = KeyCode.Q;
 
     private RaycastHit RaycastResult;
 
@@ -35,17 +35,18 @@ public class Flashlight : MonoBehaviour
     [SerializeField] private Material[] SpinSlotMaterials;
     [SerializeField] private Material[] DiceMaterials;
 
-    [SerializeField,Range(0,10)] private int  totalLoops;
-    [SerializeField,Range(0,10)] private float PerLoopDuration;
+    [SerializeField, Range(0, 10)] private int totalLoops;
+    [SerializeField, Range(0, 10)] private float PerLoopDuration;
 
-    [SerializeField,Range(0f,1f)] private float[] DiceOffsets;
+    [SerializeField, Range(0f, 1f)] private float[] DiceOffsets;
 
     [SerializeField] private GameObject ChoHanChoicePanel;
 
-   
-
+    [SerializeField] private Transform FlashlightUp, FlashlighhtDown;
+    [SerializeField] private GameObject FlashlightBody;
 
     private int DieDigit1, DieDigit2;
+
     private void Start()
     {
         ChoHanChoicePanel.SetActive(false);
@@ -53,12 +54,15 @@ public class Flashlight : MonoBehaviour
 
     private void Update()
     {
+        if (!IsLightEquipped) return;
         if (Input.GetKeyDown(SpinKeyInputButton))
         {
-            Spin();
+            MouseLook.instance.CanLook = false;
+            FlashlightBody.transform.DOMove(FlashlightUp.position, 1, false).OnComplete(Spin);
+            FlashlightBody.transform.DOLocalRotateQuaternion(FlashlightUp.localRotation, 1);
         }
 
-        Debug.DrawRay(Camera.transform.position,Camera.transform.forward * FlashingRaycastDistance, Color.red);
+        Debug.DrawRay(Camera.transform.position, Camera.transform.forward * FlashingRaycastDistance, Color.red);
         if (Input.GetKeyDown(FlashInputButton) && _lightIsOn)
         {
             StartCoroutine(FlashAbility());
@@ -81,12 +85,10 @@ public class Flashlight : MonoBehaviour
         _lightIsOn = true;
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Item Interaction/FlashlightOnOff_Updated");
     }
-    
+
     private void Spin()
     {
         var spin = Random.Range(0f, 10f);
-
-       
         Sequence mySequence = DOTween.Sequence();
 
         SpinSlotOne.sharedMaterial = SpinSlotMaterials[0];
@@ -121,56 +123,87 @@ public class Flashlight : MonoBehaviour
                     {
                         SpinSlotOne.sharedMaterial = DiceMaterials[0];
                         SpinSlotTwo.sharedMaterial = DiceMaterials[1];
-                        
+
                         ChoHanChoicePanel.SetActive(true);
                         Cursor.lockState = CursorLockMode.None;
-                        
                     }));
-                
+
                 break;
             //Monster
             case >= 1.5f and < 2f:
                 spinResultText.text = "Spin = Monster";
+                mySequence.Append(DOVirtual
+                        .Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
+                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    {
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
+                        MouseLook.instance.CanLook = true;
+                    }));
 
-                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f));
+
                 break;
             //Light
             case >= 2f and < 7f:
                 spinResultText.text = "Spin = Light";
 
-                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
-                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
-                .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
-                    .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f));
-                
+                mySequence.Append(DOVirtual
+                        .Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                        .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    {
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
+                        MouseLook.instance.CanLook = true;
+                    }));
+
                 TurnOnFlashlight();
                 break;
-            
+
             //Nothing
             case >= 7.5f and <= 10f:
                 spinResultText.text = "Spin = Nothing";
-                mySequence.Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                mySequence.Append(DOVirtual
+                        .Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                     .AppendCallback(() => SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
-                    .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                     .AppendCallback(() => SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                    .Append(DOVirtual.Float(0, 1, PerLoopDuration, (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
+                    .Append(DOVirtual.Float(0, 1, PerLoopDuration,
+                            (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
-                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.54f));
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.54f))
+                    .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
+                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    {
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
+                        MouseLook.instance.CanLook = true;
+                    }));
                 break;
         }
     }
@@ -179,26 +212,40 @@ public class Flashlight : MonoBehaviour
     {
         DieDigit1 = Random.Range(1, 7);
         DieDigit2 = Random.Range(1, 7);
-        
+
         ChoHanChoicePanel.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Sequence mySequence = DOTween.Sequence();
         mySequence
             .Append(DOVirtual.Float(0, 1, PerLoopDuration,
-                    (value) => { SpinSlotOne.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, value); })
+                    (value) =>
+                    {
+                        SpinSlotOne.sharedMaterial.mainTextureOffset =
+                            new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, value);
+                    })
                 .SetLoops(totalLoops, LoopType.Incremental)
-                .SetEase(Ease.Linear)) 
+                .SetEase(Ease.Linear))
             .AppendCallback(() =>
                 SpinSlotOne.sharedMaterial.mainTextureOffset =
                     new Vector2(SpinSlotOne.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit1 - 1]))
             .Append(DOVirtual.Float(0, 1, PerLoopDuration,
-                    (value) => { SpinSlotTwo.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, value); })
+                    (value) =>
+                    {
+                        SpinSlotTwo.sharedMaterial.mainTextureOffset =
+                            new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, value);
+                    })
                 .SetLoops(totalLoops, LoopType.Incremental)
-                .SetEase(Ease.Linear)) 
+                .SetEase(Ease.Linear))
             .AppendCallback(() =>
                 SpinSlotTwo.sharedMaterial.mainTextureOffset =
-                    new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]));
+                    new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]))
+            .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f)).Append(
+                DOVirtual.Float(0, 1, 1, (value) =>
+                {
+                    FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                    FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
+                }));
 
         if (even && DieDigit1 + DieDigit2 % 2 == 0)
         {
@@ -208,6 +255,8 @@ public class Flashlight : MonoBehaviour
         {
             Debug.Log("Lost Cho Han");
         }
+        
+        MouseLook.instance.CanLook = true;
     }
 
     private IEnumerator FlashAbility()
@@ -219,14 +268,13 @@ public class Flashlight : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         flashlight.intensity = initialIntensity;
-    
     }
 
     private void RaycastEnemy()
     {
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastResult, FlashingRaycastDistance))
+        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastResult,
+                FlashingRaycastDistance))
         {
-            
             if (RaycastResult.transform.gameObject.tag == EnemyTag)
             {
                 Debug.Log("Hit Enemy Ghost");

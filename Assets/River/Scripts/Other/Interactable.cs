@@ -15,7 +15,7 @@ public class Interactable : MonoBehaviour
     #region PreDefined
     // ReSharper disable once IdentifierTypo
     public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen,Paper }
-    public enum TransitionType { StaircaseToBedroom ,Test}
+    public enum TransitionType { StaircaseToBedroom ,Test,HouseToSchool}
     [Serializable]
     public struct Response
     {
@@ -77,13 +77,15 @@ public class Interactable : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] private float BlinkTimer;
 
     [Foldout("Non Euclidean Transitions", true)]
-    [SerializeField,ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom)] private Transform GoToGameObject, TeleportToGameObject,TeleportPlayerBodyTo;
-    [SerializeField, ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom)] private Vector3 GoToGameObjectRotation, TeleportToGameObjectRotation;
-    [SerializeField,ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom),Range(0f,10f)] private float GoToGameObjectTime, WaitBeforeTeleportTime;
+    [SerializeField] private Transform GoToGameObject, TeleportToGameObject,TeleportPlayerBodyTo;
+    [SerializeField] private Vector3 GoToGameObjectRotation, TeleportToGameObjectRotation;
+    [SerializeField] private float GoToGameObjectTime, WaitBeforeTeleportTime;
      
-    [SerializeField,ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom)] private GameObject PlayerBody;
+    [SerializeField] private GameObject PlayerBody;
+    [FormerlySerializedAs("BedroomomputerScreen")] [SerializeField] private Interactable GoToComputerScreen;
+
+    
     [SerializeField] private TransitionType transitionType;
-    [SerializeField, ConditionalField(nameof(transitionType), false, TransitionType.StaircaseToBedroom)] private Interactable BedroomomputerScreen;
 
     [Foldout("Computer Screen", true)]
     [SerializeField] private TextAnimatorPlayer MonitorContent;
@@ -176,7 +178,7 @@ public class Interactable : MonoBehaviour
                     });
                 });
                
-                MonitorContent.ShowText(content_text);
+                if(MonitorContent!=null)MonitorContent.ShowText(content_text);
                 break;
             case InteractableType.NE_Transition:
                 if (transitionType == TransitionType.StaircaseToBedroom)
@@ -201,10 +203,38 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
                         Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
-                            .OnComplete(() => { BedroomomputerScreen.Interact(); });
+                            .OnComplete(() => { GoToComputerScreen.Interact(); });
                     });
                 } 
+                
+                else if (transitionType == TransitionType.HouseToSchool)
+                {
+                    // var Dooranimator = GetComponentInParent<Animator>();
+                    // Dooranimator.SetBool("Open", !Dooranimator.GetBool("Open"));
+                    DOVirtual.Float(0, 1, 1f, (value) => { }).OnComplete(() =>
+                    {
+                        GetComponent<Collider>().enabled = true;
+                        CutSceneCamera.SetActive(true);
+
+                        PlayerMovement.instance.CanMove = false;
+                        MouseLook.instance.CanLook = false;
+
+                        var CameraPosition = CutSceneCamera.transform.position;
+                        var Sequence = DOTween.Sequence();
+                        Sequence.Append(PlayerBody.transform.DOMove(TeleportPlayerBodyTo.position, 0));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(CameraPosition, 0));
+                        Sequence.Append(PlayerBody.transform.DOMove(TeleportPlayerBodyTo.position, 0));
+                        Sequence.Append(CutSceneCamera.transform.DORotate(GoToGameObjectRotation, 0));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
+                        Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
+                        Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
+                            .OnComplete(() => { GoToComputerScreen.Interact(); });
+                    });
+                }
                 break;
+            
+           
            // default:
                // throw new ArgumentOutOfRangeException();
         }
