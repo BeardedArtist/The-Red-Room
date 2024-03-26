@@ -47,6 +47,8 @@ public class Flashlight : MonoBehaviour
 
     private int DieDigit1, DieDigit2;
 
+    public bool isSpinning;
+
     private void Start()
     {
         ChoHanChoicePanel.SetActive(false);
@@ -63,9 +65,10 @@ public class Flashlight : MonoBehaviour
         }
 
         Debug.DrawRay(Camera.transform.position, Camera.transform.forward * FlashingRaycastDistance, Color.red);
-        if (Input.GetKeyDown(FlashInputButton) && _lightIsOn)
+        if (Input.GetKeyDown(FlashInputButton) && _lightIsOn && !isSpinning)
         {
             StartCoroutine(FlashAbility());
+            isSpinning = true;
         }
 
         if (_lightIsOn && flashlight.intensity >= 0f)
@@ -147,7 +150,7 @@ public class Flashlight : MonoBehaviour
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
                     .Append(DOVirtual.Float(0, 1, 1, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                         MouseLook.instance.CanLook = true;
                     }));
@@ -173,9 +176,10 @@ public class Flashlight : MonoBehaviour
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
                     .Append(DOVirtual.Float(0, 1, 1, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                         MouseLook.instance.CanLook = true;
+                      
                     }));
 
                 TurnOnFlashlight();
@@ -200,9 +204,10 @@ public class Flashlight : MonoBehaviour
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
                     .Append(DOVirtual.Float(0, 1, 1, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                         MouseLook.instance.CanLook = true;
+                        
                     }));
                 break;
         }
@@ -216,6 +221,7 @@ public class Flashlight : MonoBehaviour
         ChoHanChoicePanel.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
+        SpinSlotThree.sharedMaterial = DiceMaterials[2];
         Sequence mySequence = DOTween.Sequence();
         mySequence
             .Append(DOVirtual.Float(0, 1, PerLoopDuration,
@@ -243,20 +249,24 @@ public class Flashlight : MonoBehaviour
             .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f)).Append(
                 DOVirtual.Float(0, 1, 1, (value) =>
                 {
-                    FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false);
+                    FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(() =>
+                    {
+                        isSpinning = false;
+                        MouseLook.instance.CanLook = true;
+                    });
                     FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                 }));
 
         if (even && DieDigit1 + DieDigit2 % 2 == 0)
         {
-            Debug.Log("Won Cho Han");
+            SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x,0f);
         }
         else
         {
-            Debug.Log("Lost Cho Han");
+            SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, 0.47f);
         }
         
-        MouseLook.instance.CanLook = true;
+       
     }
 
     private IEnumerator FlashAbility()
