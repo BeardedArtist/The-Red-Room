@@ -15,7 +15,7 @@ public class Interactable : MonoBehaviour
     #region PreDefined
     // ReSharper disable once IdentifierTypo
     public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen,Paper }
-    public enum TransitionType { StaircaseToBedroom ,Test,HouseToSchool}
+    public enum TransitionType { StaircaseToBedroom ,Test,HouseDoorToRoom}
     [Serializable]
     public struct Response
     {
@@ -80,6 +80,8 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Transform GoToGameObject, TeleportToGameObject,TeleportPlayerBodyTo;
     [SerializeField] private Vector3 GoToGameObjectRotation, TeleportToGameObjectRotation;
     [SerializeField] private float GoToGameObjectTime, WaitBeforeTeleportTime;
+
+    [FormerlySerializedAs("TextOnMonitor")] [SerializeField] private string NEDoorToRoomTextOnMonitor;
      
     [SerializeField] private GameObject PlayerBody;
     [FormerlySerializedAs("BedroomomputerScreen")] [SerializeField] private Interactable GoToComputerScreen;
@@ -207,7 +209,7 @@ public class Interactable : MonoBehaviour
                     });
                 } 
                 
-                else if (transitionType == TransitionType.HouseToSchool)
+                else if (transitionType == TransitionType.HouseDoorToRoom)
                 {
                     // var Dooranimator = GetComponentInParent<Animator>();
                     // Dooranimator.SetBool("Open", !Dooranimator.GetBool("Open"));
@@ -229,7 +231,11 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
                         Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
-                            .OnComplete(() => { GoToComputerScreen.Interact(); });
+                            .OnComplete(() =>
+                            {
+                                GoToComputerScreen.content_text = NEDoorToRoomTextOnMonitor;
+                                GoToComputerScreen.Interact();
+                            });
                     });
                 }
                 break;
