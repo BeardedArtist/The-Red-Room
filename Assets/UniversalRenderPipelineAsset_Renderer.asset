@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  injectionPoint: 600
+  injectionPoint: 450
   fetchColorBuffer: 1
   requirements: 0
   passMaterial: {fileID: 2100000, guid: b11b1e94e3cc46a4a8f95ad82b92addc, type: 2}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455ce098eb10c754eb39402896ff9d3e, type: 3}
   m_Name: RetroBlit
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     Event: 0
     blitMaterial: {fileID: 2100000, guid: dd005dc238c735c46962cb3a516d95f8, type: 2}

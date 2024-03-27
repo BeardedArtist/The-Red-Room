@@ -14,8 +14,8 @@ public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen,Paper }
-    public enum TransitionType { StaircaseToBedroom ,Test,HouseDoorToRoom}
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen, Paper }
+    public enum TransitionType { StaircaseToBedroom, Test, HouseDoorToRoom, RoofToDataCenter }
     [Serializable]
     public struct Response
     {
@@ -67,7 +67,7 @@ public class Interactable : MonoBehaviour
     [Foldout("AnimationDetails", true)]
     [SerializeField] private Animator interactable_animator;
     [SerializeField, Range(0f, 10f)] private float AnimationDelay;
-    
+
 
     [Foldout("Teleport Details", true)]
     [SerializeField] private Vector3 TeleportPosition;
@@ -77,26 +77,27 @@ public class Interactable : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] private float BlinkTimer;
 
     [Foldout("Non Euclidean Transitions", true)]
-    [SerializeField] private Transform GoToGameObject, TeleportToGameObject,TeleportPlayerBodyTo;
+    [SerializeField] private Transform GoToGameObject, TeleportToGameObject, TeleportPlayerBodyTo;
     [SerializeField] private Vector3 GoToGameObjectRotation, TeleportToGameObjectRotation;
-    [SerializeField] private float GoToGameObjectTime, WaitBeforeTeleportTime;
+    [SerializeField] private float GoToGameObjectTime;
+    [SerializeField] private float WaitBeforeTeleportTime;
 
-    [FormerlySerializedAs("TextOnMonitor")] [SerializeField] private string NEDoorToRoomTextOnMonitor;
-     
+    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom)] [SerializeField] private string NEDoorToRoomTextOnMonitor;
+
     [SerializeField] private GameObject PlayerBody;
-    [FormerlySerializedAs("BedroomomputerScreen")] [SerializeField] private Interactable GoToComputerScreen;
+    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom, TransitionType.StaircaseToBedroom)] [SerializeField] private Interactable GoToComputerScreen;
 
-    
+    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)] [SerializeField] private Transform DollyZoomOutPosition, DollyZoomInPosition;
+    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)] [SerializeField] private GameObject ScreenDataCenterImage, DataCenterSpawnCamera;
     [SerializeField] private TransitionType transitionType;
 
     [Foldout("Computer Screen", true)]
     [SerializeField] private TextAnimatorPlayer MonitorContent;
     [SerializeField] private string content_text;
-    //[SerializeField] private GameObject PlayerCamera; // Reuse cutscene Camera
     [SerializeField] private Transform ComputerScreenViewPosition;
     [SerializeField, Range(1f, 100f)] private float ExitTime;
 
-    [Foldout("Common",true)]
+    [Foldout("Common", true)]
     [SerializeField] private GameObject CutSceneCamera;
 
     [Foldout("Debug", true)]
@@ -179,8 +180,8 @@ public class Interactable : MonoBehaviour
                         MouseLook.instance.CanLook = true;
                     });
                 });
-               
-                if(MonitorContent!=null)MonitorContent.ShowText(content_text);
+
+                if (MonitorContent != null) MonitorContent.ShowText(content_text);
                 break;
             case InteractableType.NE_Transition:
                 if (transitionType == TransitionType.StaircaseToBedroom)
@@ -203,19 +204,19 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(CutSceneCamera.transform.DORotate(GoToGameObjectRotation, 0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
                         Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
-                        Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
+                        Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation, 0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
                             .OnComplete(() => { GoToComputerScreen.Interact(); });
                     });
-                } 
-                
+                }
+
                 else if (transitionType == TransitionType.HouseDoorToRoom)
                 {
                     // var Dooranimator = GetComponentInParent<Animator>();
                     // Dooranimator.SetBool("Open", !Dooranimator.GetBool("Open"));
                     DOVirtual.Float(0, 1, 1f, (value) => { }).OnComplete(() =>
                     {
-                        GetComponent<Collider>().enabled = true;
+                        //GetComponent<Collider>().enabled = true;
                         CutSceneCamera.SetActive(true);
 
                         PlayerMovement.instance.CanMove = false;
@@ -229,7 +230,7 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(CutSceneCamera.transform.DORotate(GoToGameObjectRotation, 0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime));
                         Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
-                        Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation,0));
+                        Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation, 0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
                             .OnComplete(() =>
                             {
@@ -238,11 +239,51 @@ public class Interactable : MonoBehaviour
                             });
                     });
                 }
+
+                else if (transitionType == TransitionType.RoofToDataCenter)
+                {
+                    DOVirtual.Float(0, 1, 1f, (value) => { }).OnComplete(() =>
+                    {
+                        GetComponent<Collider>().enabled = false;
+                        CutSceneCamera.SetActive(true);
+
+                        PlayerMovement.instance.CanMove = false;
+                        MouseLook.instance.CanLook = false;
+
+
+
+                        var CameraPosition = CutSceneCamera.transform.position;
+                        var Sequence = DOTween.Sequence();
+                        Sequence.Append(PlayerBody.transform.DOMove(TeleportPlayerBodyTo.position, 0));
+                        Sequence.Append(PlayerBody.transform.DORotate(TeleportPlayerBodyTo.transform.rotation.eulerAngles, 0));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(CameraPosition, 0));
+                        Sequence.Append(CutSceneCamera.transform.DORotate(GoToGameObjectRotation, 0));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime)).AppendCallback(() =>
+                        {
+                            CutSceneCamera.GetComponent<DollyZoom>().Initialize(gameObject.transform);
+                            ScreenDataCenterImage.SetActive(true);
+                            DataCenterSpawnCamera.SetActive(true);
+                        });
+                        //Sequence.Append(CutSceneCamera.transform.DOMove(GoToGameObject.transform.position, GoToGameObjectTime)); //Run Some Monitor Text or whatever at this point here
+                        Sequence.Append(CutSceneCamera.transform.DOMove(DollyZoomOutPosition.transform.position, 1));
+                        Sequence.Append(CutSceneCamera.transform.DOMove(DollyZoomInPosition.transform.position, 2)).OnComplete(() =>
+                        {
+                            CutSceneCamera.GetComponent<DollyZoom>().DeInitialize();
+                            CutSceneCamera.SetActive(false);
+                            PlayerMovement.instance.CanMove = true;
+                            MouseLook.instance.CanLook = true;
+                            DataCenterSpawnCamera.SetActive(false);//Saving Resources
+                        });
+
+                    });
+                }
+
+
                 break;
-            
-           
-           // default:
-               // throw new ArgumentOutOfRangeException();
+
+
+                // default:
+                // throw new ArgumentOutOfRangeException();
         }
 
         if (BookShelfInteracted || FishBowlInteracted)
@@ -308,7 +349,7 @@ public class Interactable : MonoBehaviour
             case InteractableType.AiEnemyCrouch:
                 AI_StalkerController.instance.Crouch();
                 break;
-            
+
         }
 
         if (DisableAfterTriggerCollision)
