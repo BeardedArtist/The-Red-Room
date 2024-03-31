@@ -9,7 +9,6 @@ using UnityEngine.Serialization;
 
 public class Flashlight : MonoBehaviour
 {
-    [SerializeField] private ChoHan _ChoHan;
     [SerializeField] private TMP_Text spinResultText;
     [SerializeField] private SanityControler _sanityControler;
     public Light flashlight;

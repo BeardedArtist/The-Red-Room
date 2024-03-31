@@ -12,7 +12,7 @@ public class MouseLook : MonoBehaviour
     
     public bool CanLook = true;
 
-    [HideInInspector]public float UpdatedMouseSensitivity;
+    [HideInInspector] public float UpdatedMouseSensitivity;
 
     public static MouseLook instance; // Singleton
     // Start is called before the first frame update

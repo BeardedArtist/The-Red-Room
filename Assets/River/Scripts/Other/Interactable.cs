@@ -8,14 +8,15 @@ using TMPro;
 using Febucci.UI;
 using System.Runtime.CompilerServices;
 using UnityEngine.Serialization;
+using JetBrains.Annotations;
 
 [SelectionBase]
 public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen, Paper }
-    public enum TransitionType { StaircaseToBedroom, Test, HouseDoorToRoom, RoofToDataCenter }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, Animation_BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen, Paper }
+    public enum TransitionType { StaircaseToBedroom, HouseDoorToRoom, RoofToDataCenter }
     [Serializable]
     public struct Response
     {
@@ -51,9 +52,15 @@ public class Interactable : MonoBehaviour
 
     #endregion
 
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] SanityControler _sanityControler;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] TMP_Text resultText, winLossText;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] GameObject betChoiceText;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] PlayerWarp _playerWarp;
+    [Separator()]
     public InteractableType type;
 
-    [Foldout("Intractable Details", true)]
+
+    [Foldout("Dialogue Details", true)]
     [SerializeField]
     public List<Details> AllDetails;
 
@@ -68,7 +75,6 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Animator interactable_animator;
     [SerializeField, Range(0f, 10f)] private float AnimationDelay;
 
-
     [Foldout("Teleport Details", true)]
     [SerializeField] private Vector3 TeleportPosition;
 
@@ -82,13 +88,13 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float GoToGameObjectTime;
     [SerializeField] private float WaitBeforeTeleportTime;
 
-    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom)] [SerializeField] private string NEDoorToRoomTextOnMonitor;
+    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom)][SerializeField] private string NEDoorToRoomTextOnMonitor;
 
     [SerializeField] private GameObject PlayerBody;
-    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom, TransitionType.StaircaseToBedroom)] [SerializeField] private Interactable GoToComputerScreen;
+    [ConditionalField(nameof(transitionType), false, TransitionType.HouseDoorToRoom, TransitionType.StaircaseToBedroom)][SerializeField] private Interactable GoToComputerScreen;
 
-    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)] [SerializeField] private Transform DollyZoomOutPosition, DollyZoomInPosition;
-    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)] [SerializeField] private GameObject ScreenDataCenterImage, DataCenterSpawnCamera;
+    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)][SerializeField] private Transform DollyZoomOutPosition, DollyZoomInPosition;
+    [ConditionalField(nameof(transitionType), false, TransitionType.RoofToDataCenter)][SerializeField] private GameObject ScreenDataCenterImage, DataCenterSpawnCamera;
     [SerializeField] private TransitionType transitionType;
 
     [Foldout("Computer Screen", true)]
@@ -111,7 +117,7 @@ public class Interactable : MonoBehaviour
 
 
     [ButtonMethod]
-    public void Interact()
+    public void Interact(bool choHanIsEven)
     {
         var OtherDetails = new Details();
         //var DialogueDetails = new Details.DialogueElement();
@@ -145,6 +151,40 @@ public class Interactable : MonoBehaviour
                 break;
             case InteractableType.ChoHan:
                 //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false, null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+
+                betChoiceText.SetActive(false);
+                bool isDoubles = false;
+                int diceRoll1 = UnityEngine.Random.Range(1, 7);
+                int diceRoll2 = UnityEngine.Random.Range(1, 7);
+
+                //Calculations
+                int total = diceRoll1 + diceRoll2;
+                bool result = total % 2 == 0;
+                resultText.text = total.ToString();
+
+                if (diceRoll1 == diceRoll2)
+                {
+                    isDoubles = true;
+                    resultText.text = total.ToString() + " (Doubles)";
+                }
+
+                if ((result && choHanIsEven) || (!result && !choHanIsEven)) // Player wins
+                {
+                    winLossText.text = "You Picked Even = " + choHanIsEven + " And you Won!";
+
+                    if (isDoubles)
+                    {
+                        _sanityControler.currentSanity += total * 2;
+                    }
+                    else
+                    {
+                        _sanityControler.currentSanity += total;
+                    }
+                }
+                else // Player loses
+                {
+                    winLossText.text = "You Picked Even = " + choHanIsEven + " And you Lost!";
+                }
                 break;
             case InteractableType.TestObject:
                 //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, true, OtherDetails.Responses, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
@@ -206,7 +246,7 @@ public class Interactable : MonoBehaviour
                         Sequence.Append(DOVirtual.Float(0, 1, WaitBeforeTeleportTime, (value) => { }));
                         Sequence.Append(CutSceneCamera.transform.DORotate(TeleportToGameObjectRotation, 0));
                         Sequence.Append(CutSceneCamera.transform.DOMove(TeleportToGameObject.transform.position, 0))
-                            .OnComplete(() => { GoToComputerScreen.Interact(); });
+                            .OnComplete(() => { GoToComputerScreen.Interact(false); });
                     });
                 }
 
@@ -235,7 +275,7 @@ public class Interactable : MonoBehaviour
                             .OnComplete(() =>
                             {
                                 GoToComputerScreen.content_text = NEDoorToRoomTextOnMonitor;
-                                GoToComputerScreen.Interact();
+                                GoToComputerScreen.Interact(false);
                             });
                     });
                 }
@@ -315,6 +355,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (!ActivatedOnTriggerCollision || other.gameObject.tag != CollisionWithTag) return;
         switch (type)
         {
@@ -324,7 +365,7 @@ public class Interactable : MonoBehaviour
                     other.gameObject.GetComponent<PlayerMovement>().ForceUncrouch();
                 }
                 break;
-            case InteractableType.BathRoomReveal:
+            case InteractableType.Animation_BathRoomReveal:
                 Camera.main.DOFarClipPlane(1000, 2f);
                 RenderSettings.fog = false;
                 DOVirtual.Float(0, 1, AnimationDelay, (value) => { }).OnComplete(() =>

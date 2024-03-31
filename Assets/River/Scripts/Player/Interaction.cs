@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
+using TMPro;
 
 public class Interaction : MonoBehaviour
 {
     public GameObject Camera;
     public GameObject Interacttext;
     public GameObject HoldEtext;
-
 
     [Range(1f, 10f)] public float InteractionRange;
     private RaycastHit HitInfo;
@@ -17,6 +17,8 @@ public class Interaction : MonoBehaviour
     private bool HoldingPaper;
     [SerializeField] private Transform PaperHolder;
     [SerializeField, ReadOnly] private GameObject Paper;
+
+    [SerializeField] GameObject betChoiceText;
 
     private void FixedUpdate()
     {
@@ -30,14 +32,22 @@ public class Interaction : MonoBehaviour
 
                 Interacttext.SetActive(true);
 
+                if (interactable.type == Interactable.InteractableType.ChoHan && Input.GetKeyDown(KeyCode.E))
+                {
+                    betChoiceText.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    return;
+                }
+
                 if (interactable.type == Interactable.InteractableType.ObjectRemoval)
                 {
                     HoldEtext.SetActive(true);
                 }
 
                 if (!Input.GetKeyDown(KeyCode.E)) return;
+                
                 Interacttext.SetActive(false);
-                interactable.Interact();
+                interactable.Interact(false);
                 interactable.GetComponent<Collider>().enabled = false;
 
                 if (interactable.type == Interactable.InteractableType.Paper)
@@ -48,7 +58,7 @@ public class Interaction : MonoBehaviour
                     Paper = interactable.gameObject;
                     Paper.GetComponent<Rigidbody>().useGravity = false;
                     Paper.GetComponent<Rigidbody>().isKinematic = true;
-                    
+
                 }
             }
 
@@ -58,6 +68,7 @@ public class Interaction : MonoBehaviour
                 HoldEtext.SetActive(false);
             }
         }
+
         else
         {
             Interacttext.SetActive(false);
@@ -75,6 +86,6 @@ public class Interaction : MonoBehaviour
             HoldingPaper = false;
         }
     }
-    
-    
+
+
 }

@@ -23,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     
     public List<GameObject> Responses;
     public GameObject ResponsePanel;
+    [SerializeField] private PlayerWarp _playerWarp;
 
     private bool DisableTextAfterShowing;
     private float DisableDelay;
@@ -47,7 +48,7 @@ public class DialogueManager : MonoBehaviour
         playerSpeed = playerMovement.walkSpeed;
         ResponsePanel.SetActive(false);
     }
-
+    //@Azmio Please Update this when your done with Dialogue manager
     /// <summary>
     /// A function that can be called from any script using `DialogueManager.instance.ShowDialogue` to start a conversation with other characters or oneself
     /// </summary>
@@ -104,7 +105,7 @@ public class DialogueManager : MonoBehaviour
                 DOVirtual.Float(0, 1, DisableDelay, (value) => {}).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
                 {
                     index++;
-                    DisableDelay = AllDialogueDetails[index].DisableDelay;
+                    DisableDelay = AllDialogueDetails[index].DisableDelay; //Line Doesn't actually do anything because DisableDelay is cached at the very start of function
                     Debug.Log(DisableDelay);
                     PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
                 }).OnComplete(() =>
