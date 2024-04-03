@@ -120,11 +120,6 @@ public class Interactable : MonoBehaviour
     public void Interact(bool choHanIsEven)
     {
         var OtherDetails = new Details();
-        //var DialogueDetails = new Details.DialogueElement();
-
-        if (AllDetails.Count > 0) OtherDetails = AllDetails[0];
-        //if (OtherDetails.AllDialogueDetails.Count > 0) DialogueDetails = OtherDetails.AllDialogueDetails[0];
-        //DialogueDetails = OtherDetails.AllDialogueDetails; This line was causing errors for some unknown reason
 
         switch (type)
         {
@@ -138,11 +133,7 @@ public class Interactable : MonoBehaviour
                 });
                 break;
             case InteractableType.BookShelf:
-                DialogueManager.instance.ShowDialogue("Player",
-                    OtherDetails.AllDialogueDetails, /*DialogueDetails.Dialogue, DialogueDetails.DisableDelay,*/
-                    OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false,
-                    null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement,
-                    OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", AllDetails, OtherDetails.DisableAfterDialogue, OtherDetails.DialogueAudio, false, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
                 BookShelfInteracted = true;
                 break;
             case InteractableType.FishBowl:
@@ -159,8 +150,25 @@ public class Interactable : MonoBehaviour
 
                 //Calculations
                 int total = diceRoll1 + diceRoll2;
-                bool result = total % 2 == 0;
+                bool resultIsEven = total % 2 == 0;
                 resultText.text = total.ToString();
+
+                if(_playerWarp.loopNumber == 3)
+                {
+                    if(choHanIsEven)
+                    {
+                        total = 8;
+                        resultIsEven = true;
+                    }
+
+                    else if(!choHanIsEven)
+                    {
+                        total = 9;
+                        resultIsEven = false;
+                    }
+
+                    resultText.text = total.ToString();
+                }
 
                 if (diceRoll1 == diceRoll2)
                 {
@@ -168,7 +176,7 @@ public class Interactable : MonoBehaviour
                     resultText.text = total.ToString() + " (Doubles)";
                 }
 
-                if ((result && choHanIsEven) || (!result && !choHanIsEven)) // Player wins
+                if (resultIsEven && choHanIsEven || !resultIsEven && !choHanIsEven) // Player wins
                 {
                     winLossText.text = "You Picked Even = " + choHanIsEven + " And you Won!";
 
@@ -181,6 +189,7 @@ public class Interactable : MonoBehaviour
                         _sanityControler.currentSanity += total;
                     }
                 }
+
                 else // Player loses
                 {
                     winLossText.text = "You Picked Even = " + choHanIsEven + " And you Lost!";

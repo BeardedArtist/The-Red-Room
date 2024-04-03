@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     public MouseLook MouseLookScript;
 
     public Transform Player, Camera;
-    
+
     public List<GameObject> Responses;
     public GameObject ResponsePanel;
     [SerializeField] private PlayerWarp _playerWarp;
@@ -62,9 +62,9 @@ public class DialogueManager : MonoBehaviour
     /// <param name="StopPlayer">Stop movement when character is speaking</param>
     /// <param name="StopCameraMovement">Stop Camera panning when the character is speaking</param>
     /// <param name="LookAT">Look at a specific object while the camera is locked</param>
-    public void ShowDialogue(string Character, List<Interactable.Details.DialogueElement> AllDialogueDetails, /*string Dialogue, float DisableDelay,*/ bool Disable, float EndDisableDelay,
-        List<AudioClip> clip, bool HasResponses, List<Interactable.Response> Responses, List<string> SomethingResponses, bool StopPlayer,
-        bool StopCameraMovement, Transform LookAT)
+    public void ShowDialogue(string Character, List<Interactable.Details> AllDetails, bool Disable, List<AudioClip> clip,
+        bool HasResponses, List<Interactable.Response> Responses,
+        bool StopPlayer, bool StopCameraMovement, Transform LookAT)
     {
         if (StopPlayer)
         {
@@ -78,55 +78,47 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+        
+        var dayIndex = _playerWarp.loopNumber;
+        var index = 0;
+        PlayerName.text = Character + ": ";
 
-        switch (AllDialogueDetails.Count)
+        PlayerDialogue.ShowText(AllDetails[dayIndex].AllDialogueDetails[index].Dialogue);
+        if (clip.Count > 0) PlayAudioClip(clip[index]);
+
+        PlayNextDialogueTween();
+        void PlayNextDialogueTween()
         {
-            case 1:
-                PlayerName.text = Character + ": ";
-                PlayerDialogue.ShowText(AllDialogueDetails[0].Dialogue);
-                if (clip.Count > 0) PlayAudioClip(clip[0]);
-                if (Disable)
-                    DOVirtual.Float(0, 1, EndDisableDelay, (value) => { }).OnComplete(() =>
+            float DisableDelay = AllDetails[dayIndex].AllDialogueDetails[index].DisableDelay;
+            DOVirtual.Float(0, 1, DisableDelay, (value) => { }).OnComplete(() =>
+            {
+                index++;
+
+                if (index < AllDetails[dayIndex].AllDialogueDetails.Count)
+                {
+                    PlayerDialogue.ShowText(AllDetails[dayIndex].AllDialogueDetails[index].Dialogue);
+                    if (clip.Count > 0) PlayAudioClip(clip[index]);
+                    PlayNextDialogueTween();
+                }
+
+                if (index >= AllDetails[dayIndex].AllDialogueDetails.Count)
+                {
+                    if (HasResponses && Responses != null)
+                        ShowResponsePanel(Responses);
+
+                    if (Disable)
                     {
                         PlayerDialogue.ShowText("");
                         PlayerName.text = "";
                         playerMovement.walkSpeed = playerSpeed;
                         MouseLookScript.CanLook = true;
-                    });
-                if (HasResponses && Responses != null) ShowResponsePanel(Responses);
-                break;
-
-            case > 1:
-                var index = 0;
-                float DisableDelay = AllDialogueDetails[index].DisableDelay;
-                PlayerName.text = Character + ": ";
-                PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
-                
-                DOVirtual.Float(0, 1, DisableDelay, (value) => {}).SetLoops(AllDialogueDetails.Count).OnStepComplete(() =>
-                {
-                    index++;
-                    DisableDelay = AllDialogueDetails[index].DisableDelay; //Line Doesn't actually do anything because DisableDelay is cached at the very start of function
-                    Debug.Log(DisableDelay);
-                    PlayerDialogue.ShowText(AllDialogueDetails[index].Dialogue);
-                }).OnComplete(() =>
-                {
-                    if (HasResponses && Responses != null) ShowResponsePanel(Responses);
-
-                    if (Disable)
-                        DOVirtual.Float(0, 1, EndDisableDelay, (value) => { }).OnComplete(() =>
-                        {
-                            PlayerDialogue.ShowText("");
-                            PlayerName.text = "";
-                            playerMovement.walkSpeed = playerSpeed;
-                            MouseLookScript.CanLook = true;
-                        });
-                });
-                break;
-            default:
-                Debug.LogError("No Dialogue Entered");
-                break;
+                    }
+                }
+            });
         }
+
     }
+
 
     private void PlayAudioClip(AudioClip clip)
     {
@@ -143,7 +135,7 @@ public class DialogueManager : MonoBehaviour
 
         for (var i = 0; i < AllResponses.Count; i++)
         {
-            var index = i; // Create a local variable to capture the current value of i
+            var index = i;
             Responses[i].SetActive(true);
             Responses[i].GetComponentInChildren<TextMeshProUGUI>().text = AllResponses[i].ResponseShort.ToString();
             Responses[i].GetComponent<Button>().onClick.AddListener(() =>
@@ -158,19 +150,16 @@ public class DialogueManager : MonoBehaviour
                     Button.gameObject.SetActive(false);
                 }
 
-                /*ShowDialogue("Player",
-                    null,
-                    null,
-                    5, //Dialogue delay for responses / calls to the delay of dialogue so probably want to change that to its own response delayvalue
-                    true,
-                    AllResponses[index].EndDisableDelay,
-                    AllResponses[index].Responseclips,
-                    false,
-                    null,
-                    AllResponses[index].ResponseLong,
-                    true,
-                    AllResponses[index].StopCameraMovement,
-                    AllResponses[index].LookAtWhileTalking);*/
+                // ShowDialogue("Player",
+                //     null,
+                //     null,
+                //     true,
+                //     null,
+                //     true,
+                //     AllResponses,
+                //     true,
+                //     AllResponses[index].StopCameraMovement,
+                //     AllResponses[index].LookAtWhileTalking);  // SIs missing delay for responses for now
             });
         }
     }
@@ -185,7 +174,7 @@ public class DialogueManager : MonoBehaviour
             if (Vector3.Dot(cameraDirection, directionToTarget) > 0.99f)
             {
                 StopCoroutine(LookAtObjectCoroutine);
-                yield break; 
+                yield break;
             }
 
             var targetRotation = Quaternion.LookRotation(directionToTarget);
@@ -193,7 +182,7 @@ public class DialogueManager : MonoBehaviour
             Player.rotation = Quaternion.Slerp(Player.rotation, Quaternion.Euler(0, targetRotation.eulerAngles.y, 0), Time.deltaTime);
             // Apply X rotation to Camera
             Camera.rotation = Quaternion.Slerp(Camera.rotation, Quaternion.Euler(targetRotation.eulerAngles.x, Camera.eulerAngles.y, 0), Time.deltaTime);
-            
+
             yield return null;
         }
     }

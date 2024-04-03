@@ -22,7 +22,7 @@ public class PlayerWarp : MonoBehaviour
     [SerializeField] bool isInstantWarp;
     [SerializeField] int loopAmount = 1;
     [SerializeField] GameObject warpPlayerFinalDestination;
-    int loopNumber = 1;
+    public int loopNumber = 0;
     bool playerInTrigger = false;
     bool eKeyPressed = false;
 

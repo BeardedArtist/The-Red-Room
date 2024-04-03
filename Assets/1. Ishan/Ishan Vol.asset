@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4265a041954897941afec871c608473b, type: 3}
   m_Name: Crt
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   scanlinesWeight:
     m_OverrideState: 1
     m_Value: 1
@@ -159,13 +159,13 @@ MonoBehaviour:
     m_Value: 1
   scanlinesDensity:
     m_OverrideState: 1
-    m_Value: 200
+    m_Value: 319.2
   scanlinesSpeed:
     m_OverrideState: 1
     m_Value: -10
   noiseAmount:
     m_OverrideState: 1
-    m_Value: 250
+    m_Value: 249.93
   chromaticRed:
     m_OverrideState: 1
     m_Value: {x: 0, y: 0}
@@ -177,10 +177,10 @@ MonoBehaviour:
     m_Value: {x: 0, y: 0}
   grilleOpacity:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 54.1
   grilleCounterOpacity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: -5.51
   grilleResolution:
     m_OverrideState: 1
     m_Value: 360
@@ -192,7 +192,7 @@ MonoBehaviour:
     m_Value: 90
   grilleBrightness:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 75.49
   grilleUvMidPoint:
     m_OverrideState: 1
     m_Value: 0.5
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.5

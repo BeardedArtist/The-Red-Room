@@ -35,7 +35,6 @@ public class Interaction : MonoBehaviour
                 if (interactable.type == Interactable.InteractableType.ChoHan && Input.GetKeyDown(KeyCode.E))
                 {
                     betChoiceText.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
                     return;
                 }
 
@@ -48,7 +47,7 @@ public class Interaction : MonoBehaviour
                 
                 Interacttext.SetActive(false);
                 interactable.Interact(false);
-                interactable.GetComponent<Collider>().enabled = false;
+                //interactable.GetComponent<Collider>().enabled = false;
 
                 if (interactable.type == Interactable.InteractableType.Paper)
                 {
