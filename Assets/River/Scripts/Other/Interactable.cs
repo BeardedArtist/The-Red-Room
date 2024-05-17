@@ -9,20 +9,21 @@ using Febucci.UI;
 using System.Runtime.CompilerServices;
 using UnityEngine.Serialization;
 using JetBrains.Annotations;
+//using FMOD; //Commented out because 'Debug' is an ambiguous reference between 'FMOD.Debug' and 'UnityEngine.Debug'
 
 [SelectionBase]
 public class Interactable : MonoBehaviour
 {
     #region PreDefined
     // ReSharper disable once IdentifierTypo
-    public enum InteractableType { FishBowl, BookShelf, TestObject, Gizmo, Note, Door, ChoHan, ObjectRemoval, UncrouchOnTrigger, Animation_BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen, Paper }
+    public enum InteractableType { FishBowl, BookShelf, TestObject, MotherDialogue, Gizmo, Note, Door, ChoHan, RemovableObject, UncrouchOnTrigger, Animation_BathRoomReveal, ShiftOnBlink, FlashingImage, AiEnemyCrouch, NE_Transition, ComputerScreen, Paper }
     public enum TransitionType { StaircaseToBedroom, HouseDoorToRoom, RoofToDataCenter }
     [Serializable]
     public struct Response
     {
         public string ResponseShort;
         public List<string> ResponseLong;
-        public List<AudioClip> Responseclips;
+        public List<AudioClip> ResponseClips;
         public bool StopCameraMovement;
         [Tooltip("Optional")] public Transform LookAtWhileTalking;
         [Range(1f, 10f)] public float EndDisableDelay;
@@ -31,18 +32,17 @@ public class Interactable : MonoBehaviour
     [Serializable]
     public struct Details
     {
-        public List<Details.DialogueElement> AllDialogueDetails;
+        public List<DialogueElement> AllDialogueDetails;
 
         [Serializable]
         public struct DialogueElement
         {
             [TextArea(1, 5)] public string Dialogue;
-            [Range(1f, 10f)] public float DisableDelay;
+            [Range(1f, 15f)] public float DisableDelay;
         }
         public List<AudioClip> DialogueAudio;
-        public List<Response> Responses;
+        public List<Response> AllResponses;
         public bool DisableAfterDialogue;
-        [Range(1f, 10f)] public float EndDisableDelay;
         public bool StopPlayer;
         public bool StopCameraMovement;
         [Tooltip("Optional")] public Transform LookAtWhileTalking;
@@ -52,11 +52,16 @@ public class Interactable : MonoBehaviour
 
     #endregion
 
-    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] SanityControler _sanityControler;
-    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] TMP_Text resultText, winLossText;
-    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] GameObject betChoiceText;
-    [ConditionalField(nameof(type), false, InteractableType.ChoHan)] [SerializeField] PlayerWarp _playerWarp;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)][SerializeField] SanityControler _sanityControler;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)][SerializeField] TMP_Text resultText, winLossText;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)][SerializeField] GameObject betChoiceText;
+    [ConditionalField(nameof(type), false, InteractableType.ChoHan)][SerializeField] PlayerWarp _playerWarp;
+    [ConditionalField(nameof(type), false, InteractableType.FishBowl, InteractableType.BookShelf, InteractableType.ChoHan)][SerializeField] Interactable motherDialogue;
     [Separator()]
+    [ConditionalField(nameof(type), false, InteractableType.RemovableObject)][SerializeField] float removeHoldLenght = 2f;
+    private float removeHoldTimer = 0;
+    private bool BookShelfInteracted = false;
+    private bool FishBowlInteracted = false;
     public InteractableType type;
 
 
@@ -110,17 +115,10 @@ public class Interactable : MonoBehaviour
     [Range(0f, 10f)] public float GizmoSize;
     public Color GizmoColor;
 
-    private float removeHoldTimer = 0;
-    private float removeHoldLenght = 2f;
-    private bool BookShelfInteracted = false;
-    private bool FishBowlInteracted = false;
-
 
     [ButtonMethod]
     public void Interact(bool choHanIsEven)
     {
-        var OtherDetails = new Details();
-
         switch (type)
         {
             case InteractableType.Door:
@@ -133,15 +131,15 @@ public class Interactable : MonoBehaviour
                 });
                 break;
             case InteractableType.BookShelf:
-                DialogueManager.instance.ShowDialogue("Player", AllDetails, OtherDetails.DisableAfterDialogue, OtherDetails.DialogueAudio, false, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", AllDetails, false, 0);
                 BookShelfInteracted = true;
                 break;
             case InteractableType.FishBowl:
-                //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false, null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", AllDetails, false, 0);
                 FishBowlInteracted = true;
                 break;
             case InteractableType.ChoHan:
-                //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, false, null, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", AllDetails, false, 0);
 
                 betChoiceText.SetActive(false);
                 bool isDoubles = false;
@@ -153,15 +151,15 @@ public class Interactable : MonoBehaviour
                 bool resultIsEven = total % 2 == 0;
                 resultText.text = total.ToString();
 
-                if(_playerWarp.loopNumber == 3)
+                if (_playerWarp.loopNumber == 3)
                 {
-                    if(choHanIsEven)
+                    if (choHanIsEven)
                     {
                         total = 8;
                         resultIsEven = true;
                     }
 
-                    else if(!choHanIsEven)
+                    else if (!choHanIsEven)
                     {
                         total = 9;
                         resultIsEven = false;
@@ -196,9 +194,15 @@ public class Interactable : MonoBehaviour
                 }
                 break;
             case InteractableType.TestObject:
-                //DialogueManager.instance.ShowDialogue("Player", OtherDetails.AllDialogueDetails, DialogueDetails.Dialogue, DialogueDetails.DisableDelay, OtherDetails.DisableAfterDialogue, OtherDetails.EndDisableDelay, OtherDetails.DialogueAudio, true, OtherDetails.Responses, null, OtherDetails.StopPlayer, OtherDetails.StopCameraMovement, OtherDetails.LookAtWhileTalking);
+                DialogueManager.instance.ShowDialogue("Player", AllDetails, false, 0);
                 break;
-            case InteractableType.ObjectRemoval:
+            case InteractableType.MotherDialogue:
+                DOVirtual.Float(0, 1, 12, (value) => { }).OnComplete(() =>
+                {
+                    DialogueManager.instance.ShowDialogue("Mother", AllDetails, false, 0);
+                });
+                break;
+            case InteractableType.RemovableObject:
                 if (Input.GetKey(KeyCode.E))
                 {
                     removeHoldTimer += Time.deltaTime;
@@ -329,26 +333,10 @@ public class Interactable : MonoBehaviour
 
 
                 break;
-
-
-                // default:
-                // throw new ArgumentOutOfRangeException();
         }
 
         if (BookShelfInteracted || FishBowlInteracted)
-        {
-            StartCoroutine(StartMotherDialogue());
-        }
-    }
-
-
-    public IEnumerator StartMotherDialogue()
-    {
-        var DialogueDetails = new Details();
-        if (AllDetails.Count > 0) DialogueDetails = AllDetails[0];
-
-        yield return new WaitForSeconds(5);
-        //DialogueManager.instance.ShowDialogue("Mother",DialogueDetails.Dialogue,DialogueDetails.DisableAfterDialogue,DialogueDetails.DisableDelay,DialogueDetails.DialogueAudio,true,DialogueDetails.MotherDialogueResponses,DialogueDetails.StopPlayer,DialogueDetails.StopCameraMovement,DialogueDetails.LookAtWhileTalking);
+            motherDialogue.Interact(false);
     }
 
 
@@ -361,6 +349,7 @@ public class Interactable : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(TeleportPosition, 0.6f);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

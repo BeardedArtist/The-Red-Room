@@ -25,9 +25,6 @@ public class DialogueManager : MonoBehaviour
     public GameObject ResponsePanel;
     [SerializeField] private PlayerWarp _playerWarp;
 
-    private bool DisableTextAfterShowing;
-    private float DisableDelay;
-
     private float playerSpeed = 0;
 
     private Coroutine LookAtObjectCoroutine;
@@ -62,109 +59,66 @@ public class DialogueManager : MonoBehaviour
     /// <param name="StopPlayer">Stop movement when character is speaking</param>
     /// <param name="StopCameraMovement">Stop Camera panning when the character is speaking</param>
     /// <param name="LookAT">Look at a specific object while the camera is locked</param>
-    public void ShowDialogue(string Character, List<Interactable.Details> AllDetails, bool Disable, List<AudioClip> clip,
-        bool HasResponses, List<Interactable.Response> Responses,
-        bool StopPlayer, bool StopCameraMovement, Transform LookAT)
+    public void ShowDialogue(string Character, List<Interactable.Details> AllDetails, bool HasResponses, int Responseindex)
     {
-        if (StopPlayer)
-        {
-            playerMovement.walkSpeed = 0;
-            if (StopCameraMovement)
-            {
-                MouseLookScript.CanLook = false;
-                if (LookAT != null)
-                {
-                    LookAtObjectCoroutine = StartCoroutine("LookAtTarget", LookAT);
-                }
-            }
-        }
-        
         var dayIndex = _playerWarp.loopNumber;
         var index = 0;
         PlayerName.text = Character + ": ";
+        Interactable.Details IndexedDetails = AllDetails[dayIndex];
 
-        PlayerDialogue.ShowText(AllDetails[dayIndex].AllDialogueDetails[index].Dialogue);
-        if (clip.Count > 0) PlayAudioClip(clip[index]);
+        if (IndexedDetails.StopPlayer)
+        {
+            playerMovement.walkSpeed = 0;
+            playerMovement.canJump = false;
+            playerMovement.canSprint = false;
+
+            if (IndexedDetails.StopCameraMovement)
+            {
+                MouseLookScript.CanLook = false;
+                if (IndexedDetails.LookAtWhileTalking != null)
+                {
+                    LookAtObjectCoroutine = StartCoroutine("LookAtTarget", IndexedDetails.LookAtWhileTalking);
+                }
+            }
+        }
+
+        PlayerDialogue.ShowText(IndexedDetails.AllDialogueDetails[index].Dialogue);
+        if (IndexedDetails.DialogueAudio.Count > index) PlayAudioClip(IndexedDetails.DialogueAudio[index]);
+        if (HasResponses && IndexedDetails.AllResponses.Count != 0) PlayerDialogue.ShowText(IndexedDetails.AllResponses[Responseindex].ResponseLong[index]);
 
         PlayNextDialogueTween();
         void PlayNextDialogueTween()
         {
-            float DisableDelay = AllDetails[dayIndex].AllDialogueDetails[index].DisableDelay;
+            float DisableDelay = IndexedDetails.AllDialogueDetails[index].DisableDelay;
             DOVirtual.Float(0, 1, DisableDelay, (value) => { }).OnComplete(() =>
             {
                 index++;
-
-                if (index < AllDetails[dayIndex].AllDialogueDetails.Count)
+                if (index < IndexedDetails.AllDialogueDetails.Count || HasResponses && index <= IndexedDetails.AllDialogueDetails.Count)
                 {
-                    PlayerDialogue.ShowText(AllDetails[dayIndex].AllDialogueDetails[index].Dialogue);
-                    if (clip.Count > 0) PlayAudioClip(clip[index]);
+                    PlayerDialogue.ShowText(IndexedDetails.AllDialogueDetails[index].Dialogue);
+                    if (IndexedDetails.DialogueAudio.Count > 0) PlayAudioClip(IndexedDetails.DialogueAudio[index]);
+                    if (HasResponses && IndexedDetails.AllResponses.Count != 0) PlayerDialogue.ShowText(IndexedDetails.AllResponses[Responseindex].ResponseLong[index]);
                     PlayNextDialogueTween();
                 }
 
-                if (index >= AllDetails[dayIndex].AllDialogueDetails.Count)
+                if (index >= IndexedDetails.AllDialogueDetails.Count)
                 {
-                    if (HasResponses && Responses != null)
-                        ShowResponsePanel(Responses);
+                    if (IndexedDetails.AllResponses.Count != 0)
+                        ShowResponsePanel(AllDetails, IndexedDetails.AllResponses);
 
-                    if (Disable)
-                    {
-                        PlayerDialogue.ShowText("");
-                        PlayerName.text = "";
-                        playerMovement.walkSpeed = playerSpeed;
-                        MouseLookScript.CanLook = true;
-                    }
+                    PlayerDialogue.ShowText("");
+                    PlayerName.text = "";
+                    playerMovement.walkSpeed = playerSpeed;
+                    playerMovement.canJump = true;
+                    playerMovement.canSprint = true;
+                    MouseLookScript.CanLook = true;
                 }
             });
         }
-
     }
 
 
-    private void PlayAudioClip(AudioClip clip)
-    {
-        if (clip == null) return;
-        DialogueSource.clip = clip;
-        DialogueSource.Play();
-    }
-
-    private void ShowResponsePanel(List<Interactable.Response> AllResponses)
-    {
-        Debug.Log("Activating Response Panel");
-        ResponsePanel.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-
-        for (var i = 0; i < AllResponses.Count; i++)
-        {
-            var index = i;
-            Responses[i].SetActive(true);
-            Responses[i].GetComponentInChildren<TextMeshProUGUI>().text = AllResponses[i].ResponseShort.ToString();
-            Responses[i].GetComponent<Button>().onClick.AddListener(() =>
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                ResponsePanel.SetActive(false);
-
-                foreach (var responseButton in Responses)
-                {
-                    var Button = responseButton.GetComponent<Button>();
-                    Button.onClick.RemoveAllListeners();
-                    Button.gameObject.SetActive(false);
-                }
-
-                // ShowDialogue("Player",
-                //     null,
-                //     null,
-                //     true,
-                //     null,
-                //     true,
-                //     AllResponses,
-                //     true,
-                //     AllResponses[index].StopCameraMovement,
-                //     AllResponses[index].LookAtWhileTalking);  // SIs missing delay for responses for now
-            });
-        }
-    }
-
-    IEnumerator LookAtTarget(Transform target)
+    IEnumerator LookAtTarget(Transform target) //Doesn't work for MotherDialogue
     {
         while (true)
         {
@@ -184,6 +138,42 @@ public class DialogueManager : MonoBehaviour
             Camera.rotation = Quaternion.Slerp(Camera.rotation, Quaternion.Euler(targetRotation.eulerAngles.x, Camera.eulerAngles.y, 0), Time.deltaTime);
 
             yield return null;
+        }
+    }
+
+    private void PlayAudioClip(AudioClip clip)
+    {
+        if (clip == null) return;
+        DialogueSource.clip = clip;
+        DialogueSource.Play();
+    }
+
+
+    private void ShowResponsePanel(List<Interactable.Details> AllDetails, List<Interactable.Response> AllResponses) //Responses don't dissapear after appearing. Do we need "Disable After Dialogue" option? May not need stop player and look at options for individual responses either. "Stop Camera Movement" and "Look at" Functionality can be joined into one.
+    {
+        Debug.Log("Activating Response Panel");
+        ResponsePanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+
+        for (var i = 0; i < AllResponses.Count; i++)
+        {
+            int Responseindex = i;
+            Responses[Responseindex].SetActive(true);
+            Responses[Responseindex].GetComponentInChildren<TextMeshProUGUI>().text = AllResponses[Responseindex].ResponseShort.ToString();
+            Responses[Responseindex].GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                ResponsePanel.SetActive(false);
+
+                foreach (var responseButton in Responses)
+                {
+                    var Button = responseButton.GetComponent<Button>();
+                    Button.onClick.RemoveAllListeners();
+                    Button.gameObject.SetActive(false);
+                }
+
+                ShowDialogue("Player", AllDetails, true, Responseindex);
+            });
         }
     }
 }

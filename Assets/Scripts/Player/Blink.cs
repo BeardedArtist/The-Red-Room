@@ -36,72 +36,54 @@ public class Blink : MonoBehaviour
     {
         randomBlinkTimer -= Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || randomBlinkTimer <= 0)
+        {
+            randomBlinkTimer = Random.Range(40.0f, 60.0f);
+            isBlinking = true;
+    
+            DOTween.Sequence().Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed));
+            DOTween.Sequence().Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), BlinkSpeed)).AppendCallback(() =>
+            {
+                ListInteractablesInView();
+            });
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            isBlinking = false;
+            if(FlashingImage != null)
+            FlashingImage.SetActive(false);
+
+            DOTween.Sequence().Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
+            DOTween.Sequence().Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), BlinkSpeed));
+        }
+
+        else if (Input.GetMouseButtonDown(1) && monsterCamera.activeSelf == true)
         {
             PlayerToMonsterView(BlinkSpeed);
         }
 
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1) && monsterCamera.activeSelf == true)
         {
             MonsterToPlayerView(BlinkSpeed);
         }
 
-        #region Redundant
-        //if ((randomBlinkTimer <= 0 || Input.GetMouseButtonDown(1) && blinkTimer == 1.1f))
-        //{
-        //    randomBlinkTimer = Random.Range(40.0f, 60.0f);
-        //    StartBlink();
-        //}
 
-        //if (isBlinking)
-        //{
-        //    blinkTimer -= Time.deltaTime;
+        if (isBlinking)
+        {
+            everySecondTimer -= Time.deltaTime;
 
-        //    if (Input.GetMouseButton(1) && blinkTimer <= 0.55f)
-        //    {
-        //        blinkTimer += Time.deltaTime;
-        //        everySecondTimer -= Time.deltaTime;
-
-        //        blink_Anim.SetTrigger("Hold");
-        //        blink_Anim_2.SetTrigger("Hold");
-
-        //        monsterCamera.SetActive(true);
-
-        //        if (everySecondTimer <= 0)
-        //        {
-        //            _sanityControler.AlterSanity(0.5f);
-
-        //            everySecondTimer = 1f;
-        //        }
-        //    }
-
-        //    if (Input.GetMouseButtonUp(1))
-        //    {
-        //        blink_Anim.ResetTrigger("Hold");
-        //        blink_Anim_2.ResetTrigger("Hold");
-
-        //        blink_Anim.SetTrigger("StopHold");
-        //        blink_Anim_2.SetTrigger("StopHold");
-
-        //        everySecondTimer = 1f;
-        //    }
-        //}
-
-        //if (blinkTimer <= 0)
-        //{
-        //    isBlinking = false;
-        //    blinkTimer = 1.1f;
-
-        //    blink_Anim.ResetTrigger("StopHold");
-        //    blink_Anim_2.ResetTrigger("StopHold");
-
-        //    monsterCamera.SetActive(false);
-        //}
-        #endregion
+            if (everySecondTimer <= 0)
+            {
+                _sanityControler.AlterSanity(0.5f);
+                everySecondTimer = 1f;
+            }
+        }
     }
 
     private void PlayerToMonsterView(float _BlinkSpeed)
     {
+        isBlinking = true;
         var blinkSequence = DOTween.Sequence();
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
@@ -109,18 +91,17 @@ public class Blink : MonoBehaviour
         var bottomLidSequence = DOTween.Sequence();
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
         {
-            ListIntractablesInView();
-           
-
-            isBlinking = true;
+            ListInteractablesInView();
         });
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
-
     }
 
     private void MonsterToPlayerView(float _BlinkSpeed)
     {
-        FlashingImage.SetActive(false);
+        isBlinking = false;
+        if(FlashingImage != null)
+            FlashingImage.SetActive(false);
+            
         var blinkSequence = DOTween.Sequence();
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed));
         blinkSequence.Append(TopLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
@@ -130,7 +111,6 @@ public class Blink : MonoBehaviour
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, Screen.height / 2), _BlinkSpeed)).AppendCallback(() =>
         {
             monsterCamera.SetActive(false);
-            isBlinking = false;
         });
         bottomLidSequence.Append(BottomLid.rectTransform.DOSizeDelta(new Vector2(Screen.width, 0), _BlinkSpeed));
 
@@ -163,16 +143,16 @@ public class Blink : MonoBehaviour
 
 
     // ReSharper disable once IdentifierTypo
-    private static void ListIntractablesInView()
+    private static void ListInteractablesInView()
     {
         var renderers = FindObjectsOfType<Renderer>();
         var cam = Camera.main;
         var renderersInView = renderers.Where(renderer => GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(cam), renderer.bounds)).ToList();
 
-        var AllInteractablesInView = renderersInView.Select(renderer => renderer.GetComponent<Interactable>()).Where(intractable => intractable != null).ToList();
-        foreach (var intractable in AllInteractablesInView.Where(intractable => intractable.type == Interactable.InteractableType.ShiftOnBlink))
+        var AllInteractablesInView = renderersInView.Select(renderer => renderer.GetComponent<Interactable>()).Where(interactable => interactable != null).ToList();
+        foreach (var interactable in AllInteractablesInView.Where(interactable => interactable.type == Interactable.InteractableType.ShiftOnBlink))
         {
-            intractable.ShiftOnBlink();
+            interactable.ShiftOnBlink();
         }
     }
 }

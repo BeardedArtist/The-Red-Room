@@ -13,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Functional Options")]
-    [SerializeField] private bool canSprint = true;
-    [SerializeField] private bool canJump = true;
+    [SerializeField] public bool canSprint = true;
+    [SerializeField] public bool canJump = true;
     [SerializeField] private bool canCrouch = true;
     [SerializeField] private bool canUseHeadbob = true;
     [SerializeField] private bool useFootsteps = true;

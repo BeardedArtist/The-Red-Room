@@ -38,16 +38,17 @@ public class Interaction : MonoBehaviour
                     return;
                 }
 
-                if (interactable.type == Interactable.InteractableType.ObjectRemoval)
+                if (interactable.type == Interactable.InteractableType.RemovableObject) //Not working, making two interacttexts appear
                 {
+                    Interacttext.SetActive(false);
                     HoldEtext.SetActive(true);
                 }
 
-                if (!Input.GetKeyDown(KeyCode.E)) return;
+                if (!Input.GetKey(KeyCode.E)) return;
                 
                 Interacttext.SetActive(false);
                 interactable.Interact(false);
-                //interactable.GetComponent<Collider>().enabled = false;
+                //interactable.GetComponent<Collider>().enabled = false; //Add system for collisions being false only until next day starts
 
                 if (interactable.type == Interactable.InteractableType.Paper)
                 {
@@ -57,7 +58,6 @@ public class Interaction : MonoBehaviour
                     Paper = interactable.gameObject;
                     Paper.GetComponent<Rigidbody>().useGravity = false;
                     Paper.GetComponent<Rigidbody>().isKinematic = true;
-
                 }
             }
 

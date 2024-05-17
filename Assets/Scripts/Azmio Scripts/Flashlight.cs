@@ -11,6 +11,7 @@ public class Flashlight : MonoBehaviour
 {
     [SerializeField] private TMP_Text spinResultText;
     [SerializeField] private SanityControler _sanityControler;
+    [SerializeField] private PlayerMovement playerMovement;
     public Light flashlight;
     public GameObject Camera;
 
@@ -47,10 +48,12 @@ public class Flashlight : MonoBehaviour
     private int DieDigit1, DieDigit2;
 
     public bool isSpinning;
+    private float playerOriginalSpeed = 0;
 
     private void Start()
     {
         ChoHanChoicePanel.SetActive(false);
+        playerOriginalSpeed = playerMovement.walkSpeed;
     }
 
     private void Update()
@@ -58,7 +61,11 @@ public class Flashlight : MonoBehaviour
         if (!IsLightEquipped) return;
         if (Input.GetKeyDown(SpinKeyInputButton))
         {
+            playerMovement.walkSpeed = 0;
             MouseLook.instance.CanLook = false;
+            playerMovement.canJump = false;
+            playerMovement.canSprint = false;
+
             FlashlightBody.transform.DOMove(FlashlightUp.position, 1, false).OnComplete(Spin);
             FlashlightBody.transform.DOLocalRotateQuaternion(FlashlightUp.localRotation, 1);
         }
@@ -147,11 +154,18 @@ public class Flashlight : MonoBehaviour
                             (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.72f))
-                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    .Append(DOVirtual.Float(0, 1, 0, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
-                        MouseLook.instance.CanLook = true;
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(() =>
+                        {
+                            isSpinning = false;
+                            MouseLook.instance.CanLook = true;
+                            playerMovement.canJump = true;
+                            playerMovement.canSprint = true;
+                            playerMovement.walkSpeed = playerOriginalSpeed;
+                        });
+
                     }));
 
 
@@ -173,12 +187,17 @@ public class Flashlight : MonoBehaviour
                             (value) => { SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, value); })
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
-                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    .Append(DOVirtual.Float(0, 1, 0, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
-                        MouseLook.instance.CanLook = true;
-                      
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(() =>
+                        {
+                            isSpinning = false;
+                            MouseLook.instance.CanLook = true;
+                            playerMovement.canJump = true;
+                            playerMovement.canSprint = true;
+                            playerMovement.walkSpeed = playerOriginalSpeed;
+                        });
                     }));
 
                 TurnOnFlashlight();
@@ -201,12 +220,17 @@ public class Flashlight : MonoBehaviour
                         .SetLoops(totalLoops, LoopType.Incremental).SetEase(Ease.Linear))
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.54f))
                     .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f))
-                    .Append(DOVirtual.Float(0, 1, 1, (value) =>
+                    .Append(DOVirtual.Float(0, 1, 0, (value) =>
                     {
-                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(()=>{  isSpinning = false;});
                         FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
-                        MouseLook.instance.CanLook = true;
-                        
+                        FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(() =>
+                        {
+                            isSpinning = false;
+                            MouseLook.instance.CanLook = true;
+                            playerMovement.canJump = true;
+                            playerMovement.canSprint = true;
+                            playerMovement.walkSpeed = playerOriginalSpeed;
+                        });
                     }));
                 break;
         }
@@ -246,26 +270,29 @@ public class Flashlight : MonoBehaviour
                 SpinSlotTwo.sharedMaterial.mainTextureOffset =
                     new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, DiceOffsets[DieDigit2 - 1]))
             .AppendCallback(() => SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(0, 0.33f)).Append(
-                DOVirtual.Float(0, 1, 1, (value) =>
+                DOVirtual.Float(0, 1, 0, (value) =>
                 {
+                    FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                     FlashlightBody.transform.DOMove(FlashlighhtDown.position, 1, false).OnComplete(() =>
                     {
                         isSpinning = false;
                         MouseLook.instance.CanLook = true;
+                        playerMovement.canJump = true;
+                        playerMovement.canSprint = true;
+                        playerMovement.walkSpeed = playerOriginalSpeed;
                     });
-                    FlashlightBody.transform.DOLocalRotateQuaternion(FlashlighhtDown.localRotation, 1);
                 }));
 
         if (even && DieDigit1 + DieDigit2 % 2 == 0)
         {
-            SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x,0f);
+            SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, 0f);
         }
         else
         {
             SpinSlotThree.sharedMaterial.mainTextureOffset = new Vector2(SpinSlotTwo.sharedMaterial.mainTextureOffset.x, 0.47f);
         }
-        
-       
+
+
     }
 
     private IEnumerator FlashAbility()
